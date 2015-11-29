@@ -52,7 +52,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <nav>
                 <ul>
                   <li class="home"><a href="http://WinnipegHomes.com/">Home</a></li>
-                  <li class="services"><a href="http://WinnipegHomes.com/services">Services</a>
+                  <li class="services"><a href="http://WinnipegHomes.com/services/buying-a-home">Services</a>
                     <ul>
                       <li><a href="http://WinnipegHomes.com/services/buying-a-home">Buying a home</a></li>
                       <li><a href="http://WinnipegHomes.com/services/selling-a-home">Selling a home</a></li>
