@@ -36,7 +36,7 @@
           	<div class="col-xs-12 col-md-3">
           		<h3>Join the Discussion</h3>
               <ul>
-          			<li><a href="http://WinnipegHomes.com/?page_id=12">Send Us Your Comments</a></li>
+          			<li><a href="http://WinnipegHomes.com/contact">Send Us Your Comments</a></li>
           			<li><a href="http://google.com/+WinnipegHomesCom" rel="publisher">google.com/+WinnipegHomesCom</a></li>
           			<li><a href="https://www.facebook.com/WinnipegHomes.Com" rel="me">facebook.com/WinnipegHomes.Com</a></li>
           			<li><a href="http://www.pinterest.com/MyWinnipegHomes/">pinterest.com/MyWinnipegHomes/</a></li>
