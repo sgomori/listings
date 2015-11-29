@@ -7,11 +7,11 @@
             <div class="col-xs-12 col-md-3 col-md-offset-2">
               <h3>Find Your Winnipeg Home</h3>
               <ul>
-          			<li><a href="http://WinnipegHomes.com/listings/l/SearchResults.form?cat=RES">Homes</a></li>
-          			<li><a href="http://WinnipegHomes.com/listings/l/SearchResults.form?cat=CON">Condominiums</a></li>
-          			<li><a href="http://WinnipegHomes.com/listings/l/SearchResults.form?cat=RUR">Rural/Farms</a></li>
-          			<li><a href="http://WinnipegHomes.com/?page_id=73">Developments</a></li>
-          			<li><a href="http://WinnipegHomes.com/?page_id=8">MLS Map</a></li>
+          			<li><a href="<?php base_url(); ?>/homes">Homes</a></li>
+          			<li><a href="<?php base_url(); ?>/condos">Condominiums</a></li>
+          			<li><a href="<?php base_url(); ?>/rural">Rural/Farms</a></li>
+          			<li><a href="http://WinnipegHomes.com/developments">Developments</a></li>
+          			<li><a href="http://WinnipegHomes.com/mls-map">MLS Map</a></li>
           		</ul>
           	</div>
           	

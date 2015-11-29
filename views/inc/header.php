@@ -45,34 +45,39 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <header>
       <div class="container">
         <div class="row">
-          <div class="col-xs-12">
+          <div class="col-xs-12 header-row">
+            <div class="col-xs-12 header-content">
+              <div class="toggle_title">Winnipeg Homes</div>
+              <div class="toggle"></div>
+              <nav>
+                <ul>
+                  <li class="home"><a href="http://WinnipegHomes.com/">Home</a></li>
+                  <li class="services"><a href="http://WinnipegHomes.com/services">Services</a>
+                    <ul>
+                      <li><a href="http://WinnipegHomes.com/services/buying-a-home">Buying a home</a></li>
+                      <li><a href="http://WinnipegHomes.com/services/selling-a-home">Selling a home</a></li>
+                      <li><a href="http://WinnipegHomes.com/services/working-with-a-realtor">Working with a Realtor</a></li>
+                    </ul>
+                  </li>
+                  <li class="listings active"><a href="<?php base_url(); ?>">Listings</a>
+                    <ul>
+                      <li><a href="<?php base_url(); ?>homes">Homes</a></li>
+                      <li><a href="<?php base_url(); ?>/condos">Condos</a></li>
+                      <li><a href="<?php base_url(); ?>/rural">Rural</a></li>
+                      <li><a href="http://WinnipegHomes.com/developments">Developments</a></li>
+                      <li><a href="<?php base_url(); ?>/office">Office Listings</a></li>
+                    </ul>
+                  </li>
+                  <li class="homes-wanted"><a href="http://WinnipegHomes.com/homes-wanted">Homes Wanted</a></li>
+                  <li class="mls-map"><a href="http://WinnipegHomes.com/mls-map">MLS Map</a></li>
+                  <li class="blog"><a href="http://WinnipegHomes.com/blog">Blog</a></li>
+                  <li class="contact"><a href="http://WinnipegHomes.com/contact">Contact</a></li>
+                  <li class="testimonials"><a href="http://WinnipegHomes.com/testimonials">Testimonials</a></li>
+                </ul>
+              </nav>
+            </div>
             <img src="<?php echo $assets_path; ?>images/winnipeg-homes-logo.png" alt="Winnipeg Homes" id="wpghomes-logo" />
             <img class="header-bg" src="<?php echo $assets_path; ?>images/header-bg-main.jpg" alt="Winnipeg Homes" />
-            <nav>
-              <ul>
-                <li class="home active"><a href="http://WinnipegHomes.com/">Home</a></li>
-                <li class="services"><a href="http://WinnipegHomes.com/services">Services</a>
-                  <ul>
-                    <li><a href="http://WinnipegHomes.com/services/buying-a-home">Buying a home</a></li>
-                    <li><a href="http://WinnipegHomes.com/services/selling-a-home">Selling a home</a></li>
-                    <li><a href="http://WinnipegHomes.com/services/working-with-a-realtor">Working with a Realtor</a></li>
-                  </ul>
-                </li>
-                <li class="listings"><a href="http://WinnipegHomes.com/listings">Listings</a>
-                  <ul>
-                    <li><a href="http://WinnipegHomes.com/listings/homes">Homes</a></li>
-                    <li><a href="http://WinnipegHomes.com/listings/condos">Condos</a></li>
-                    <li><a href="http://WinnipegHomes.com/listings/rural">Rural/Farms</a></li>
-                    <li><a href="http://WinnipegHomes.com/listings/developments">Developments</a></li>
-                  </ul>
-                </li>
-                <li class="homes-wanted"><a href="http://WinnipegHomes.com/homes-wanted">Homes Wanted</a></li>
-                <li class="mls-map"><a href="http://WinnipegHomes.com/mls-map">MLS Map</a></li>
-                <li class="blog"><a href="http://WinnipegHomes.com/blog">Blog</a></li>
-                <li class="contact"><a href="http://WinnipegHomes.com/contact">Contact</a></li>
-                <li class="testimonials"><a href="http://WinnipegHomes.com/testimonials">Testimonials</a></li>
-              </ul>
-            </nav>
           </div>
         </div>
       </div>
