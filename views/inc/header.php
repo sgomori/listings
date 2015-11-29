@@ -59,13 +59,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       <li><a href="http://WinnipegHomes.com/services/working-with-a-realtor">Working with a Realtor</a></li>
                     </ul>
                   </li>
-                  <li class="listings active"><a href="<?php base_url(); ?>">Listings</a>
+                  <li class="listings active"><a href="<?php echo base_url(); ?>">Listings</a>
                     <ul>
-                      <li><a href="<?php base_url(); ?>homes">Homes</a></li>
-                      <li><a href="<?php base_url(); ?>/condos">Condos</a></li>
-                      <li><a href="<?php base_url(); ?>/rural">Rural</a></li>
+                      <li><a href="<?php echo base_url(); ?>homes">Homes</a></li>
+                      <li><a href="<?php echo base_url(); ?>condos">Condos</a></li>
+                      <li><a href="<?php echo base_url(); ?>rural">Rural</a></li>
                       <li><a href="http://WinnipegHomes.com/developments">Developments</a></li>
-                      <li><a href="<?php base_url(); ?>/office">Office Listings</a></li>
+                      <li><a href="<?php echo base_url(); ?>office">Office Listings</a></li>
                     </ul>
                   </li>
                   <li class="homes-wanted"><a href="http://WinnipegHomes.com/homes-wanted">Homes Wanted</a></li>

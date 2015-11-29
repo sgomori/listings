@@ -7,9 +7,9 @@
             <div class="col-xs-12 col-md-3 col-md-offset-2">
               <h3>Find Your Winnipeg Home</h3>
               <ul>
-          			<li><a href="<?php base_url(); ?>/homes">Homes</a></li>
-          			<li><a href="<?php base_url(); ?>/condos">Condominiums</a></li>
-          			<li><a href="<?php base_url(); ?>/rural">Rural/Farms</a></li>
+          			<li><a href="<?php echo base_url(); ?>homes">Homes</a></li>
+          			<li><a href="<?php echo base_url(); ?>condos">Condominiums</a></li>
+          			<li><a href="<?php echo base_url(); ?>rural">Rural/Farms</a></li>
           			<li><a href="http://WinnipegHomes.com/developments">Developments</a></li>
           			<li><a href="http://WinnipegHomes.com/mls-map">MLS Map</a></li>
           		</ul>
