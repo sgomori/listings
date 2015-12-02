@@ -481,12 +481,6 @@
 	                            <span class="gslider-range-value gprice-slider-range-value-max"></span>
 	                          </div>
 
-	                          <div class="form-group garea" id="search-area">
-	                            <span class="garea-label">Area</span>
-	                            <div class="gslider-range garea-slider-range"></div>
-	                            <span class="gslider-range-value garea-slider-range-value-min"></span>
-	                            <span class="gslider-range-value garea-slider-range-value-max"></span>
-	                          </div>
 	                        </div>
 
 	                        <div class="gsearch-action">
