@@ -11,6 +11,7 @@ class Listings extends CI_Controller {
 		$this->data['assets_path'] = assets_url();
 		$this->header_view = 'inc/header';
 		$this->footer_view = 'inc/footer';
+		$this->analtyics = 'inc/analytics';
 		
     $this->types = array(
             'all' => array('active' => ''),
@@ -24,6 +25,7 @@ class Listings extends CI_Controller {
 	
   private function _generate_template()
   {
+    $this->data['analytics'] = $this->load->view($this->analtyics, $this->data, TRUE);
     $this->data['header'] = $this->load->view($this->header_view, $this->data, TRUE);
     $this->data['footer'] = $this->load->view($this->footer_view, $this->data, TRUE);    
   }

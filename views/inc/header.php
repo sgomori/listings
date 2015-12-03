@@ -39,6 +39,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </head>
 
 <body class="page-fullwidth">
+<?php echo $analytics; ?>
   <!-- START SITE -->
   <div class="site">
     <!-- START HEADER -->

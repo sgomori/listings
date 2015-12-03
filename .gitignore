@@ -1,2 +1,3 @@
 /config/config.php
 /config/database.php
+/views/inc/analytics.php
