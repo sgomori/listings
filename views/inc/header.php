@@ -5,10 +5,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 <head>
   <meta charset="utf-8">
-  <title>Winnipeg Homes - Listings</title>
+  <title>Winnipeg Homes - Listings | An Experience Worth Repeating</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="">
-  <meta name="author" content="">
+  <!--<meta name="description" content="">-->
+  <meta property="og:site_name" content="Winnipeg Homes - Listings | An Experience Worth Repeating" />
+  <meta property="og:url" content="http://listings.winnipeghomes.com" />  
+  <meta property="og:image" content="http://listings.winnipeghomes.com/assets/images/WH-OG.jpg" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:width" content="728" />
+  <meta property="og:image:height" content="382" />
+  <link rel="publisher" href="https://plus.google.com/+Winnipeghomescom">
   <link rel="shortcut icon" href="<?php echo $assets_path; ?>images/icon/favicon.ico" type="image/x-icon">
 
   <!-- GOOGLE WEB FONTS INCLUDE -->
