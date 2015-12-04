@@ -7,7 +7,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <meta charset="utf-8">
   <title>Winnipeg Homes - Listings | An Experience Worth Repeating</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!--<meta name="description" content="">-->
+  <meta name="description" content="Winnipeg Homes Listins - Homes, condos, and developments">
+  <meta property="og:title" content="Winnipeg Homes - Listings | An Experience Worth Repeating">
+  <meta property="og:description" content="Winnipeg Homes Listins - Homes, condos, and developments">
   <meta property="og:site_name" content="Winnipeg Homes - Listings | An Experience Worth Repeating" />
   <meta property="og:url" content="http://listings.winnipeghomes.com" />  
   <meta property="og:image" content="http://listings.winnipeghomes.com/assets/images/WH-OG.jpg" />
