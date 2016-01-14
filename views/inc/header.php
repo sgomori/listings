@@ -86,7 +86,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               </nav>
             </div>
             <img src="<?php echo $assets_path; ?>images/winnipeg-homes-logo.png" alt="Winnipeg Homes" id="wpghomes-logo" />
-            <img class="header-bg" src="<?php echo $assets_path; ?>images/header-bg-main.jpg" alt="Winnipeg Homes" />
+            <img class="header-bg" src="<?php echo $assets_path; ?>images/header-bg-<?php echo $header_variant; ?>.jpg" alt="Winnipeg Homes" />
           </div>
         </div>
       </div>

@@ -9,6 +9,7 @@ class Listings extends CI_Controller {
 		$this->data = array();
 		$this->data['content'] = '';
 		$this->data['assets_path'] = assets_url();
+		$this->data['header_variant'] = 'main';
 		$this->header_view = 'inc/header';
 		$this->footer_view = 'inc/footer';
 		$this->analtyics = 'inc/analytics';
@@ -21,6 +22,8 @@ class Listings extends CI_Controller {
             'open-houses' => array('title' => 'Open HOuses', 'active' => '', 'path' => 'open-houses'),
             'sold' => array('title' => 'Recently Sold', 'active' => '', 'path' => 'sold')
             );
+            
+    date_default_timezone_set('America/Winnipeg');
 	}
 	
   private function _generate_template()
@@ -46,6 +49,7 @@ class Listings extends CI_Controller {
       else
       {
         $query = $this->Listings_model->get_listings_by_type($type);
+        $this->data['header_variant'] = $type;
       }
       	     
       $this->types[$type]['active'] = ' class="active '.$type.'"';
@@ -158,7 +162,8 @@ class Listings extends CI_Controller {
     $this->data['amenities'] = $amenities;
     $this->data['site_influences'] = $site_influences;
     $this->data['flooring'] = $flooring;
-
+    
+    $this->data['header_variant'] = $class;
     $this->_generate_template();
     $this->data['content'] = $this->load->view('property_detail', $this->data, TRUE);
                 
