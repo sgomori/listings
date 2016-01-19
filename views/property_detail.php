@@ -109,9 +109,9 @@
 							          <?php endif; ?>
 							          <h4 class="property-detail-title">Property Description</h4>
 							          <p><?php echo $property['Public_Remarks']; ?></p>
-                        <p class="listed-by">Listed by <?php echo $property['Agent_1_First_Name']; ?> <?php echo $property['Agent_1_Last_Name']; ?>
+                        <p class="listed-by">Listed by <span itemscope itemtype="http://schema.org/RealEstateAgent"><span itemprop="name"><?php echo $property['Agent_1_First_Name']; ?> <?php echo $property['Agent_1_Last_Name']; ?></span></span>
                         <?php if (isset($property['Agent_2_First_Name']) && ($property['Agent_1_First_Name'] !== '')): ?>
-                          and <?php echo $property['Agent_2_First_Name']; ?> <?php echo $property['Agent_2_Last_Name']; ?>
+                          and <span itemscope itemtype="http://schema.org/RealEstateAgent"><span itemprop="name"><?php echo $property['Agent_2_First_Name']; ?> <?php echo $property['Agent_2_Last_Name']; ?></span></span>
                         <?php endif; ?>
                         </p>
 							        </div>

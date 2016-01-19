@@ -65,9 +65,9 @@
                         <div class="property-excerpt">
                           <p><?php echo substr($listing['Public_Remarks'], 0, 30); ?>...</p>
                           <p class="property-fullwidth-excerpt"><?php echo substr($listing['Public_Remarks'], 0, 200); ?>...</p>
-                          <p class="property-fullwidth-excerpt listed-by">Listed by <?php echo $listing['Agent_1_First_Name']; ?> <?php echo $listing['Agent_1_Last_Name']; ?>
+                          <p class="property-fullwidth-excerpt listed-by">Listed by <span itemscope itemtype="http://schema.org/RealEstateAgent"><span itemprop="name"><?php echo $listing['Agent_1_First_Name']; ?> <?php echo $listing['Agent_1_Last_Name']; ?></span></span>
                           <?php if (isset($listing['Agent_2_First_Name']) && ($listing['Agent_1_First_Name'] !== '')): ?>
-                            and <?php echo $listing['Agent_2_First_Name']; ?> <?php echo $listing['Agent_2_Last_Name']; ?>
+                            and <span itemscope itemtype="http://schema.org/RealEstateAgent"><span itemprop="name"><?php echo $listing['Agent_2_First_Name']; ?> <?php echo $listing['Agent_2_Last_Name']; ?></span></span>
                           <?php endif; ?>
                           </p>
                         </div>
