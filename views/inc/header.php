@@ -5,17 +5,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 <head>
   <meta charset="utf-8">
-  <title>Winnipeg Homes - Listings | An Experience Worth Repeating</title>
+  <title>Winnipeg Homes - <?php echo $title; ?></title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Winnipeg Homes Listings - Homes, condos, developments, and open houses">
-  <meta property="og:title" content="Winnipeg Homes - Listings | An Experience Worth Repeating">
-  <meta property="og:description" content="Winnipeg Homes Listings - Homes, condos, developments, and open houses.">
+  <meta name="description" content="<?php echo $description; ?>">
+  <meta property="og:title" content="Winnipeg Homes - <?php echo $title; ?>">
+  <meta property="og:description" content="<?php echo $description; ?>">
   <meta property="og:site_name" content="Winnipeg Homes - Listings | An Experience Worth Repeating" />
   <meta property="og:url" content="http://listings.winnipeghomes.com" />  
-  <meta property="og:image" content="http://listings.winnipeghomes.com/assets/images/WH-OG.jpg" />
+  <meta property="og:image" content="<?php echo $og_image; ?>" />
   <meta property="og:image:type" content="image/jpeg" />
-  <meta property="og:image:width" content="728" />
-  <meta property="og:image:height" content="382" />
+  <meta property="og:image:width" content="<?php echo $og_width; ?>" />
+  <meta property="og:image:height" content="<?php echo $og_height; ?>" />
   <link rel="publisher" href="https://plus.google.com/+Winnipeghomescom">
   <link rel="shortcut icon" href="<?php echo $assets_path; ?>images/icon/favicon.ico" type="image/x-icon">
 

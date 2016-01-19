@@ -10,6 +10,11 @@ class Listings extends CI_Controller {
 		$this->data['content'] = '';
 		$this->data['assets_path'] = assets_url();
 		$this->data['header_variant'] = 'main';
+		$this->data['title'] = 'Listings | An Experience Worth Repeating';
+		$this->data['description'] = 'Winnipeg Real Estate Listings by Blair Sonnichsen and Tyson Sonnichsen';
+		$this->data['og_image'] = base_url('assets/images/WH-OG.jpg');
+		$this->data['og_width'] = 728;
+		$this->data['og_height'] = 382;
 		$this->header_view = 'inc/header';
 		$this->footer_view = 'inc/footer';
 		$this->analtyics = 'inc/analytics';
@@ -41,14 +46,19 @@ class Listings extends CI_Controller {
       if ($type == 'open-houses')
       {
         $query = $this->Listings_model->get_open_houses();
+    		$this->data['title'] = 'Listings | Open Houses';
+    		$this->data['description'] = 'Upcoming Open Houses with Blair Sonnichsen and Tyson Sonnichsen';
       }
       else if ($type == 'sold')
       {
         $query = $this->Listings_model->get_sold_listings();
+    		$this->data['title'] = 'Listings | Recently Sold';
+    		$this->data['description'] = 'Recently Sold Listings by Blair Sonnichsen and Tyson Sonnichsen';
       }
       else if ($type == 'rur')
       {
         $where = '
+          AND
           (
             Listing.Sales_Rep_MUI_1 IN (564206, 16212643)
             OR
@@ -62,11 +72,15 @@ class Listings extends CI_Controller {
         
         $query = $this->Listings_model->get_all_listings($where);
         $this->data['header_variant'] = $type;
+    		$this->data['title'] = 'Rural Listings';
+    		$this->data['description'] = 'Rural Listings by Blair Sonnichsen and Tyson Sonnichsen';
       }
       else
       {
         $query = $this->Listings_model->get_listings_by_type($type);
         $this->data['header_variant'] = $type;
+    		$this->data['title'] = $this->types[$type]['title'].' Listings';
+    		$this->data['description'] = $this->types[$type]['title'].' Listings by Blair Sonnichsen and Tyson Sonnichsen';
       }
       	     
       $this->types[$type]['active'] = ' class="active '.$type.'"';
@@ -75,6 +89,7 @@ class Listings extends CI_Controller {
     else
     {
       $where = '
+        AND
         (
           Listing.Sales_Rep_MUI_1 IN (564206, 16212643)
           OR
@@ -83,7 +98,9 @@ class Listings extends CI_Controller {
       ';
       
       $query = $this->Listings_model->get_all_listings($where);
-      
+
+  		$this->data['title'] = 'Listings | Winnipeg Homes for Sale';
+  		$this->data['description'] = 'Winnipeg Homes for Sale by Blair Sonnichsen and Tyson Sonnichsen';      
       $this->types['all']['active'] = ' class="active"';
       $this->data['h1'] = 'Our Properties';
     }
@@ -179,7 +196,23 @@ class Listings extends CI_Controller {
     $this->data['amenities'] = $amenities;
     $this->data['site_influences'] = $site_influences;
     $this->data['flooring'] = $flooring;
+
+		$this->data['title'] = 'MLS '.$this->data['property']['ML_Number'];
     
+    if (intval($this->data['property']['Display_Addrs_on_Pub_Web_Sites']) === 1)
+		{
+		  $this->data['title'] .= ', '.$this->data['property']['Street_Number'].' '.ucwords(strtolower($this->data['property']['Street_Name'])).' '.ucfirst(strtolower($this->data['property']['Street_Type']));
+		}
+
+		$this->data['description'] = 'Property details for '.$this->data['title'];
+		
+		if (isset($property_images[0]))
+		{
+      $this->data['og_image'] = base_url($property_images[0]);
+  		$this->data['og_width'] = 640;
+  		$this->data['og_height'] = 480;		
+		}
+
     $this->data['header_variant'] = $class;
     $this->_generate_template();
     $this->data['content'] = $this->load->view('property_detail', $this->data, TRUE);
@@ -259,6 +292,7 @@ class Listings extends CI_Controller {
 	public function office()
 	{
     $where = '
+      AND
       (
         Sold_Date > NOW()
         OR
@@ -270,7 +304,8 @@ class Listings extends CI_Controller {
     
     $this->types['all']['active'] = ' class="active"';
     $this->data['h1'] = 'Our Office\'s Listings';
-
+		$this->data['title'] = 'Office Listings';
+		$this->data['description'] = 'Office Listings by Royal LePage Dynamic';
     
     $this->data['listings'] = $query->result_array();
     $this->data['type'] = FALSE;
@@ -327,5 +362,61 @@ class Listings extends CI_Controller {
     $this->email->message($message);
     
     $this->email->send();
+	}
+	
+	
+	public function xml_sitemap()
+	{
+    
+    $pages = array(
+                array(
+                  'url' => base_url(),
+                  'last_modified' => NULL,
+                  'xml_change_freq' => 'daily',
+                  'xml_priority' => '1.0'
+                )
+              ); 
+    
+    foreach ($this->types as $key => $type)
+    {
+      if ($key === 'all')
+      {
+        continue;
+      }
+      
+      $pages[] = array(
+                      'url' => base_url($type['path']),
+                      'last_modified' => NULL,
+                      'xml_change_freq' => 'weekly',
+                      'xml_priority' => '0.8'
+                      );      
+    }
+
+    $where = '
+      AND
+      (
+        Sold_Date > NOW()
+        OR
+        Sold_Date = "0000-00-00 00:00:00"
+      )
+    ';
+        
+    $query = $this->Listings_model->get_all_listings($where);
+    
+    foreach ($query->result_array() as $page)
+    {
+      
+      $pages[] = array(
+                      'url' => base_url($this->types[$page['class']]['path'].'/'.$page['Matrix_Unique_ID']),
+                      'last_modified' => explode(' ', $page['Last_Transaction_Date'])[0],
+                      'xml_change_freq' => 'monthly',
+                      'xml_priority' => '0.5'
+                      );
+      
+    }
+     
+    $this->data['pages'] = $pages;
+    $this->output->set_content_type('text/xml');
+	  $this->load->view('xml_sitemap', $this->data);
 	}
 }

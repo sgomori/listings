@@ -26,7 +26,7 @@ class ListingS_model extends CI_Model {
           Listing.Public_Remarks, Listing.Total_FloorLiv_Area_SF, Listing.Number_of_Total_Baths, 
           Listing.Total_Bedrooms, Listing.CurrentPrice, Listing.Total_FloorLiv_Area_SF, 
           Listing.Number_of_Total_Baths, Listing.Total_Bedrooms, Listing.Date_Entered, 
-          Listing.Status, Listing.Sold_Date, Open_House_Date_NUM1, Agent_1.First_Name AS Agent_1_First_Name, 
+          Listing.Status, Listing.Sold_Date, Listing.Last_Transaction_Date, Open_House_Date_NUM1, Agent_1.First_Name AS Agent_1_First_Name, 
           Agent_1.Last_Name AS Agent_1_Last_Name, Agent_2.First_Name AS Agent_2_First_Name, 
           Agent_2.Last_Name AS Agent_2_Last_Name 
         FROM
@@ -36,8 +36,7 @@ class ListingS_model extends CI_Model {
           AND wpg_rets_openhouse_openhouse.IsDeleted = 0
         LEFT JOIN wpg_rets_agent_agent Agent_1 ON Listing.Sales_Rep_MUI_1 = Agent_1.Matrix_Unique_ID
         LEFT JOIN wpg_rets_agent_agent Agent_2 ON Listing.Sales_Rep_MUI_2 = Agent_2.Matrix_Unique_ID
-        WHERE Listing.Expiry_Date >= NOW()
-        AND      
+        WHERE Listing.Expiry_Date >= NOW()    
         '.$where.'
         GROUP BY Listing.Matrix_Unique_ID
               
@@ -49,7 +48,7 @@ class ListingS_model extends CI_Model {
           Listing.Public_Remarks, Listing.Total_FloorLiv_Area_SF, Listing.Number_of_Total_Baths, 
           Listing.Total_Bedrooms, Listing.CurrentPrice, Listing.Total_FloorLiv_Area_SF, 
           Listing.Number_of_Total_Baths, Listing.Total_Bedrooms, Listing.Date_Entered, 
-          Listing.Status, Listing.Sold_Date, Open_House_Date_NUM1, Agent_1.First_Name AS Agent_1_First_Name, 
+          Listing.Status, Listing.Sold_Date, Listing.Last_Transaction_Date, Open_House_Date_NUM1, Agent_1.First_Name AS Agent_1_First_Name, 
           Agent_1.Last_Name AS Agent_1_Last_Name, Agent_2.First_Name AS Agent_2_First_Name, 
           Agent_2.Last_Name AS Agent_2_Last_Name 
         FROM
@@ -59,8 +58,7 @@ class ListingS_model extends CI_Model {
           AND wpg_rets_openhouse_openhouse.IsDeleted = 0
         LEFT JOIN wpg_rets_agent_agent Agent_1 ON Listing.Sales_Rep_MUI_1 = Agent_1.Matrix_Unique_ID
         LEFT JOIN wpg_rets_agent_agent Agent_2 ON Listing.Sales_Rep_MUI_2 = Agent_2.Matrix_Unique_ID  
-        WHERE Listing.Expiry_Date >= NOW()  
-        AND    
+        WHERE Listing.Expiry_Date >= NOW()     
         '.$where.'
         GROUP BY Listing.Matrix_Unique_ID
               
@@ -72,7 +70,7 @@ class ListingS_model extends CI_Model {
           Listing.Public_Remarks, Listing.Total_FloorLiv_Area_SF, Listing.Number_of_Total_Baths, 
           Listing.Total_Bedrooms, Listing.CurrentPrice, Listing.Total_FloorLiv_Area_SF, 
           Listing.Number_of_Total_Baths, Listing.Total_Bedrooms, Listing.Date_Entered, 
-          Listing.Status, Listing.Sold_Date, Open_House_Date_NUM1, Agent_1.First_Name AS Agent_1_First_Name, 
+          Listing.Status, Listing.Sold_Date, Listing.Last_Transaction_Date, Open_House_Date_NUM1, Agent_1.First_Name AS Agent_1_First_Name, 
           Agent_1.Last_Name AS Agent_1_Last_Name, Agent_2.First_Name AS Agent_2_First_Name, 
           Agent_2.Last_Name AS Agent_2_Last_Name 
         FROM
@@ -83,7 +81,6 @@ class ListingS_model extends CI_Model {
         LEFT JOIN wpg_rets_agent_agent Agent_1 ON Listing.Sales_Rep_MUI_1 = Agent_1.Matrix_Unique_ID
         LEFT JOIN wpg_rets_agent_agent Agent_2 ON Listing.Sales_Rep_MUI_2 = Agent_2.Matrix_Unique_ID     
         WHERE Listing.Expiry_Date >= NOW()
-        AND
         '.$where.'
         GROUP BY Listing.Matrix_Unique_ID      
         
