@@ -585,6 +585,125 @@ class ListingS_model extends CI_Model {
     return FALSE;
   
   }  
+
+
+  public function get_latest_listings($limit)
+  {
+    $sql = '
+        SELECT "res" AS class, Listing.Matrix_Unique_ID, Listing.LastChangeTypeDate, Listing.Display_Addrs_on_Pub_Web_Sites,
+          Listing.LastChangeType, Listing.Style, Listing.Street_Number, Listing.Street_Name, 
+          Listing.Street_Type, Listing.Neighbourhood, Listing.City_or_Town_Name, 
+          Listing.Public_Remarks, Listing.Total_FloorLiv_Area_SF, Listing.Number_of_Total_Baths, 
+          Listing.Total_Bedrooms, Listing.CurrentPrice, Listing.Total_FloorLiv_Area_SF, 
+          Listing.Number_of_Total_Baths, Listing.Total_Bedrooms, Listing.Date_Entered, 
+          Listing.Status, Listing.Sold_Date, Open_House_Date_NUM1, Agent_1.First_Name AS Agent_1_First_Name, 
+          Agent_1.Last_Name AS Agent_1_Last_Name, Agent_2.First_Name AS Agent_2_First_Name, 
+          Agent_2.Last_Name AS Agent_2_Last_Name 
+        FROM
+        wpg_rets_property_res Listing
+        LEFT JOIN wpg_rets_openhouse_openhouse ON Listing.Matrix_Unique_ID = wpg_rets_openhouse_openhouse.Listing_MUI 
+          AND Open_House_Date_NUM1 > NOW()
+          AND wpg_rets_openhouse_openhouse.IsDeleted = 0
+        LEFT JOIN wpg_rets_agent_agent Agent_1 ON Listing.Sales_Rep_MUI_1 = Agent_1.Matrix_Unique_ID
+        LEFT JOIN wpg_rets_agent_agent Agent_2 ON Listing.Sales_Rep_MUI_2 = Agent_2.Matrix_Unique_ID
+        WHERE
+        Listing.Expiry_Date >= NOW()
+        AND
+        (
+          Listing.Sales_Rep_MUI_1 IN (564206, 16212643)
+          OR
+          Listing.Sales_Rep_MUI_2 IN (564206, 16212643)
+        )
+        AND
+        (
+          Sold_Date > NOW()
+          OR
+          Sold_Date = "0000-00-00 00:00:00"
+        )
+        GROUP BY Listing.Matrix_Unique_ID
+              
+        UNION
+        
+        SELECT "con" AS class, Listing.Matrix_Unique_ID, Listing.LastChangeTypeDate, Listing.Display_Addrs_on_Pub_Web_Sites,
+          Listing.LastChangeType, Listing.Style, Listing.Street_Number, Listing.Street_Name, 
+          Listing.Street_Type, Listing.Neighbourhood, Listing.City_or_Town_Name, 
+          Listing.Public_Remarks, Listing.Total_FloorLiv_Area_SF, Listing.Number_of_Total_Baths, 
+          Listing.Total_Bedrooms, Listing.CurrentPrice, Listing.Total_FloorLiv_Area_SF, 
+          Listing.Number_of_Total_Baths, Listing.Total_Bedrooms, Listing.Date_Entered, 
+          Listing.Status, Listing.Sold_Date, Open_House_Date_NUM1, Agent_1.First_Name AS Agent_1_First_Name, 
+          Agent_1.Last_Name AS Agent_1_Last_Name, Agent_2.First_Name AS Agent_2_First_Name, 
+          Agent_2.Last_Name AS Agent_2_Last_Name 
+        FROM
+        wpg_rets_property_con Listing
+        LEFT JOIN wpg_rets_openhouse_openhouse ON Listing.Matrix_Unique_ID = wpg_rets_openhouse_openhouse.Listing_MUI 
+          AND Open_House_Date_NUM1 > NOW()
+          AND wpg_rets_openhouse_openhouse.IsDeleted = 0
+        LEFT JOIN wpg_rets_agent_agent Agent_1 ON Listing.Sales_Rep_MUI_1 = Agent_1.Matrix_Unique_ID
+        LEFT JOIN wpg_rets_agent_agent Agent_2 ON Listing.Sales_Rep_MUI_2 = Agent_2.Matrix_Unique_ID  
+        WHERE
+        Listing.Expiry_Date >= NOW()
+        AND
+        (
+          Listing.Sales_Rep_MUI_1 IN (564206, 16212643)
+          OR
+          Listing.Sales_Rep_MUI_2 IN (564206, 16212643)
+        )
+        AND
+        (
+          Sold_Date > NOW()
+          OR
+          Sold_Date = "0000-00-00 00:00:00"
+        )
+        GROUP BY Listing.Matrix_Unique_ID
+              
+        UNION
+        
+        SELECT "rur" AS class, Listing.Matrix_Unique_ID, Listing.LastChangeTypeDate, Listing.Display_Addrs_on_Pub_Web_Sites,
+          Listing.LastChangeType, Listing.Style, Listing.Street_Number, Listing.Street_Name, 
+          Listing.Street_Type, Listing.Neighbourhood, Listing.City_or_Town_Name, 
+          Listing.Public_Remarks, Listing.Total_FloorLiv_Area_SF, Listing.Number_of_Total_Baths, 
+          Listing.Total_Bedrooms, Listing.CurrentPrice, Listing.Total_FloorLiv_Area_SF, 
+          Listing.Number_of_Total_Baths, Listing.Total_Bedrooms, Listing.Date_Entered, 
+          Listing.Status, Listing.Sold_Date, Open_House_Date_NUM1, Agent_1.First_Name AS Agent_1_First_Name, 
+          Agent_1.Last_Name AS Agent_1_Last_Name, Agent_2.First_Name AS Agent_2_First_Name, 
+          Agent_2.Last_Name AS Agent_2_Last_Name 
+        FROM
+        wpg_rets_property_rur Listing
+        LEFT JOIN wpg_rets_openhouse_openhouse ON Listing.Matrix_Unique_ID = wpg_rets_openhouse_openhouse.Listing_MUI 
+          AND Open_House_Date_NUM1 > NOW()
+          AND wpg_rets_openhouse_openhouse.IsDeleted = 0
+        LEFT JOIN wpg_rets_agent_agent Agent_1 ON Listing.Sales_Rep_MUI_1 = Agent_1.Matrix_Unique_ID
+        LEFT JOIN wpg_rets_agent_agent Agent_2 ON Listing.Sales_Rep_MUI_2 = Agent_2.Matrix_Unique_ID     
+        WHERE
+        Listing.Expiry_Date >= NOW()
+        AND
+        (
+          Listing.Sales_Rep_MUI_1 IN (564206, 16212643)
+          OR
+          Listing.Sales_Rep_MUI_2 IN (564206, 16212643)
+        )
+        AND
+        (
+          Sold_Date > NOW()
+          OR
+          Sold_Date = "0000-00-00 00:00:00"
+        )
+
+        GROUP BY Listing.Matrix_Unique_ID      
+        
+        ORDER BY Date_Entered DESC
+        LIMIT '.$limit;  
+    
+  
+    if ($query = $this->db->query($sql))
+    {
+      return $query;
+    } 
+    
+    return FALSE;
+  
+  } 
+  
   
   public function get_room_detail($matrix_unique_id)
   {

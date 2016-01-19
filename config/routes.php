@@ -68,3 +68,4 @@ $route['search'] = 'listings/search';
 $route['office'] = 'listings/office';
 
 $route['development\/([\w\-]+)'] = 'listings/development/$1';
+$route['latest\/(\d+)'] = 'listings/latest/$1';

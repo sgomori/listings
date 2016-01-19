@@ -22,7 +22,7 @@ class Listings extends CI_Controller {
             'open-houses' => array('title' => 'Open HOuses', 'active' => '', 'path' => 'open-houses'),
             'sold' => array('title' => 'Recently Sold', 'active' => '', 'path' => 'sold')
             );
-            
+
     date_default_timezone_set('America/Winnipeg');
 	}
 	
@@ -45,6 +45,23 @@ class Listings extends CI_Controller {
       else if ($type == 'sold')
       {
         $query = $this->Listings_model->get_sold_listings();
+      }
+      else if ($type == 'rur')
+      {
+        $where = '
+          (
+            Listing.Sales_Rep_MUI_1 IN (564206, 16212643)
+            OR
+            Listing.Sales_Rep_MUI_2 IN (564206, 16212643)
+          )
+          AND
+          (
+            Area LIKE "R%"
+          )
+        ';
+        
+        $query = $this->Listings_model->get_all_listings($where);
+        $this->data['header_variant'] = $type;
       }
       else
       {
@@ -274,6 +291,18 @@ class Listings extends CI_Controller {
  
     $this->data['listings'] = $query->result_array();
     $this->data['type'] = 'con';
+    $this->data['types'] = $this->types;
+        
+    $this->load->view('listings_only', $this->data);
+	}
+	
+	
+	public function latest($number)
+	{
+    $query = $this->Listings_model->get_latest_listings($number);
+ 
+    $this->data['listings'] = $query->result_array();
+    $this->data['type'] = FALSE;
     $this->data['types'] = $this->types;
         
     $this->load->view('listings_only', $this->data);
