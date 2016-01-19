@@ -121,6 +121,12 @@ class Listings extends CI_Controller {
     $property = $this->Listings_model->get_property_detail($class, $matrix_unique_id)->result_array();
     $this->data['room_data'] = $this->Listings_model->get_room_detail($matrix_unique_id)->result_array();
     
+    if (!isset($property[0]))
+    {
+      redirect(base_url($this->types[$class]['path']));
+      return;
+    }
+    
     $open_houses = FALSE;
     
     if (isset($property[0]['Open_House_Date_NUM1']))
