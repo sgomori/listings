@@ -32,7 +32,7 @@ class ListingS_model extends CI_Model {
         FROM
         wpg_rets_property_res Listing
         LEFT JOIN wpg_rets_openhouse_openhouse ON Listing.Matrix_Unique_ID = wpg_rets_openhouse_openhouse.Listing_MUI 
-          AND Open_House_Date_NUM1 > NOW()
+          AND NOW() < wpg_rets_openhouse_openhouse.Open_House_Date_NUM1 + INTERVAL 1 DAY
           AND wpg_rets_openhouse_openhouse.IsDeleted = 0
         LEFT JOIN wpg_rets_agent_agent Agent_1 ON Listing.Sales_Rep_MUI_1 = Agent_1.Matrix_Unique_ID
         LEFT JOIN wpg_rets_agent_agent Agent_2 ON Listing.Sales_Rep_MUI_2 = Agent_2.Matrix_Unique_ID
@@ -54,7 +54,7 @@ class ListingS_model extends CI_Model {
         FROM
         wpg_rets_property_con Listing
         LEFT JOIN wpg_rets_openhouse_openhouse ON Listing.Matrix_Unique_ID = wpg_rets_openhouse_openhouse.Listing_MUI 
-          AND Open_House_Date_NUM1 > NOW()
+          AND NOW() < wpg_rets_openhouse_openhouse.Open_House_Date_NUM1 + INTERVAL 1 DAY
           AND wpg_rets_openhouse_openhouse.IsDeleted = 0
         LEFT JOIN wpg_rets_agent_agent Agent_1 ON Listing.Sales_Rep_MUI_1 = Agent_1.Matrix_Unique_ID
         LEFT JOIN wpg_rets_agent_agent Agent_2 ON Listing.Sales_Rep_MUI_2 = Agent_2.Matrix_Unique_ID  
@@ -76,7 +76,7 @@ class ListingS_model extends CI_Model {
         FROM
         wpg_rets_property_rur Listing
         LEFT JOIN wpg_rets_openhouse_openhouse ON Listing.Matrix_Unique_ID = wpg_rets_openhouse_openhouse.Listing_MUI 
-          AND Open_House_Date_NUM1 > NOW()
+          AND NOW() < wpg_rets_openhouse_openhouse.Open_House_Date_NUM1 + INTERVAL 1 DAY
           AND wpg_rets_openhouse_openhouse.IsDeleted = 0
         LEFT JOIN wpg_rets_agent_agent Agent_1 ON Listing.Sales_Rep_MUI_1 = Agent_1.Matrix_Unique_ID
         LEFT JOIN wpg_rets_agent_agent Agent_2 ON Listing.Sales_Rep_MUI_2 = Agent_2.Matrix_Unique_ID     
@@ -113,7 +113,7 @@ class ListingS_model extends CI_Model {
         FROM
         wpg_rets_property_'.$type.' Listing
         LEFT JOIN wpg_rets_openhouse_openhouse ON Listing.Matrix_Unique_ID = wpg_rets_openhouse_openhouse.Listing_MUI 
-          AND Open_House_Date_NUM1 > NOW()
+          AND NOW() < wpg_rets_openhouse_openhouse.Open_House_Date_NUM1 + INTERVAL 1 DAY
           AND wpg_rets_openhouse_openhouse.IsDeleted = 0
         LEFT JOIN wpg_rets_agent_agent Agent_1 ON Listing.Sales_Rep_MUI_1 = Agent_1.Matrix_Unique_ID
         LEFT JOIN wpg_rets_agent_agent Agent_2 ON Listing.Sales_Rep_MUI_2 = Agent_2.Matrix_Unique_ID        
@@ -160,7 +160,7 @@ class ListingS_model extends CI_Model {
         WHERE
         Listing.Expiry_Date >= NOW()
         AND
-        Open_House_Date_NUM1 > NOW()
+        NOW() < wpg_rets_openhouse_openhouse.Open_House_Date_NUM1 + INTERVAL 1 DAY
         AND
         wpg_rets_openhouse_openhouse.IsDeleted = 0
         AND
@@ -190,7 +190,7 @@ class ListingS_model extends CI_Model {
         WHERE
         Listing.Expiry_Date >= NOW()
         AND
-        Open_House_Date_NUM1 > NOW()
+        NOW() < wpg_rets_openhouse_openhouse.Open_House_Date_NUM1 + INTERVAL 1 DAY
         AND
         wpg_rets_openhouse_openhouse.IsDeleted = 0
         AND
@@ -220,7 +220,7 @@ class ListingS_model extends CI_Model {
         WHERE
         Listing.Expiry_Date >= NOW()
         AND
-        Open_House_Date_NUM1 > NOW()
+        NOW() < wpg_rets_openhouse_openhouse.Open_House_Date_NUM1 + INTERVAL 1 DAY
         AND
         wpg_rets_openhouse_openhouse.IsDeleted = 0
         AND
@@ -359,7 +359,7 @@ class ListingS_model extends CI_Model {
         FROM
         wpg_rets_property_res Listing
         LEFT JOIN wpg_rets_openhouse_openhouse ON Listing.Matrix_Unique_ID = wpg_rets_openhouse_openhouse.Listing_MUI 
-          AND Open_House_Date_NUM1 > NOW()
+          AND NOW() < wpg_rets_openhouse_openhouse.Open_House_Date_NUM1 + INTERVAL 1 DAY
           AND wpg_rets_openhouse_openhouse.IsDeleted = 0
         LEFT JOIN wpg_rets_agent_agent Agent_1 ON Listing.Sales_Rep_MUI_1 = Agent_1.Matrix_Unique_ID
         LEFT JOIN wpg_rets_agent_agent Agent_2 ON Listing.Sales_Rep_MUI_2 = Agent_2.Matrix_Unique_ID        
@@ -394,7 +394,7 @@ class ListingS_model extends CI_Model {
         FROM
         wpg_rets_property_con Listing
         LEFT JOIN wpg_rets_openhouse_openhouse ON Listing.Matrix_Unique_ID = wpg_rets_openhouse_openhouse.Listing_MUI 
-          AND Open_House_Date_NUM1 > NOW()
+          AND NOW() < wpg_rets_openhouse_openhouse.Open_House_Date_NUM1 + INTERVAL 1 DAY
           AND wpg_rets_openhouse_openhouse.IsDeleted = 0
         LEFT JOIN wpg_rets_agent_agent Agent_1 ON Listing.Sales_Rep_MUI_1 = Agent_1.Matrix_Unique_ID
         LEFT JOIN wpg_rets_agent_agent Agent_2 ON Listing.Sales_Rep_MUI_2 = Agent_2.Matrix_Unique_ID        
@@ -429,7 +429,7 @@ class ListingS_model extends CI_Model {
         FROM
         wpg_rets_property_rur Listing
         LEFT JOIN wpg_rets_openhouse_openhouse ON Listing.Matrix_Unique_ID = wpg_rets_openhouse_openhouse.Listing_MUI 
-          AND Open_House_Date_NUM1 > NOW()
+          AND NOW() < wpg_rets_openhouse_openhouse.Open_House_Date_NUM1 + INTERVAL 1 DAY
           AND wpg_rets_openhouse_openhouse.IsDeleted = 0
         LEFT JOIN wpg_rets_agent_agent Agent_1 ON Listing.Sales_Rep_MUI_1 = Agent_1.Matrix_Unique_ID
         LEFT JOIN wpg_rets_agent_agent Agent_2 ON Listing.Sales_Rep_MUI_2 = Agent_2.Matrix_Unique_ID        
@@ -479,7 +479,7 @@ class ListingS_model extends CI_Model {
         FROM
         wpg_rets_property_'.$type.' Listing
         LEFT JOIN wpg_rets_openhouse_openhouse ON Listing.Matrix_Unique_ID = wpg_rets_openhouse_openhouse.Listing_MUI 
-          AND Open_House_Date_NUM1 > NOW()
+          AND NOW() < wpg_rets_openhouse_openhouse.Open_House_Date_NUM1 + INTERVAL 1 DAY
           AND wpg_rets_openhouse_openhouse.IsDeleted = 0
         LEFT JOIN wpg_rets_agent_agent Agent_1 ON Listing.Sales_Rep_MUI_1 = Agent_1.Matrix_Unique_ID
         LEFT JOIN wpg_rets_agent_agent Agent_2 ON Listing.Sales_Rep_MUI_2 = Agent_2.Matrix_Unique_ID
@@ -523,7 +523,7 @@ class ListingS_model extends CI_Model {
         FROM
         wpg_rets_property_'.$class.' Property
         LEFT JOIN wpg_rets_openhouse_openhouse Open_House ON Property.Matrix_Unique_ID = Open_House.Listing_MUI 
-          AND Open_House.Open_House_Date_NUM1 > NOW() 
+          AND NOW() < Open_House.Open_House_Date_NUM1 + INTERVAL 1 DAY
           AND Open_House.IsDeleted = 0
         LEFT JOIN wpg_rets_agent_agent Agent_1 ON Property.Sales_Rep_MUI_1 = Agent_1.Matrix_Unique_ID
         LEFT JOIN wpg_rets_agent_agent Agent_2 ON Property.Sales_Rep_MUI_2 = Agent_2.Matrix_Unique_ID
@@ -556,7 +556,7 @@ class ListingS_model extends CI_Model {
         FROM
         wpg_rets_property_con Listing
         LEFT JOIN wpg_rets_openhouse_openhouse ON Listing.Matrix_Unique_ID = wpg_rets_openhouse_openhouse.Listing_MUI 
-          AND Open_House_Date_NUM1 > NOW()
+          AND NOW() < wpg_rets_openhouse_openhouse.Open_House_Date_NUM1 + INTERVAL 1 DAY
           AND wpg_rets_openhouse_openhouse.IsDeleted = 0
         LEFT JOIN wpg_rets_agent_agent Agent_1 ON Listing.Sales_Rep_MUI_1 = Agent_1.Matrix_Unique_ID
         LEFT JOIN wpg_rets_agent_agent Agent_2 ON Listing.Sales_Rep_MUI_2 = Agent_2.Matrix_Unique_ID        
@@ -599,7 +599,7 @@ class ListingS_model extends CI_Model {
         FROM
         wpg_rets_property_res Listing
         LEFT JOIN wpg_rets_openhouse_openhouse ON Listing.Matrix_Unique_ID = wpg_rets_openhouse_openhouse.Listing_MUI 
-          AND Open_House_Date_NUM1 > NOW()
+          AND NOW() < wpg_rets_openhouse_openhouse.Open_House_Date_NUM1 + INTERVAL 1 DAY
           AND wpg_rets_openhouse_openhouse.IsDeleted = 0
         LEFT JOIN wpg_rets_agent_agent Agent_1 ON Listing.Sales_Rep_MUI_1 = Agent_1.Matrix_Unique_ID
         LEFT JOIN wpg_rets_agent_agent Agent_2 ON Listing.Sales_Rep_MUI_2 = Agent_2.Matrix_Unique_ID
@@ -633,7 +633,7 @@ class ListingS_model extends CI_Model {
         FROM
         wpg_rets_property_con Listing
         LEFT JOIN wpg_rets_openhouse_openhouse ON Listing.Matrix_Unique_ID = wpg_rets_openhouse_openhouse.Listing_MUI 
-          AND Open_House_Date_NUM1 > NOW()
+          AND NOW() < wpg_rets_openhouse_openhouse.Open_House_Date_NUM1 + INTERVAL 1 DAY
           AND wpg_rets_openhouse_openhouse.IsDeleted = 0
         LEFT JOIN wpg_rets_agent_agent Agent_1 ON Listing.Sales_Rep_MUI_1 = Agent_1.Matrix_Unique_ID
         LEFT JOIN wpg_rets_agent_agent Agent_2 ON Listing.Sales_Rep_MUI_2 = Agent_2.Matrix_Unique_ID  
@@ -667,7 +667,7 @@ class ListingS_model extends CI_Model {
         FROM
         wpg_rets_property_rur Listing
         LEFT JOIN wpg_rets_openhouse_openhouse ON Listing.Matrix_Unique_ID = wpg_rets_openhouse_openhouse.Listing_MUI 
-          AND Open_House_Date_NUM1 > NOW()
+          AND NOW() < wpg_rets_openhouse_openhouse.Open_House_Date_NUM1 + INTERVAL 1 DAY
           AND wpg_rets_openhouse_openhouse.IsDeleted = 0
         LEFT JOIN wpg_rets_agent_agent Agent_1 ON Listing.Sales_Rep_MUI_1 = Agent_1.Matrix_Unique_ID
         LEFT JOIN wpg_rets_agent_agent Agent_2 ON Listing.Sales_Rep_MUI_2 = Agent_2.Matrix_Unique_ID     

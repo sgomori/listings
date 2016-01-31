@@ -11,7 +11,7 @@
       <span class="property-label">Sold</span>
       <?php elseif ($listing['Status'] === 'Pending'): ?>
       <span class="property-label">Sale Pending</span>                    
-      <?php elseif ((isset($listing['Open_House_Date_NUM1'])) && (strtotime($listing['Open_House_Date_NUM1']) > time())): ?>
+      <?php elseif ((isset($listing['Open_House_Date_NUM1'])) && ((strtotime($listing['Open_House_Date_NUM1']) + (3600 * 24)) > time())): ?>
       <span class="property-label">Open House - <?php echo date('l', strtotime($listing['Open_House_Date_NUM1'])); ?></span>                        
       <?php elseif (strtotime($listing['LastChangeTypeDate']) > (time() - (3600 * 24 * 14))): ?>
       <span class="property-label"><?php echo $listing['LastChangeType']; ?></span>
