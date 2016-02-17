@@ -701,7 +701,80 @@ class ListingS_model extends CI_Model {
   
   } 
   
+
+  public function get_pending_listings()
+  {
   
+    $sql = '
+        SELECT "res" AS class, Listing.Matrix_Unique_ID,
+          Listing.Street_Number, Listing.Street_Name, 
+          Listing.Street_Type, Listing.Neighbourhood, Listing.City_or_Town_Name, Listing.Status
+        FROM
+        wpg_rets_property_res Listing
+        LEFT JOIN wpg_rets_agent_agent Agent_1 ON Listing.Sales_Rep_MUI_1 = Agent_1.Matrix_Unique_ID
+        LEFT JOIN wpg_rets_agent_agent Agent_2 ON Listing.Sales_Rep_MUI_2 = Agent_2.Matrix_Unique_ID
+        WHERE
+        Listing.Expiry_Date >= NOW()
+        AND
+        (
+          Listing.Sales_Rep_MUI_1 IN (564206, 16212643)
+          OR
+          Listing.Sales_Rep_MUI_2 IN (564206, 16212643)
+        )
+        AND
+        Status LIKE "Pending"
+              
+        UNION
+        
+        SELECT "con" AS class, Listing.Matrix_Unique_ID,
+          Listing.Street_Number, Listing.Street_Name, 
+          Listing.Street_Type, Listing.Neighbourhood, Listing.City_or_Town_Name, Listing.Status
+        FROM
+        wpg_rets_property_con Listing
+        LEFT JOIN wpg_rets_agent_agent Agent_1 ON Listing.Sales_Rep_MUI_1 = Agent_1.Matrix_Unique_ID
+        LEFT JOIN wpg_rets_agent_agent Agent_2 ON Listing.Sales_Rep_MUI_2 = Agent_2.Matrix_Unique_ID
+        WHERE
+        Listing.Expiry_Date >= NOW()
+        AND
+        (
+          Listing.Sales_Rep_MUI_1 IN (564206, 16212643)
+          OR
+          Listing.Sales_Rep_MUI_2 IN (564206, 16212643)
+        )
+        AND
+        Status LIKE "Pending"
+              
+        UNION
+        
+        SELECT "rur" AS class, Listing.Matrix_Unique_ID,
+          Listing.Street_Number, Listing.Street_Name, 
+          Listing.Street_Type, Listing.Neighbourhood, Listing.City_or_Town_Name, Listing.Status
+        FROM
+        wpg_rets_property_rur Listing
+        LEFT JOIN wpg_rets_agent_agent Agent_1 ON Listing.Sales_Rep_MUI_1 = Agent_1.Matrix_Unique_ID
+        LEFT JOIN wpg_rets_agent_agent Agent_2 ON Listing.Sales_Rep_MUI_2 = Agent_2.Matrix_Unique_ID
+        WHERE
+        Listing.Expiry_Date >= NOW()
+        AND
+        (
+          Listing.Sales_Rep_MUI_1 IN (564206, 16212643)
+          OR
+          Listing.Sales_Rep_MUI_2 IN (564206, 16212643)
+        )
+        AND
+        Status LIKE "Pending"';
+    
+  
+    if ($query = $this->db->query($sql))
+    {
+      return $query;
+    } 
+    
+    return FALSE;
+  
+  } 
+  
+    
   public function get_room_detail($matrix_unique_id)
   {
     $this->db->where(array('listing_MUI' => $matrix_unique_id));
@@ -714,6 +787,37 @@ class ListingS_model extends CI_Model {
     
     return FALSE;
   }
+  
+  
+	public function set_properties_to_sold($matrix_unique_ids)
+	{
+    $this->db->trans_start();
+    
+    $sql = '
+        UPDATE wpg_rets_property_res
+        SET Status = "Sold"
+        WHERE Matrix_Unique_ID IN ('.implode(',', $matrix_unique_ids).')';
+    
+    $this->db->query($sql);
+    
+    $sql = '
+        UPDATE wpg_rets_property_con
+        SET Status = "Sold"
+        WHERE Matrix_Unique_ID IN ('.implode(',', $matrix_unique_ids).')';
+    
+    $this->db->query($sql);
+    
+    $sql = '        
+        UPDATE wpg_rets_property_rur
+        SET Status = "Sold"
+        WHERE Matrix_Unique_ID IN ('.implode(',', $matrix_unique_ids).')';
+    
+    $this->db->query($sql);
+    
+    $this->db->trans_complete();
+    
+    return $this->db->trans_status();
+	}
 }
 
 /* End of file Listing_model.php */
