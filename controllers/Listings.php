@@ -123,7 +123,16 @@ class Listings extends CI_Controller {
     
     if (!isset($property[0]))
     {
-      redirect(base_url($this->types[$class]['path']));
+      header('HTTP/1.0 404 Not Found');
+      
+      $this->data['header_variant'] = $class;
+      $this->data['analytics'] = '';
+      $this->data['header'] = $this->load->view($this->header_view, $this->data, TRUE);
+      $this->data['footer'] = $this->load->view($this->footer_view, $this->data, TRUE);
+      
+      $this->data['content'] = $this->load->view('property_not_found', $this->data, TRUE);
+      $this->load->view('standard_page', $this->data);
+    
       return;
     }
     
