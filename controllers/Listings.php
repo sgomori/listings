@@ -166,6 +166,8 @@ class Listings extends CI_Controller {
       $property_images[] = $filename;
     }
     
+    sort($property_images, SORT_NATURAL);
+    
     if (count($property_images) > 1)
     {
       unset($property_images[0]);
