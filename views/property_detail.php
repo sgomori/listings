@@ -12,8 +12,16 @@
 				  		<!-- START ARTICLE PROPERTY -->
 							<article class="property">
 							  <h1 class="properties-header">
-							    <?php if (intval($property['Display_Addrs_on_Pub_Web_Sites']) === 1): ?> 
-							    <span id="civic_address"><?php echo $property['Street_Number']; ?> <?php echo ucwords(strtolower($property['Street_Name'])); ?> <?php echo ucfirst(strtolower($property['Street_Type'])); ?></span>
+							    <?php if (intval($property['Display_Addrs_on_Pub_Web_Sites']) === 1): ?>
+                    <?php
+                        $address = $property['Street_Number'].' '.ucwords(strtolower($property['Street_Name'])).' '.ucfirst(strtolower($property['Street_Type']));
+                        
+                        if ((isset($property['Unit'])) && ($property['Unit'] !== ''))
+                        {
+                          $address = $property['Unit'].' - '.$address;
+                        }
+                      ?>
+							    <span id="civic_address"><?php echo $address; ?></span>
 							    <?php endif; ?>
 							    <small><?php echo $property['Neighbourhood']; ?>, <?php echo ucwords(strtolower($property['City_or_Town_Name'])); ?></small>
 							  </h1>

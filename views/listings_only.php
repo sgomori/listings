@@ -20,8 +20,16 @@
     </div>
     <div class="property-wrap">
       <h2 class="property-title">
-        <?php if (intval($listing['Display_Addrs_on_Pub_Web_Sites']) === 1): ?> 
-        <?php echo anchor($types[$listing['class']]['path'].'/'.$listing['Matrix_Unique_ID'], $listing['Street_Number'].' '.ucwords(strtolower($listing['Street_Name'])).' '.ucfirst(strtolower($listing['Street_Type'])).' - '.$listing['Neighbourhood'].', '.ucwords(strtolower($listing['City_or_Town_Name'])), array('class' => $listing['class'])); ?>
+        <?php if (intval($listing['Display_Addrs_on_Pub_Web_Sites']) === 1): ?>
+          <?php
+            $address = $listing['Street_Number'].' '.ucwords(strtolower($listing['Street_Name'])).' '.ucfirst(strtolower($listing['Street_Type'])).' - '.$listing['Neighbourhood'].', '.ucwords(strtolower($listing['City_or_Town_Name']));
+            
+            if ($listing['Unit'] !== '')
+            {
+              $address = $listing['Unit'].' - '.$address;
+            }
+          ?>
+        <?php echo anchor($types[$listing['class']]['path'].'/'.$listing['Matrix_Unique_ID'], $address, array('class' => $listing['class'])); ?>
         <?php endif; ?>
       </h2>
       <div class="property-excerpt">

@@ -21,7 +21,7 @@ class ListingS_model extends CI_Model {
   
     $sql = '
         SELECT "res" AS class, Listing.Matrix_Unique_ID, Listing.LastChangeTypeDate, Listing.Display_Addrs_on_Pub_Web_Sites,
-          Listing.LastChangeType, Listing.Style, Listing.Street_Number, Listing.Street_Name, 
+          Listing.LastChangeType, Listing.Style, "" AS Unit, Listing.Street_Number, Listing.Street_Name, 
           Listing.Street_Type, Listing.Neighbourhood, Listing.City_or_Town_Name, 
           Listing.Public_Remarks, Listing.Total_FloorLiv_Area_SF, Listing.Number_of_Total_Baths, 
           Listing.Total_Bedrooms, Listing.CurrentPrice, Listing.Total_FloorLiv_Area_SF, 
@@ -43,7 +43,7 @@ class ListingS_model extends CI_Model {
         UNION
         
         SELECT "con" AS class, Listing.Matrix_Unique_ID, Listing.LastChangeTypeDate, Listing.Display_Addrs_on_Pub_Web_Sites,
-          Listing.LastChangeType, Listing.Style, Listing.Street_Number, Listing.Street_Name, 
+          Listing.LastChangeType, Listing.Style, Listing.Unit AS Unit, Listing.Street_Number, Listing.Street_Name, 
           Listing.Street_Type, Listing.Neighbourhood, Listing.City_or_Town_Name, 
           Listing.Public_Remarks, Listing.Total_FloorLiv_Area_SF, Listing.Number_of_Total_Baths, 
           Listing.Total_Bedrooms, Listing.CurrentPrice, Listing.Total_FloorLiv_Area_SF, 
@@ -65,7 +65,7 @@ class ListingS_model extends CI_Model {
         UNION
         
         SELECT "rur" AS class, Listing.Matrix_Unique_ID, Listing.LastChangeTypeDate, Listing.Display_Addrs_on_Pub_Web_Sites,
-          Listing.LastChangeType, Listing.Style, Listing.Street_Number, Listing.Street_Name, 
+          Listing.LastChangeType, Listing.Style, "" AS Unit, Listing.Street_Number, Listing.Street_Name, 
           Listing.Street_Type, Listing.Neighbourhood, Listing.City_or_Town_Name, 
           Listing.Public_Remarks, Listing.Total_FloorLiv_Area_SF, Listing.Number_of_Total_Baths, 
           Listing.Total_Bedrooms, Listing.CurrentPrice, Listing.Total_FloorLiv_Area_SF, 
@@ -102,7 +102,19 @@ class ListingS_model extends CI_Model {
   
     $sql = '
         SELECT "'.$type.'" AS class, Listing.Matrix_Unique_ID, Listing.LastChangeTypeDate, Listing.Display_Addrs_on_Pub_Web_Sites,
-          Listing.LastChangeType, Listing.Style, Listing.Street_Number, Listing.Street_Name, 
+          Listing.LastChangeType, Listing.Style, ';
+          
+    if ($type === 'con')
+    {
+      $sql .= 'Listing.Unit AS Unit, ';
+    }
+    else
+    {
+      $sql .= '"" AS Unit, ';
+    }
+    
+    $sql .= '     
+          Listing.Street_Number, Listing.Street_Name, 
           Listing.Street_Type, Listing.Neighbourhood, Listing.City_or_Town_Name, 
           Listing.Public_Remarks, Listing.Total_FloorLiv_Area_SF, Listing.Number_of_Total_Baths, 
           Listing.Total_Bedrooms, Listing.CurrentPrice, Listing.Total_FloorLiv_Area_SF, 
@@ -144,7 +156,7 @@ class ListingS_model extends CI_Model {
   
     $sql = '
         SELECT "res" AS class, Listing.Matrix_Unique_ID, Listing.LastChangeTypeDate, Listing.Display_Addrs_on_Pub_Web_Sites,
-          Listing.LastChangeType, Listing.Style, Listing.Street_Number, Listing.Street_Name, 
+          Listing.LastChangeType, Listing.Style, "" AS Unit, Listing.Street_Number, Listing.Street_Name, 
           Listing.Street_Type, Listing.Neighbourhood, Listing.City_or_Town_Name, 
           Listing.Public_Remarks, Listing.Total_FloorLiv_Area_SF, Listing.Number_of_Total_Baths, 
           Listing.Total_Bedrooms, Listing.CurrentPrice, Listing.Total_FloorLiv_Area_SF, 
@@ -174,7 +186,7 @@ class ListingS_model extends CI_Model {
         UNION
         
         SELECT "con" AS class, Listing.Matrix_Unique_ID, Listing.LastChangeTypeDate, Listing.Display_Addrs_on_Pub_Web_Sites,
-          Listing.LastChangeType, Listing.Style, Listing.Street_Number, Listing.Street_Name, 
+          Listing.LastChangeType, Listing.Style, Listing.Unit AS Unit, Listing.Street_Number, Listing.Street_Name, 
           Listing.Street_Type, Listing.Neighbourhood, Listing.City_or_Town_Name, 
           Listing.Public_Remarks, Listing.Total_FloorLiv_Area_SF, Listing.Number_of_Total_Baths, 
           Listing.Total_Bedrooms, Listing.CurrentPrice, Listing.Total_FloorLiv_Area_SF, 
@@ -204,7 +216,7 @@ class ListingS_model extends CI_Model {
         UNION
         
         SELECT "rur" AS class, Listing.Matrix_Unique_ID, Listing.LastChangeTypeDate, Listing.Display_Addrs_on_Pub_Web_Sites,
-          Listing.LastChangeType, Listing.Style, Listing.Street_Number, Listing.Street_Name, 
+          Listing.LastChangeType, Listing.Style, "" AS Unit, Listing.Street_Number, Listing.Street_Name, 
           Listing.Street_Type, Listing.Neighbourhood, Listing.City_or_Town_Name, 
           Listing.Public_Remarks, Listing.Total_FloorLiv_Area_SF, Listing.Number_of_Total_Baths, 
           Listing.Total_Bedrooms, Listing.CurrentPrice, Listing.Total_FloorLiv_Area_SF, 
@@ -249,7 +261,7 @@ class ListingS_model extends CI_Model {
   
     $sql = '
         SELECT "res" AS class, Listing.Matrix_Unique_ID, Listing.LastChangeTypeDate, Listing.Display_Addrs_on_Pub_Web_Sites,
-          Listing.LastChangeType, Listing.Style, Listing.Street_Number, Listing.Street_Name, 
+          Listing.LastChangeType, Listing.Style, "" AS Unit, Listing.Street_Number, Listing.Street_Name, 
           Listing.Street_Type, Listing.Neighbourhood, Listing.City_or_Town_Name, 
           Listing.Public_Remarks, Listing.Total_FloorLiv_Area_SF, Listing.Number_of_Total_Baths, 
           Listing.Total_Bedrooms, Listing.CurrentPrice, Listing.Total_FloorLiv_Area_SF, 
@@ -277,7 +289,7 @@ class ListingS_model extends CI_Model {
         UNION
         
         SELECT "con" AS class, Listing.Matrix_Unique_ID, Listing.LastChangeTypeDate, Listing.Display_Addrs_on_Pub_Web_Sites,
-          Listing.LastChangeType, Listing.Style, Listing.Street_Number, Listing.Street_Name, 
+          Listing.LastChangeType, Listing.Style, Listing.Unit AS Unit, Listing.Street_Number, Listing.Street_Name, 
           Listing.Street_Type, Listing.Neighbourhood, Listing.City_or_Town_Name, 
           Listing.Public_Remarks, Listing.Total_FloorLiv_Area_SF, Listing.Number_of_Total_Baths, 
           Listing.Total_Bedrooms, Listing.CurrentPrice, Listing.Total_FloorLiv_Area_SF, 
@@ -305,7 +317,7 @@ class ListingS_model extends CI_Model {
         UNION
         
         SELECT "rur" AS class, Listing.Matrix_Unique_ID, Listing.LastChangeTypeDate, Listing.Display_Addrs_on_Pub_Web_Sites,
-          Listing.LastChangeType, Listing.Style, Listing.Street_Number, Listing.Street_Name, 
+          Listing.LastChangeType, Listing.Style, "" AS Unit, Listing.Street_Number, Listing.Street_Name, 
           Listing.Street_Type, Listing.Neighbourhood, Listing.City_or_Town_Name, 
           Listing.Public_Remarks, Listing.Total_FloorLiv_Area_SF, Listing.Number_of_Total_Baths, 
           Listing.Total_Bedrooms, Listing.CurrentPrice, Listing.Total_FloorLiv_Area_SF, 
@@ -348,7 +360,7 @@ class ListingS_model extends CI_Model {
   
     $sql = '
         SELECT "res" AS class, Listing.Matrix_Unique_ID, Listing.LastChangeTypeDate, Listing.Display_Addrs_on_Pub_Web_Sites,
-          Listing.LastChangeType, Listing.Style, Listing.Street_Number, Listing.Street_Name, 
+          Listing.LastChangeType, Listing.Style, "" AS Unit, Listing.Street_Number, Listing.Street_Name, 
           Listing.Street_Type, Listing.Neighbourhood, Listing.City_or_Town_Name, 
           Listing.Public_Remarks, Listing.Total_FloorLiv_Area_SF, Listing.Number_of_Total_Baths, 
           Listing.Total_Bedrooms, Listing.CurrentPrice, Listing.Total_FloorLiv_Area_SF, 
@@ -383,7 +395,7 @@ class ListingS_model extends CI_Model {
         UNION
         
         SELECT "con" AS class, Listing.Matrix_Unique_ID, Listing.LastChangeTypeDate, Listing.Display_Addrs_on_Pub_Web_Sites,
-          Listing.LastChangeType, Listing.Style, Listing.Street_Number, Listing.Street_Name, 
+          Listing.LastChangeType, Listing.Style, Listing.Unit AS Unit, Listing.Street_Number, Listing.Street_Name, 
           Listing.Street_Type, Listing.Neighbourhood, Listing.City_or_Town_Name, 
           Listing.Public_Remarks, Listing.Total_FloorLiv_Area_SF, Listing.Number_of_Total_Baths, 
           Listing.Total_Bedrooms, Listing.CurrentPrice, Listing.Total_FloorLiv_Area_SF, 
@@ -418,7 +430,7 @@ class ListingS_model extends CI_Model {
         UNION
         
         SELECT "rur" AS class, Listing.Matrix_Unique_ID, Listing.LastChangeTypeDate, Listing.Display_Addrs_on_Pub_Web_Sites,
-          Listing.LastChangeType, Listing.Style, Listing.Street_Number, Listing.Street_Name, 
+          Listing.LastChangeType, Listing.Style, "" AS Unit, Listing.Street_Number, Listing.Street_Name, 
           Listing.Street_Type, Listing.Neighbourhood, Listing.City_or_Town_Name, 
           Listing.Public_Remarks, Listing.Total_FloorLiv_Area_SF, Listing.Number_of_Total_Baths, 
           Listing.Total_Bedrooms, Listing.CurrentPrice, Listing.Total_FloorLiv_Area_SF, 
@@ -468,7 +480,19 @@ class ListingS_model extends CI_Model {
   
     $sql = '
         SELECT "'.$type.'" AS class, Listing.Matrix_Unique_ID, Listing.LastChangeTypeDate, Listing.Display_Addrs_on_Pub_Web_Sites,
-          Listing.LastChangeType, Listing.Style, Listing.Street_Number, Listing.Street_Name, 
+          Listing.LastChangeType, Listing.Style, ';
+
+    if ($type === 'con')
+    {
+      $sql .= 'Listing.Unit AS Unit, ';
+    }
+    else
+    {
+      $sql .= '"" AS Unit, ';
+    }
+        
+    $sql .= '             
+          Listing.Street_Number, Listing.Street_Name, 
           Listing.Street_Type, Listing.Neighbourhood, Listing.City_or_Town_Name, 
           Listing.Public_Remarks, Listing.Total_FloorLiv_Area_SF, Listing.Number_of_Total_Baths, 
           Listing.Total_Bedrooms, Listing.CurrentPrice, Listing.Total_FloorLiv_Area_SF, 
@@ -545,7 +569,7 @@ class ListingS_model extends CI_Model {
   
     $sql = '
         SELECT "con" AS class, Listing.Matrix_Unique_ID, Listing.LastChangeTypeDate, Listing.Display_Addrs_on_Pub_Web_Sites,
-          Listing.LastChangeType, Listing.Style, Listing.Street_Number, Listing.Street_Name, 
+          Listing.LastChangeType, Listing.Style, Listing.Unit AS Unit, Listing.Street_Number, Listing.Street_Name, 
           Listing.Street_Type, Listing.Neighbourhood, Listing.City_or_Town_Name, 
           Listing.Public_Remarks, Listing.Total_FloorLiv_Area_SF, Listing.Number_of_Total_Baths, 
           Listing.Total_Bedrooms, Listing.CurrentPrice, Listing.Total_FloorLiv_Area_SF, 
@@ -588,7 +612,7 @@ class ListingS_model extends CI_Model {
   {
     $sql = '
         SELECT "res" AS class, Listing.Matrix_Unique_ID, Listing.LastChangeTypeDate, Listing.Display_Addrs_on_Pub_Web_Sites,
-          Listing.LastChangeType, Listing.Style, Listing.Street_Number, Listing.Street_Name, 
+          Listing.LastChangeType, Listing.Style, "" AS Unit, Listing.Street_Number, Listing.Street_Name, 
           Listing.Street_Type, Listing.Neighbourhood, Listing.City_or_Town_Name, 
           Listing.Public_Remarks, Listing.Total_FloorLiv_Area_SF, Listing.Number_of_Total_Baths, 
           Listing.Total_Bedrooms, Listing.CurrentPrice, Listing.Total_FloorLiv_Area_SF, 
@@ -622,7 +646,7 @@ class ListingS_model extends CI_Model {
         UNION
         
         SELECT "con" AS class, Listing.Matrix_Unique_ID, Listing.LastChangeTypeDate, Listing.Display_Addrs_on_Pub_Web_Sites,
-          Listing.LastChangeType, Listing.Style, Listing.Street_Number, Listing.Street_Name, 
+          Listing.LastChangeType, Listing.Style, Listing.Unit AS Unit, Listing.Street_Number, Listing.Street_Name, 
           Listing.Street_Type, Listing.Neighbourhood, Listing.City_or_Town_Name, 
           Listing.Public_Remarks, Listing.Total_FloorLiv_Area_SF, Listing.Number_of_Total_Baths, 
           Listing.Total_Bedrooms, Listing.CurrentPrice, Listing.Total_FloorLiv_Area_SF, 
@@ -656,7 +680,7 @@ class ListingS_model extends CI_Model {
         UNION
         
         SELECT "rur" AS class, Listing.Matrix_Unique_ID, Listing.LastChangeTypeDate, Listing.Display_Addrs_on_Pub_Web_Sites,
-          Listing.LastChangeType, Listing.Style, Listing.Street_Number, Listing.Street_Name, 
+          Listing.LastChangeType, Listing.Style, "" AS Unit, Listing.Street_Number, Listing.Street_Name, 
           Listing.Street_Type, Listing.Neighbourhood, Listing.City_or_Town_Name, 
           Listing.Public_Remarks, Listing.Total_FloorLiv_Area_SF, Listing.Number_of_Total_Baths, 
           Listing.Total_Bedrooms, Listing.CurrentPrice, Listing.Total_FloorLiv_Area_SF, 
