@@ -16,9 +16,9 @@
                     <?php
                         $address = $property['Street_Number'].' '.ucwords(strtolower($property['Street_Name'])).' '.ucfirst(strtolower($property['Street_Type']));
                         
-                        if ((isset($property['Unit'])) && ($property['Unit'] !== ''))
+                        if ($property['Suite_Number'] !== '')
                         {
-                          $address = $property['Unit'].' - '.$address;
+                          $address = $property['Suite_Number'].' - '.$address;
                         }
                       ?>
 							    <span id="civic_address"><?php echo $address; ?></span>

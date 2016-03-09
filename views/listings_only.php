@@ -24,9 +24,9 @@
           <?php
             $address = $listing['Street_Number'].' '.ucwords(strtolower($listing['Street_Name'])).' '.ucfirst(strtolower($listing['Street_Type'])).' - '.$listing['Neighbourhood'].', '.ucwords(strtolower($listing['City_or_Town_Name']));
             
-            if ($listing['Unit'] !== '')
+            if ($listing['Suite_Number'] !== '')
             {
-              $address = $listing['Unit'].' - '.$address;
+              $address = $listing['Suite_Number'].' - '.$address;
             }
           ?>
         <?php echo anchor($types[$listing['class']]['path'].'/'.$listing['Matrix_Unique_ID'], $address, array('class' => $listing['class'])); ?>
