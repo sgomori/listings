@@ -21,24 +21,29 @@
 
                   </div>
                   
-                    <div class="listings-nav">
-                      <ul>
-                        <li><a href="<?php echo base_url(); ?>"<?php echo $types['all']['active']; ?>>All Properties</a></li>
-                        <li><a href="<?php echo base_url(); ?>homes"<?php echo $types['res']['active']; ?>>Homes</a></li>
-                        <li><a href="<?php echo base_url(); ?>condos"<?php echo $types['con']['active']; ?>>Condos</a></li>
-                        <li><a href="<?php echo base_url(); ?>rural"<?php echo $types['rur']['active']; ?>>Rural/Farms</a></li>
-                        <li><a href="<?php echo base_url(); ?>sold"<?php echo $types['sold']['active']; ?>>Recently Sold</a></li>
-                        <li><a href="<?php echo base_url(); ?>open-houses"<?php echo $types['open-houses']['active']; ?>>Open Houses</a></li>		  
-                      </ul>
-                    </div>  
+                  <div class="listings-nav">
+                    <ul>
+                      <li><a href="<?php echo base_url(); ?>"<?php echo $types['all']['active']; ?>>All Properties</a></li>
+                      <li><a href="<?php echo base_url(); ?>homes"<?php echo $types['res']['active']; ?>>Homes</a></li>
+                      <li><a href="<?php echo base_url(); ?>condos"<?php echo $types['con']['active']; ?>>Condos</a></li>
+                      <li><a href="<?php echo base_url(); ?>rural"<?php echo $types['rur']['active']; ?>>Rural/Farms</a></li>
+                      <li><a href="<?php echo base_url(); ?>sold"<?php echo $types['sold']['active']; ?>>Recently Sold</a></li>
+                      <li><a href="<?php echo base_url(); ?>open-houses"<?php echo $types['open-houses']['active']; ?>>Open Houses</a></li>
+                      <!--<li><a href="<?php echo base_url(); ?>map"<?php echo $types['map']['active']; ?>>Map</a></li>-->	  
+                    </ul>
+                  </div>  
                   <!-- END PROPERTIES HEADER -->
+                  
+                  <?php if ($map): ?>
+                  <div id="listings-map"></div>
+                  <?php endif; ?>
 
                   <!-- START PROPERTIES CONTENT -->
-                  <div class="properties-content">
+                  <div class="properties-content<?php if ($map): ?> map<?php endif; ?>">
                   
                   <?php foreach ($listings as $listing) : ?>
                   
-                    <article class="hentry">
+                    <article class="hentry" id="id_<?php echo $listing['Matrix_Unique_ID']; ?>">
                       <div class="property-featured">
                         <?php if (file_exists(FCPATH.'assets/images/properties/image-'.$listing['Matrix_Unique_ID'].'-0.jpg')): ?>
                         <?php echo anchor($types[$listing['class']]['path'].'/'.$listing['Matrix_Unique_ID'], '<img src="'.$assets_path.'images/properties/image-'.$listing['Matrix_Unique_ID'].'-0.jpg" alt="">', array('class' => 'content-thumb')); ?>

@@ -62,6 +62,7 @@ $route['sold'] = 'listings/index/sold';
 $route['homes\/(\d+)'] = 'listings/property/res/$1';
 $route['condos\/(\d+)'] = 'listings/property/con/$1';
 $route['rural\/(\d+)'] = 'listings/property/rur/$1';
+$route['map'] = 'listings/map';
 
 $route['search'] = 'listings/search';
 

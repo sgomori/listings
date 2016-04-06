@@ -22,13 +22,14 @@ class ListingS_model extends CI_Model {
     $sql = '
         SELECT "res" AS class, Listing.Matrix_Unique_ID, Listing.LastChangeTypeDate, Listing.Display_Addrs_on_Pub_Web_Sites,
           Listing.LastChangeType, Listing.Style, Listing.Suite_Number, Listing.Street_Number, Listing.Street_Name, 
-          Listing.Street_Type, Listing.Neighbourhood, Listing.City_or_Town_Name, 
+          Listing.Street_Type, Listing.Neighbourhood, Listing.City_or_Town_Name, Listing.Postal_Code,
           Listing.Public_Remarks, Listing.Total_FloorLiv_Area_SF, Listing.Number_of_Total_Baths, 
           Listing.Total_Bedrooms, Listing.CurrentPrice, Listing.Total_FloorLiv_Area_SF, 
           Listing.Number_of_Total_Baths, Listing.Total_Bedrooms, Listing.Date_Entered, 
           Listing.Status, Listing.Sold_Date, Listing.Last_Transaction_Date, Open_House_Date_NUM1, Agent_1.First_Name AS Agent_1_First_Name, 
           Agent_1.Last_Name AS Agent_1_Last_Name, Agent_2.First_Name AS Agent_2_First_Name, 
-          Agent_2.Last_Name AS Agent_2_Last_Name 
+          Agent_2.Last_Name AS Agent_2_Last_Name,
+          Listing.Lat, Listing.Lon
         FROM
         wpg_rets_property_res Listing
         LEFT JOIN wpg_rets_openhouse_openhouse ON Listing.Matrix_Unique_ID = wpg_rets_openhouse_openhouse.Listing_MUI 
@@ -44,13 +45,14 @@ class ListingS_model extends CI_Model {
         
         SELECT "con" AS class, Listing.Matrix_Unique_ID, Listing.LastChangeTypeDate, Listing.Display_Addrs_on_Pub_Web_Sites,
           Listing.LastChangeType, Listing.Style, Listing.Suite_Number, Listing.Street_Number, Listing.Street_Name, 
-          Listing.Street_Type, Listing.Neighbourhood, Listing.City_or_Town_Name, 
+          Listing.Street_Type, Listing.Neighbourhood, Listing.City_or_Town_Name, Listing.Postal_Code,
           Listing.Public_Remarks, Listing.Total_FloorLiv_Area_SF, Listing.Number_of_Total_Baths, 
           Listing.Total_Bedrooms, Listing.CurrentPrice, Listing.Total_FloorLiv_Area_SF, 
           Listing.Number_of_Total_Baths, Listing.Total_Bedrooms, Listing.Date_Entered, 
           Listing.Status, Listing.Sold_Date, Listing.Last_Transaction_Date, Open_House_Date_NUM1, Agent_1.First_Name AS Agent_1_First_Name, 
           Agent_1.Last_Name AS Agent_1_Last_Name, Agent_2.First_Name AS Agent_2_First_Name, 
-          Agent_2.Last_Name AS Agent_2_Last_Name 
+          Agent_2.Last_Name AS Agent_2_Last_Name,
+          Listing.Lat, Listing.Lon
         FROM
         wpg_rets_property_con Listing
         LEFT JOIN wpg_rets_openhouse_openhouse ON Listing.Matrix_Unique_ID = wpg_rets_openhouse_openhouse.Listing_MUI 
@@ -66,13 +68,14 @@ class ListingS_model extends CI_Model {
         
         SELECT "rur" AS class, Listing.Matrix_Unique_ID, Listing.LastChangeTypeDate, Listing.Display_Addrs_on_Pub_Web_Sites,
           Listing.LastChangeType, Listing.Style, Listing.Suite_Number, Listing.Street_Number, Listing.Street_Name, 
-          Listing.Street_Type, Listing.Neighbourhood, Listing.City_or_Town_Name, 
+          Listing.Street_Type, Listing.Neighbourhood, Listing.City_or_Town_Name, Listing.Postal_Code,
           Listing.Public_Remarks, Listing.Total_FloorLiv_Area_SF, Listing.Number_of_Total_Baths, 
           Listing.Total_Bedrooms, Listing.CurrentPrice, Listing.Total_FloorLiv_Area_SF, 
           Listing.Number_of_Total_Baths, Listing.Total_Bedrooms, Listing.Date_Entered, 
           Listing.Status, Listing.Sold_Date, Listing.Last_Transaction_Date, Open_House_Date_NUM1, Agent_1.First_Name AS Agent_1_First_Name, 
           Agent_1.Last_Name AS Agent_1_Last_Name, Agent_2.First_Name AS Agent_2_First_Name, 
-          Agent_2.Last_Name AS Agent_2_Last_Name 
+          Agent_2.Last_Name AS Agent_2_Last_Name,
+          Listing.Lat, Listing.Lon
         FROM
         wpg_rets_property_rur Listing
         LEFT JOIN wpg_rets_openhouse_openhouse ON Listing.Matrix_Unique_ID = wpg_rets_openhouse_openhouse.Listing_MUI 
@@ -367,9 +370,7 @@ class ListingS_model extends CI_Model {
         Listing.Expiry_Date >= NOW()
         AND
         (
-          Sold_Date > NOW()
-          OR
-          Sold_Date = "0000-00-00 00:00:00"
+          Status LIKE "Active"
         )
         AND
         (
@@ -402,9 +403,7 @@ class ListingS_model extends CI_Model {
         Listing.Expiry_Date >= NOW()
         AND
         (
-          Sold_Date > NOW()
-          OR
-          Sold_Date = "0000-00-00 00:00:00"
+          Status LIKE "Active"
         )
         AND
         (
@@ -437,9 +436,7 @@ class ListingS_model extends CI_Model {
         Listing.Expiry_Date >= NOW()
         AND
         (
-          Sold_Date > NOW()
-          OR
-          Sold_Date = "0000-00-00 00:00:00"
+          Status LIKE "Active"
         )
         AND
         (
@@ -487,9 +484,7 @@ class ListingS_model extends CI_Model {
         Listing.Expiry_Date >= NOW()
         AND
         (
-          Sold_Date > NOW()
-          OR
-          Sold_Date = "0000-00-00 00:00:00"
+          Status LIKE "Active"
         )
         AND
         (
@@ -613,9 +608,7 @@ class ListingS_model extends CI_Model {
         )
         AND
         (
-          Sold_Date > NOW()
-          OR
-          Sold_Date = "0000-00-00 00:00:00"
+          Status LIKE "Active"
         )
         GROUP BY Listing.Matrix_Unique_ID
               
@@ -647,9 +640,7 @@ class ListingS_model extends CI_Model {
         )
         AND
         (
-          Sold_Date > NOW()
-          OR
-          Sold_Date = "0000-00-00 00:00:00"
+          Status LIKE "Active"
         )
         GROUP BY Listing.Matrix_Unique_ID
               
@@ -681,9 +672,7 @@ class ListingS_model extends CI_Model {
         )
         AND
         (
-          Sold_Date > NOW()
-          OR
-          Sold_Date = "0000-00-00 00:00:00"
+          Status LIKE "Active"
         )
 
         GROUP BY Listing.Matrix_Unique_ID      
@@ -817,6 +806,21 @@ class ListingS_model extends CI_Model {
     $this->db->trans_complete();
     
     return $this->db->trans_status();
+	}
+	
+	
+	public function set_coordinates($class, $matrix_unique_id, $lat, $lon)
+	{
+    
+    $sql = '
+        UPDATE wpg_rets_property_'.$class.'
+        SET
+          Lat = "'.$lat.'",
+          Lon = "'.$lon.'"
+        WHERE Matrix_Unique_ID = '.$matrix_unique_id;
+    
+    $this->db->query($sql);
+    
 	}
 }
 

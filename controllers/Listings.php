@@ -10,6 +10,7 @@ class Listings extends CI_Controller {
 		$this->data['content'] = '';
 		$this->data['assets_path'] = assets_url();
 		$this->data['header_variant'] = 'main';
+		$this->data['map'] = FALSE;
 		$this->data['title'] = 'Listings | An Experience Worth Repeating';
 		$this->data['description'] = 'Winnipeg Real Estate Listings by Blair Sonnichsen and Tyson Sonnichsen';
 		$this->data['og_image'] = base_url('assets/images/WH-OG.jpg');
@@ -25,7 +26,8 @@ class Listings extends CI_Controller {
             'con' => array('title' => 'Condo', 'active' => '', 'path' => 'condos'),
             'rur' => array('title' => 'Rural/Farm', 'active' => '', 'path' => 'rural'),
             'open-houses' => array('title' => 'Open HOuses', 'active' => '', 'path' => 'open-houses'),
-            'sold' => array('title' => 'Recently Sold', 'active' => '', 'path' => 'sold')
+            'sold' => array('title' => 'Recently Sold', 'active' => '', 'path' => 'sold'),
+            'map' => array('title' => 'Listings Map', 'active' => '', 'path' => 'map')
             );
 
     date_default_timezone_set('America/Winnipeg');
@@ -114,7 +116,66 @@ class Listings extends CI_Controller {
     
     $this->load->view('standard_page', $this->data);
 	}
-	
+
+
+	public function map()
+	{
+    $where = '
+      AND
+      (
+        Status LIKE "Active"
+      )
+    ';
+    
+    $query = $this->Listings_model->get_all_listings($where);
+
+		$this->data['title'] = 'Listings Map | Winnipeg Homes for Sale';
+		$this->data['description'] = 'Winnipeg Homes for Sale by Blair Sonnichsen and Tyson Sonnichsen';      
+    $this->types['map']['active'] = ' class="active"';
+    $this->data['h1'] = 'Our Properties on the Map';
+    
+    $listings = array();
+    $listings_coords = array();
+    
+    foreach ($query->result_array() as $listing)
+    {
+      $lat = $listing['Lat'];
+      $lon = $listing['Lon'];
+      
+      if (($lat == '') || ($lon == ''))
+      {
+        $street = trim($listing['Street_Number']).'+'.str_replace(' ', '+', trim($listing['Street_Name'])).'+'.str_replace(' ', '+', trim($listing['Street_Type']));
+        $city = str_replace(' ', '+', $listing['City_or_Town_Name']);
+        
+        $address = $street.','.$city.',Manitoba';
+        $lat_lon = $this->_set_coordinates($listing['class'], $listing['Matrix_Unique_ID'], $address);
+        
+        $lat = $lat_lon['lat'];
+        $lon = $lat_lon['lon'];
+      }
+      
+      $listings[] = $listing;
+      
+      $listings_coords[] = array(
+                            'matrix_unique_id' => $listing['Matrix_Unique_ID'],
+                            'lat' => $lat,
+                            'lon' => $lon
+                            );
+    }
+    
+    $this->data['listings'] = $listings;
+    $this->data['listings_coords_json'] = json_encode($listings_coords);
+    
+    $this->data['type'] = FALSE;
+    $this->data['types'] = $this->types;
+    $this->data['map'] = TRUE;
+            
+    $this->_generate_template();
+    $this->data['content'] = $this->load->view('standard_listing', $this->data, TRUE);
+    
+    $this->load->view('standard_page', $this->data);
+	}
+  	
 
 	public function property($class, $matrix_unique_id)
 	{    
@@ -311,9 +372,7 @@ class Listings extends CI_Controller {
     $where = '
       AND
       (
-        Sold_Date > NOW()
-        OR
-        Sold_Date = "0000-00-00 00:00:00"
+        Status LIKE "Active"
       )
     ';
     
@@ -412,9 +471,7 @@ class Listings extends CI_Controller {
     $where = '
       AND
       (
-        Sold_Date > NOW()
-        OR
-        Sold_Date = "0000-00-00 00:00:00"
+        Status LIKE "Active"
       )
     ';
         
@@ -435,5 +492,28 @@ class Listings extends CI_Controller {
     $this->data['pages'] = $pages;
     $this->output->set_content_type('text/xml');
 	  $this->load->view('xml_sitemap', $this->data);
+	}
+	
+	
+	private function _set_coordinates($class, $matrix_unique_id, $address)
+	{
+    $json_location = 'https://maps.googleapis.com/maps/api/geocode/json?address='.$address.'&key=AIzaSyCobf10IDhEOEPJsT_ImoVc1sN-qU-Xbpo&sensor=false';
+  
+    $json = json_decode(file_get_contents($json_location));
+    
+    if (isset($json->results[0]))
+    {
+      $lat = $json->results[0]->geometry->location->lat;
+      $lon = $json->results[0]->geometry->location->lng;
+      
+      $this->Listings_model->set_coordinates($class, $matrix_unique_id, $lat, $lon);
+    }
+    else
+    {
+      $lat = '';
+      $lon = '';    
+    }    
+    
+    return array('lat' => $lat, 'lon' => $lon);
 	}
 }

@@ -322,7 +322,7 @@
 							      </table>
 							    </div>
 							  </div>
-							  
+
 							  <div class="property-map">
 							    <h4 class="property-map-title">Find this property on map</h4>
 							    <div class="property-map-content">
@@ -330,7 +330,7 @@
                       <iframe
                         height="230"
                         frameborder="0" style="border:0"
-                        src="https://www.google.com/maps/embed/v1/place?q=<?php echo $property['Street_Number']; ?>+<?php echo $property['Street_Name']; ?>+<?php echo $property['Street_Type']; ?>,+<?php echo $property['City_or_Town_Name']; ?>, Manitoba Canada&key=AIzaSyB0-zo6l2gAtUQ4UjGQBH3OH42T8f8nXow">
+                        src="https://www.google.com/maps/embed/v1/place?q=<?php echo trim($property['Street_Number']); ?>+<?php echo trim($property['Street_Name']); ?>+<?php echo str_replace(' ', '+', trim($property['Street_Type'])); ?>,<?php echo str_replace(' ', '+', $property['City_or_Town_Name']); ?>,Manitoba+Canada&key=AIzaSyCobf10IDhEOEPJsT_ImoVc1sN-qU-Xbpo">
                       </iframe>
                     </div>
 									</div>

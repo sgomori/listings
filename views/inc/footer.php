@@ -61,7 +61,7 @@
   <script type="text/javascript" src="<?php echo $assets_path; ?>script/jquery.touchSwipe.min.js"></script>
   <script type="text/javascript" src="<?php echo $assets_path; ?>script/imagesloaded.pkgd.min.js"></script>
   <script type="text/javascript" src="<?php echo $assets_path; ?>script/jquery.nouislider.all.min.js"></script>
-  <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCobf10IDhEOEPJsT_ImoVc1sN-qU-Xbpo&sensor=false"></script>
   <script type="text/javascript" src="<?php echo $assets_path; ?>script/infobox.js"></script>
 
   <!-- THEME SCRIPT -->
@@ -69,6 +69,13 @@
   <script type="text/javascript" src="<?php echo $assets_path; ?>script/numeral.min.js"></script>
   <script type="text/javascript" src="<?php echo $assets_path; ?>script/jquery.flexslider-min.js"></script>
   <script type="text/javascript" src="<?php echo $assets_path; ?>script/wpg-homes.js"></script>
+  
+  <?php if ($map): ?>
+  <script>
+    var listings_coords = <?php echo $listings_coords_json; ?>
+  </script>
+  <script src="<?php echo $assets_path; ?>script/listings-map.js"></script>
+  <?php endif; ?>
 
 </body>
 
