@@ -25,7 +25,7 @@ class Admin extends CI_Controller {
 	
 	public function index()
 	{
-	  redirect('/admin/manage-pending');
+	  $this->load->view('admin/admin_dashboard');
 	}
 
 
@@ -47,6 +47,57 @@ class Admin extends CI_Controller {
 	  }
 	  
 	  $result = ($this->Listings_model->set_properties_to_sold($this->input->post('matrix_unique_ids')) ? 1 : 0);
+	  
+	  echo $result;
+	}
+	
+	
+	public function properties()
+	{
+    $where = '
+      AND
+      (
+        Listing.Sales_Rep_MUI_1 IN (564206, 16212643)
+        OR
+        Listing.Sales_Rep_MUI_2 IN (564206, 16212643)
+      )    
+    ';
+    
+    $query = $this->Listings_model->get_all_listings($where);
+    
+    $this->data['listings'] = $query->result_array();
+    
+    $this->load->view('admin/admin_properties', $this->data); 
+	}
+	
+
+	public function set_map($class, $matrix_unique_id)
+	{    
+    $property = $this->Listings_model->get_property_detail($class, $matrix_unique_id)->result_array();
+    
+    $this->data['property'] = $property[0];
+    $this->data['class'] = $class;
+    
+    $this->load->view('admin/set_map', $this->data); 
+    
+  }
+  
+  
+	public function update_map_marker()
+	{
+	  if (!$this->input->is_ajax_request())
+	  {
+	    return;
+	  }
+	  
+	  $data = array(
+              'matrix_unique_id' => $this->input->post('matrix_unique_id'),
+              'class' => $this->input->post('type'),
+              'lat' => $this->input->post('lat'),
+              'lon' => $this->input->post('lon') 
+	           );
+	  
+	  $result = ($this->Listings_model->update_map_marker($data) ? 1 : 0);
 	  
 	  echo $result;
 	}

@@ -822,6 +822,24 @@ class ListingS_model extends CI_Model {
     $this->db->query($sql);
     
 	}
+	
+	
+	public function update_map_marker($data)
+	{
+    $sql = '
+        UPDATE wpg_rets_property_'.$data['class'].'
+        SET
+          Lat = "'.$data['lat'].'",
+          Lon = "'.$data['lon'].'"
+        WHERE Matrix_Unique_ID = '.$data['matrix_unique_id'];
+    
+    if ($query = $this->db->query($sql));
+    {
+      return 1;
+    }
+    
+    return 0;
+	}
 }
 
 /* End of file Listing_model.php */
