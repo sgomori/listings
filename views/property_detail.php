@@ -381,7 +381,7 @@
 							          <textarea name="message" class="form-control" placeholder="Message *"></textarea>
 							        </div>
 							        <div class="form-action">
-							          <button type="submit" class="btn btn-default send-message" data-email="Blair@WinnipegHomes.com">Send a Message</button>
+							          <button type="submit" class="btn btn-default send-message" data-email="Blair@WinnipegHomes.com" data-cc="Tyson@WinnipegHomes.com">Send a Message</button>
 							        </div>
 							      </form>
 							    </div>
@@ -425,7 +425,7 @@
 							          <textarea name="message" class="form-control" placeholder="Message *"></textarea>
 							        </div>
 							        <div class="form-action">
-							          <button type="submit" class="btn btn-default send-message" data-email="Tyson@WinnipegHomes.com">Send a Message</button>
+							          <button type="submit" class="btn btn-default send-message" data-email="Tyson@WinnipegHomes.com" data-cc="Blair@WinnipegHomes.com">Send a Message</button>
 							        </div>
 							      </form>
 							    </div>

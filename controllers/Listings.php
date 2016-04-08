@@ -428,11 +428,13 @@ class Listings extends CI_Controller {
 	  $email = $this->input->post('email');
 	  $message = $this->input->post('message');
 	  $send_to = $this->input->post('send_to');
+	  $cc = $this->input->post('cc');
 	  $ml_number = $this->input->post('ml_number'); 
 	  $civic_address = $this->input->post('civic_address'); 
     
     $this->email->from($email, $name);
     $this->email->to($send_to);
+    $this->email->cc($cc);
     
     $this->email->subject('Contact Form Submission Re: '.$civic_address.', MLS #: '.$ml_number);
     $this->email->message($message);
