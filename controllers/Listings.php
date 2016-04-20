@@ -11,6 +11,7 @@ class Listings extends CI_Controller {
 		$this->data['assets_path'] = assets_url();
 		$this->data['header_variant'] = 'main';
 		$this->data['map'] = FALSE;
+		$this->data['property_detail'] = FALSE;
 		$this->data['title'] = 'Listings | An Experience Worth Repeating';
 		$this->data['description'] = 'Winnipeg Real Estate Listings by Blair Sonnichsen and Tyson Sonnichsen';
 		$this->data['og_image'] = base_url('assets/images/WH-OG.jpg');
@@ -268,6 +269,18 @@ class Listings extends CI_Controller {
     {
       $flooring = FALSE;
     }
+    
+    if (($this->data['property']['Lat'] == '') || ($this->data['property']['Lon'] == ''))
+    {
+      $street = trim($this->data['property']['Street_Number']).'+'.str_replace(' ', '+', trim($this->data['property']['Street_Name'])).'+'.str_replace(' ', '+', trim($this->data['property']['Street_Type']));
+      $city = str_replace(' ', '+', $this->data['property']['City_or_Town_Name']);
+      
+      $address = $street.','.$city.',Manitoba';
+      $lat_lon = $this->_set_coordinates($class, $this->data['property']['Matrix_Unique_ID'], $address);
+      
+      $this->data['property']['Lat'] = $lat_lon['lat'];
+      $this->data['property']['Lon'] = $lat_lon['lon'];
+    }
 
     $this->data['property_images'] = $property_images;
     $this->data['features'] = $features;
@@ -292,6 +305,7 @@ class Listings extends CI_Controller {
 		}
 
     $this->data['header_variant'] = $class;
+    $this->data['property_detail'] = TRUE;
     $this->_generate_template();
     $this->data['content'] = $this->load->view('property_detail', $this->data, TRUE);
                 

@@ -29,7 +29,7 @@
                       <li><a href="<?php echo base_url(); ?>rural"<?php echo $types['rur']['active']; ?>>Rural/Farms</a></li>
                       <li><a href="<?php echo base_url(); ?>sold"<?php echo $types['sold']['active']; ?>>Recently Sold</a></li>
                       <li><a href="<?php echo base_url(); ?>open-houses"<?php echo $types['open-houses']['active']; ?>>Open Houses</a></li>
-                      <!--<li><a href="<?php echo base_url(); ?>map"<?php echo $types['map']['active']; ?>>Map</a></li>-->	  
+                      <li><a href="<?php echo base_url(); ?>map"<?php echo $types['map']['active']; ?>>Map</a></li>  
                     </ul>
                   </div>  
                   <!-- END PROPERTIES HEADER -->

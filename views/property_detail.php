@@ -326,12 +326,7 @@
 							  <div class="property-map">
 							    <h4 class="property-map-title">Find this property on map</h4>
 							    <div class="property-map-content">
-										<div class="property-map-box">
-                      <iframe
-                        height="230"
-                        frameborder="0" style="border:0"
-                        src="https://www.google.com/maps/embed/v1/place?q=<?php echo trim($property['Street_Number']); ?>+<?php echo trim($property['Street_Name']); ?>+<?php echo str_replace(' ', '+', trim($property['Street_Type'])); ?>,<?php echo str_replace(' ', '+', $property['City_or_Town_Name']); ?>,Manitoba+Canada&key=AIzaSyCobf10IDhEOEPJsT_ImoVc1sN-qU-Xbpo">
-                      </iframe>
+										<div id="google-property-map" class="property-map-box">
                     </div>
 									</div>
 							  </div>

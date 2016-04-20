@@ -72,9 +72,15 @@
   
   <?php if ($map): ?>
   <script>
-    var listings_coords = <?php echo $listings_coords_json; ?>
+    var listings_coords = <?php echo $listings_coords_json; ?>;
   </script>
   <script src="<?php echo $assets_path; ?>script/listings-map.js"></script>
+  <?php elseif ($property_detail): ?>
+  <script>
+    var lat = <?php echo $property['Lat']; ?>;
+    var lon = <?php echo $property['Lon']; ?>;
+  </script>
+  <script src="<?php echo $assets_path; ?>script/property-map.js"></script>
   <?php endif; ?>
 
 </body>
