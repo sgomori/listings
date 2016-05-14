@@ -11,7 +11,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <meta property="og:title" content="Winnipeg Homes - <?php echo $title; ?>">
   <meta property="og:description" content="<?php echo $description; ?>">
   <meta property="og:site_name" content="Winnipeg Homes - Listings | An Experience Worth Repeating" />
-  <meta property="og:url" content="http://listings.winnipeghomes.com" />  
+  <meta property="og:url" content="<?php echo current_url(); ?>" />  
   <meta property="og:image" content="<?php echo $og_image; ?>" />
   <meta property="og:image:type" content="image/jpeg" />
   <meta property="og:image:width" content="<?php echo $og_width; ?>" />
