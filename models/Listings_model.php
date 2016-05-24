@@ -778,34 +778,42 @@ class ListingS_model extends CI_Model {
   }
   
   
-	public function set_properties_to_sold($matrix_unique_ids)
+	public function update_status_to_sold($class, $matrix_unique_id)
 	{
-    $this->db->trans_start();
     
     $sql = '
-        UPDATE wpg_rets_property_res
-        SET Status = "Sold"
-        WHERE Matrix_Unique_ID IN ('.implode(',', $matrix_unique_ids).')';
+        UPDATE wpg_rets_property_'.$class.'
+        SET
+          Status = "Sold",
+          Sold_Date = NOW(),
+          Status_Change_Date = NOW()
+        WHERE Matrix_Unique_ID = '.$matrix_unique_id;
     
-    $this->db->query($sql);
+    if ($query = $this->db->query($sql));
+    {
+      return 1;
+    }
+    
+    return 0;
+	}
+	
+	
+	public function update_status($class, $matrix_unique_id, $status)
+	{
     
     $sql = '
-        UPDATE wpg_rets_property_con
-        SET Status = "Sold"
-        WHERE Matrix_Unique_ID IN ('.implode(',', $matrix_unique_ids).')';
+        UPDATE wpg_rets_property_'.$class.'
+        SET
+          Status = "'.$status.'",
+          Sold_Date = "0000-00-00 00:00:00"
+        WHERE Matrix_Unique_ID = '.$matrix_unique_id;
     
-    $this->db->query($sql);
+    if ($query = $this->db->query($sql));
+    {
+      return 1;
+    }
     
-    $sql = '        
-        UPDATE wpg_rets_property_rur
-        SET Status = "Sold"
-        WHERE Matrix_Unique_ID IN ('.implode(',', $matrix_unique_ids).')';
-    
-    $this->db->query($sql);
-    
-    $this->db->trans_complete();
-    
-    return $this->db->trans_status();
+    return 0;
 	}
 	
 	

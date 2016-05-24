@@ -32,7 +32,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <body>
   <h1>Set Map: <?php echo $address; ?></h1>
   
-  <p><a href="/admin/properties">&lt;-- Back to properties list</a></p>
+  <p><a href="/admin">&lt;-- Back to properties list</a></p>
 
   <div>
     <button id="save-marker">Save Marker Position</button>

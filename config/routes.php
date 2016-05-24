@@ -72,5 +72,3 @@ $route['development\/([\w\-]+)'] = 'listings/development/$1';
 $route['latest\/(\d+)'] = 'listings/latest/$1';
 
 $route['sitemap\.xml'] = 'listings/xml_sitemap';
-
-$route['admin/manage-pending'] = 'admin/manage_pending';

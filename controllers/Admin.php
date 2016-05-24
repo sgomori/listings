@@ -25,35 +25,6 @@ class Admin extends CI_Controller {
 	
 	public function index()
 	{
-	  $this->load->view('admin/admin_dashboard');
-	}
-
-
-	public function manage_pending()
-	{
-    $query = $this->Listings_model->get_pending_listings();
-    
-    $this->data['listings'] = $query->result_array();
-        
-    $this->load->view('admin/admin_pending', $this->data);
-	}
-	
-	
-	public function set_as_sold()
-	{
-	  if (!$this->input->is_ajax_request())
-	  {
-	    return;
-	  }
-	  
-	  $result = ($this->Listings_model->set_properties_to_sold($this->input->post('matrix_unique_ids')) ? 1 : 0);
-	  
-	  echo $result;
-	}
-	
-	
-	public function properties()
-	{
     $where = '
       AND
       (
@@ -67,7 +38,31 @@ class Admin extends CI_Controller {
     
     $this->data['listings'] = $query->result_array();
     
-    $this->load->view('admin/admin_properties', $this->data); 
+    $this->load->view('admin/admin_dashboard', $this->data);
+	}
+	
+	
+	public function update_status()
+	{
+	  if (!$this->input->is_ajax_request())
+	  {
+	    return;
+	  }
+	  
+	  $matrix_unique_id = $this->input->post('matrix_unique_ids');
+	  $status = $this->input->post('status');
+	  $class = $this->input->post('type');
+	  
+	  if ($status === 'Sold')
+	  {
+	    $result = ($this->Listings_model->update_status_to_sold($class, $matrix_unique_id) ? 1 : 0);
+	  }
+	  else
+	  {
+      $result = ($this->Listings_model->update_status($class, $matrix_unique_id, $status) ? 1 : 0);
+	  }
+	  
+	  echo $result;
 	}
 	
 
