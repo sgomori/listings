@@ -126,6 +126,10 @@ class Listings extends CI_Controller {
       (
         Status LIKE "Active"
       )
+      AND
+      (
+        Active = 1
+      )
     ';
     
     $query = $this->Listings_model->get_all_listings($where);
@@ -388,6 +392,10 @@ class Listings extends CI_Controller {
       (
         Status LIKE "Active"
       )
+      AND
+      (
+        Active = 1
+      )
     ';
     
     $query = $this->Listings_model->get_all_listings($where);
@@ -488,6 +496,10 @@ class Listings extends CI_Controller {
       AND
       (
         Status LIKE "Active"
+      )
+      AND
+      (
+        Active = 1
       )
     ';
         
