@@ -187,7 +187,7 @@ class Listings extends CI_Controller {
     $property = $this->Listings_model->get_property_detail($class, $matrix_unique_id)->result_array();
     $this->data['room_data'] = $this->Listings_model->get_room_detail($matrix_unique_id)->result_array();
     
-    if (!isset($property[0]))
+    if ((!isset($property[0])) || (((int)$property[0]['Active'] === 0) && ($property[0]['Status'] !== 'Sold') && ($property[0]['Status'] !== 'Pending')))
     {
       header('HTTP/1.0 404 Not Found');
       
