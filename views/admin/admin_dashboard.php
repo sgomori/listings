@@ -37,6 +37,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               $(this).parents('.property').removeClass('Active');
               $(this).parents('.property').removeClass('Pending');
               $(this).parents('.property').removeClass('Sold');
+              $(this).parents('.property').removeClass('Inactive');
               
               $(this).parents('.property').addClass(data.status);
               
@@ -75,6 +76,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     .property.Sold {
       background-color: #ffcccc;
     }
+    
+    .property.Inactive {
+      background-color: #ddd;
+    }
   </style>
 </head>
 
@@ -91,6 +96,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       {
         $address = $listing['Suite_Number'].' - '.$address;
       }
+      
+      if (($listing['Status'] !== 'Sold') && ((int)$listing['Active'] === 0))
+      {
+        $listing['Status'] = 'Inactive';
+      }
     ?>
     
     <div class="property <?php echo $listing['Status']; ?>">
@@ -101,6 +111,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <option value="Active"<?php if ($listing['Status'] === 'Active'): ?> selected<?php endif; ?>>Active</option>
           <option value="Pending"<?php if ($listing['Status'] === 'Pending'): ?> selected<?php endif; ?>>Pending</option>
           <option value="Sold"<?php if ($listing['Status'] === 'Sold'): ?> selected<?php endif; ?>>Sold</option>
+          <option value="Inactive"<?php if ($listing['Status'] === 'Inactive'): ?> selected<?php endif; ?>>Inactive</option>
         </select>
       </div>
       <?php echo anchor('/admin/set_map/'.$listing['class'].'/'.$listing['Matrix_Unique_ID'], 'Position Map Marker'); ?>

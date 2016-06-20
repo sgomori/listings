@@ -29,7 +29,7 @@ class ListingS_model extends CI_Model {
           Listing.Status, Listing.Sold_Date, Listing.Last_Transaction_Date, Open_House_Date_NUM1, Agent_1.First_Name AS Agent_1_First_Name, 
           Agent_1.Last_Name AS Agent_1_Last_Name, Agent_2.First_Name AS Agent_2_First_Name, 
           Agent_2.Last_Name AS Agent_2_Last_Name,
-          Listing.Lat, Listing.Lon
+          Listing.Lat, Listing.Lon, Listing.Active
         FROM
         wpg_rets_property_res Listing
         LEFT JOIN wpg_rets_openhouse_openhouse ON Listing.Matrix_Unique_ID = wpg_rets_openhouse_openhouse.Listing_MUI 
@@ -52,7 +52,7 @@ class ListingS_model extends CI_Model {
           Listing.Status, Listing.Sold_Date, Listing.Last_Transaction_Date, Open_House_Date_NUM1, Agent_1.First_Name AS Agent_1_First_Name, 
           Agent_1.Last_Name AS Agent_1_Last_Name, Agent_2.First_Name AS Agent_2_First_Name, 
           Agent_2.Last_Name AS Agent_2_Last_Name,
-          Listing.Lat, Listing.Lon
+          Listing.Lat, Listing.Lon, Listing.Active
         FROM
         wpg_rets_property_con Listing
         LEFT JOIN wpg_rets_openhouse_openhouse ON Listing.Matrix_Unique_ID = wpg_rets_openhouse_openhouse.Listing_MUI 
@@ -75,7 +75,7 @@ class ListingS_model extends CI_Model {
           Listing.Status, Listing.Sold_Date, Listing.Last_Transaction_Date, Open_House_Date_NUM1, Agent_1.First_Name AS Agent_1_First_Name, 
           Agent_1.Last_Name AS Agent_1_Last_Name, Agent_2.First_Name AS Agent_2_First_Name, 
           Agent_2.Last_Name AS Agent_2_Last_Name,
-          Listing.Lat, Listing.Lon
+          Listing.Lat, Listing.Lon, Listing.Active
         FROM
         wpg_rets_property_rur Listing
         LEFT JOIN wpg_rets_openhouse_openhouse ON Listing.Matrix_Unique_ID = wpg_rets_openhouse_openhouse.Listing_MUI 
@@ -128,6 +128,12 @@ class ListingS_model extends CI_Model {
           OR
           Listing.Sales_Rep_MUI_2 IN (564206, 16212643)
         )
+        AND
+        (
+          Listing.Active = 1
+          OR
+          Listing.Status LIKE "Sold"
+        ) 
         GROUP BY Listing.Matrix_Unique_ID 
         ORDER BY Sold_Date ASC, Date_Entered DESC';
     
@@ -796,7 +802,26 @@ class ListingS_model extends CI_Model {
     
     return 0;
 	}
-	
+
+
+	public function update_status_to_inactive($class, $matrix_unique_id)
+	{
+    
+    $sql = '
+        UPDATE wpg_rets_property_'.$class.'
+        SET
+          Status = "Pending",
+          Active = 0
+        WHERE Matrix_Unique_ID = '.$matrix_unique_id;
+    
+    if ($query = $this->db->query($sql));
+    {
+      return 1;
+    }
+    
+    return 0;
+	}
+  	
 	
 	public function update_status($class, $matrix_unique_id, $status)
 	{
@@ -805,7 +830,8 @@ class ListingS_model extends CI_Model {
         UPDATE wpg_rets_property_'.$class.'
         SET
           Status = "'.$status.'",
-          Sold_Date = "0000-00-00 00:00:00"
+          Sold_Date = "0000-00-00 00:00:00",
+          Active = 1
         WHERE Matrix_Unique_ID = '.$matrix_unique_id;
     
     if ($query = $this->db->query($sql));

@@ -97,7 +97,13 @@ class Listings extends CI_Controller {
           Listing.Sales_Rep_MUI_1 IN (564206, 16212643)
           OR
           Listing.Sales_Rep_MUI_2 IN (564206, 16212643)
-        )    
+        )
+        AND
+        (
+          Listing.Active = 1
+          OR
+          Listing.Status LIKE "Sold"
+        ) 
       ';
       
       $query = $this->Listings_model->get_all_listings($where);

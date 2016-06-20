@@ -57,6 +57,10 @@ class Admin extends CI_Controller {
 	  {
 	    $result = ($this->Listings_model->update_status_to_sold($class, $matrix_unique_id) ? 1 : 0);
 	  }
+	  else if ($status === 'Inactive')
+	  {
+	    $result = ($this->Listings_model->update_status_to_inactive($class, $matrix_unique_id) ? 1 : 0);
+	  }
 	  else
 	  {
       $result = ($this->Listings_model->update_status($class, $matrix_unique_id, $status) ? 1 : 0);
