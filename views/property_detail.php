@@ -32,7 +32,16 @@
                   <ul class="slides">
                     <?php foreach ($property_images as $property_image): ?>
                 		<li>
-                	    <img src="<?php echo base_url().$property_image; ?>" alt="image" />
+                	    <?php if (($property['Status'] === 'Sold') && ($property['Sold_Date'] !== '0000-00-00 00:00:00') && (strtotime($property['Sold_Date']) < time())): ?>
+                      <span class="property-label">Sold</span>
+                      <?php elseif ($property['Status'] === 'Pending'): ?>
+                      <span class="property-label">Sale Pending</span>                    
+                      <?php elseif ((isset($property['Open_House_Date_NUM1'])) && ((strtotime($property['Open_House_Date_NUM1']) + (3600 * 24)) > time())): ?>
+                      <span class="property-label">Open House - <?php echo date('l', strtotime($property['Open_House_Date_NUM1'])); ?></span>                        
+                      <?php elseif (strtotime($property['LastChangeTypeDate']) > (time() - (3600 * 24 * 14))): ?>
+                      <span class="property-label"><?php echo $property['LastChangeType']; ?></span>
+                      <?php endif; ?>
+                      <img src="<?php echo base_url().$property_image; ?>" alt="image" />
                 		</li>
                 		<?php endforeach; ?>
                   </ul>
