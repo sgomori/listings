@@ -58,7 +58,9 @@
                 </div>						  
 							  <?php endif; ?>
 							  
-								
+								<div class="mobile-only">
+                  <a href="#calculator-anchor">Mortgage Calculator</a>
+                </div>
 
 							  <div class="property-summary">
 							    <div class="row">
@@ -509,7 +511,7 @@
 
 	              <!-- START CALCULATOR -->
 	              <div class="block-sidebar">
-	                <h3 class="title-block-sidebar">Mortgage Calculator</h3>
+	                <h3 class="title-block-sidebar" id="calculator-anchor">Mortgage Calculator</h3>
 	                <div class="calculator">
 	                  <div class="calculator-wrap">
 	                    <form id="calculator">

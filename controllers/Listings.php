@@ -26,7 +26,7 @@ class Listings extends CI_Controller {
             'res' => array('title' => 'Residential', 'active' => '', 'path' => 'homes'),
             'con' => array('title' => 'Condo', 'active' => '', 'path' => 'condos'),
             'rur' => array('title' => 'Rural/Farm', 'active' => '', 'path' => 'rural'),
-            'open-houses' => array('title' => 'Open HOuses', 'active' => '', 'path' => 'open-houses'),
+            'open-houses' => array('title' => 'Open House', 'active' => '', 'path' => 'open-houses'),
             'sold' => array('title' => 'Recently Sold', 'active' => '', 'path' => 'sold'),
             'map' => array('title' => 'Listings Map', 'active' => '', 'path' => 'map')
             );
