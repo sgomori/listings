@@ -70,5 +70,7 @@ $route['office'] = 'listings/office';
 
 $route['development\/([\w\-]+)'] = 'listings/development/$1';
 $route['latest\/(\d+)'] = 'listings/latest/$1';
+$route['facebook/open-houses'] = 'listings/facebook_open_houses';
+$route['facebook/latest'] = 'listings/facebook_latest';
 
 $route['sitemap\.xml'] = 'listings/xml_sitemap';

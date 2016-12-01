@@ -446,6 +446,32 @@ class Listings extends CI_Controller {
         
     $this->load->view('listings_only', $this->data);
 	}
+  
+
+	public function facebook_latest()
+	{
+    $query = $this->Listings_model->get_latest_listings(5);
+ 
+    $this->data['h1'] = 'Latest Listings';
+    $this->data['listings'] = $query->result_array();
+    $this->data['type'] = FALSE;
+    $this->data['types'] = $this->types;
+        
+    $this->load->view('styled_listings_only', $this->data);
+	}
+  
+    
+	public function facebook_open_houses()
+	{
+    $query = $this->Listings_model->get_open_houses();
+ 
+    $this->data['h1'] = 'Open Houses';
+    $this->data['listings'] = $query->result_array();
+    $this->data['type'] = FALSE;
+    $this->data['types'] = $this->types;
+        
+    $this->load->view('styled_listings_only', $this->data);
+	}
 	
 	
 	public function send_message()
