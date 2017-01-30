@@ -130,7 +130,7 @@
 							          <p><?php echo $property['Public_Remarks']; ?></p>
 
 							          <?php if ((isset($property['Virtual_Tour_Link'])) && ($property['Virtual_Tour_Link'] !== '')): ?>
-							          <p><a href="<?php echo $property['Virtual_Tour_Link']; ?>" target="_blank">View the virtual tour</</p>
+							          <p><a href="<?php echo $property['Virtual_Tour_Link']; ?>" target="_blank">View the virtual tour</a></p>
 							          <?php endif; ?>                        
                         
                         <p class="listed-by">Listed by <span itemscope itemtype="http://schema.org/RealEstateAgent"><span itemprop="name"><?php echo $property['Agent_1_First_Name']; ?> <?php echo $property['Agent_1_Last_Name']; ?></span></span>

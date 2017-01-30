@@ -540,9 +540,11 @@ class Listings extends CI_Controller {
     foreach ($query->result_array() as $page)
     {
       
+      $trans_date = explode(' ', $page['Last_Transaction_Date']);
+      
       $pages[] = array(
                       'url' => base_url($this->types[$page['class']]['path'].'/'.$page['Matrix_Unique_ID']),
-                      'last_modified' => explode(' ', $page['Last_Transaction_Date'])[0],
+                      'last_modified' => $trans_date[0],
                       'xml_change_freq' => 'monthly',
                       'xml_priority' => '0.5'
                       );
