@@ -569,8 +569,22 @@ class ListingS_model extends CI_Model {
           OR
           Listing.Sales_Rep_MUI_2 IN (564206, 16212643)
         )
-        AND
-        Condominium_Name LIKE "'.$development.'"
+        AND ';
+        
+      if ($development === 'meadowbrook villas')
+      {
+        $sql .= ' Condominium_Name LIKE "%meadowbrook%" ';
+      }
+      else if ($development === 'creekbend hollow')
+      {
+        $sql .= ' Condominium_Name LIKE "%creek bend%" OR Condominium_Name LIKE "%creekbend%"';
+      }
+      else
+      {
+        $sql .= ' Condominium_Name LIKE "'.$development.'" ';
+      }
+      
+      $sql .= '  
         GROUP BY Listing.Matrix_Unique_ID 
         ORDER BY Sold_Date ASC, Date_Entered DESC';
     
