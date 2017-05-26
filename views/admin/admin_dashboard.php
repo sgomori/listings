@@ -97,10 +97,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         $address = $listing['Suite_Number'].' - '.$address;
       }
       
-      if (($listing['Status'] !== 'Sold') && ((int)$listing['Active'] === 0))
+      if ((int)$listing['Active'] === 0)
       {
-        $listing['Status'] = 'Inactive';
+        if ($listing['Status'] === 'Custom')
+        {
+          $listing['Status'] = 'Active';
+        }
+        else if ($listing['Status'] !== 'Sold')
+        {
+          $listing['Status'] = 'Inactive';
+        }      
       }
+
     ?>
     
     <div class="property <?php echo $listing['Status']; ?>">

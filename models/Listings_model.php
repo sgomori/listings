@@ -133,6 +133,8 @@ class ListingS_model extends CI_Model {
           Listing.Active = 1
           OR
           Listing.Status LIKE "Sold"
+          OR
+          Listing.Status LIKE "Custom"
         ) 
         GROUP BY Listing.Matrix_Unique_ID 
         ORDER BY Sold_Date ASC, Date_Entered DESC';
@@ -377,6 +379,8 @@ class ListingS_model extends CI_Model {
         AND
         (
           Status LIKE "Active"
+          OR
+          Status LIKE "Custom"
         )
         AND
         (
@@ -410,6 +414,8 @@ class ListingS_model extends CI_Model {
         AND
         (
           Status LIKE "Active"
+          OR
+          Status LIKE "Custom"
         )
         AND
         (
@@ -443,6 +449,8 @@ class ListingS_model extends CI_Model {
         AND
         (
           Status LIKE "Active"
+          OR
+          Status LIKE "Custom"
         )
         AND
         (
@@ -491,6 +499,8 @@ class ListingS_model extends CI_Model {
         AND
         (
           Status LIKE "Active"
+          OR
+          Status LIKE "Custom"
         )
         AND
         (
@@ -629,6 +639,8 @@ class ListingS_model extends CI_Model {
         AND
         (
           Status LIKE "Active"
+          OR
+          Status LIKE "Custom"
         )
         GROUP BY Listing.Matrix_Unique_ID
               
@@ -661,6 +673,8 @@ class ListingS_model extends CI_Model {
         AND
         (
           Status LIKE "Active"
+          OR
+          Status LIKE "Custom"
         )
         GROUP BY Listing.Matrix_Unique_ID
               
@@ -693,6 +707,8 @@ class ListingS_model extends CI_Model {
         AND
         (
           Status LIKE "Active"
+          OR
+          Status LIKE "Custom"
         )
 
         GROUP BY Listing.Matrix_Unique_ID      

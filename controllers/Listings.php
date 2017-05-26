@@ -103,6 +103,8 @@ class Listings extends CI_Controller {
           Listing.Active = 1
           OR
           Listing.Status LIKE "Sold"
+          OR
+          Listing.Status LIKE "Custom"
         ) 
       ';
       
@@ -193,7 +195,7 @@ class Listings extends CI_Controller {
     $property = $this->Listings_model->get_property_detail($class, $matrix_unique_id)->result_array();
     $this->data['room_data'] = $this->Listings_model->get_room_detail($matrix_unique_id)->result_array();
     
-    if ((!isset($property[0])) || (((int)$property[0]['Active'] === 0) && ($property[0]['Status'] !== 'Sold') && ($property[0]['Status'] !== 'Pending')))
+    if ((!isset($property[0])) || (((int)$property[0]['Active'] === 0) && ($property[0]['Status'] !== 'Sold') && ($property[0]['Status'] !== 'Pending') && ($property[0]['Status'] !== 'Custom')))
     {
       header('HTTP/1.0 404 Not Found');
       
@@ -247,7 +249,14 @@ class Listings extends CI_Controller {
     
     $property_images = array_values($property_images);
     
-    $features = explode(',', $this->data['property']['Features'].','.$this->data['property']['Goods_Included']);
+    $feature_list = $this->data['property']['Features'];
+    
+    if (isset($this->data['property']['Goods_Included']))
+    {
+      $feature_list .= ','.$this->data['property']['Goods_Included'];
+    }
+    
+    $features = explode(',', $feature_list);
     sort($features);
     
     if (isset($this->data['property']['Amenities']))
