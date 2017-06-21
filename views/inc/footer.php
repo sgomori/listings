@@ -37,10 +37,11 @@
           		<h3>Join the Discussion</h3>
               <ul>
           			<li><a href="http://WinnipegHomes.com/contact">Send Us Your Comments</a></li>
-          			<li><a href="http://google.com/+WinnipegHomesCom" rel="publisher">google.com/+WinnipegHomesCom</a></li>
-          			<li><a href="https://www.facebook.com/WinnipegHomes.Com" rel="me">facebook.com/WinnipegHomes.Com</a></li>
-          			<li><a href="http://www.pinterest.com/MyWinnipegHomes/">pinterest.com/MyWinnipegHomes/</a></li>
-          			<li><a href="http://www.yelp.ca/biz/tyson-sonnichsen-royal-lepage-dynamic-winnipeg" rel="me">Tyson Sonnichsen on YELP.ca</a></li>
+          			<li><a href="http://google.com/+WinnipegHomesCom" rel="publisher" target="_blank">google.com/+WinnipegHomesCom</a></li>
+          			<li><a href="https://www.facebook.com/WinnipegHomes.Com" rel="me" target="_blank">facebook.com/WinnipegHomes.Com</a></li>
+          			<li><a href="http://www.pinterest.com/MyWinnipegHomes/" target="_blank">pinterest.com/MyWinnipegHomes/</a></li>
+          			<li><a href="http://www.yelp.ca/biz/tyson-sonnichsen-royal-lepage-dynamic-winnipeg" rel="me" target="_blank">Tyson Sonnichsen on YELP.ca</a></li>
+          			<li><a href="http://www.myvirtualpaper.com/doc/winnipeg-real-estate-news" rel="me" target="_blank">Real Estate News</a></li>
           		</ul>
           	</div>
         	</div>
