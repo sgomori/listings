@@ -840,7 +840,7 @@ class ListingS_model extends CI_Model {
     $sql = '
         UPDATE wpg_rets_property_'.$class.'
         SET
-          Status = "Pending",
+          Status = "Inactive",
           Active = 0
         WHERE Matrix_Unique_ID = '.$matrix_unique_id;
     
