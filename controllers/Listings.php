@@ -513,7 +513,7 @@ class Listings extends CI_Controller {
                 array(
                   'url' => base_url(),
                   'last_modified' => NULL,
-                  'xml_change_freq' => 'daily',
+                  'xml_change_freq' => 'hourly',
                   'xml_priority' => '1.0'
                 )
               ); 
@@ -528,8 +528,8 @@ class Listings extends CI_Controller {
       $pages[] = array(
                       'url' => base_url($type['path']),
                       'last_modified' => NULL,
-                      'xml_change_freq' => 'weekly',
-                      'xml_priority' => '0.8'
+                      'xml_change_freq' => 'daily',
+                      'xml_priority' => '0.9'
                       );      
     }
 
@@ -554,8 +554,8 @@ class Listings extends CI_Controller {
       $pages[] = array(
                       'url' => base_url($this->types[$page['class']]['path'].'/'.$page['Matrix_Unique_ID']),
                       'last_modified' => $trans_date[0],
-                      'xml_change_freq' => 'monthly',
-                      'xml_priority' => '0.5'
+                      'xml_change_freq' => 'weekly',
+                      'xml_priority' => '0.6'
                       );
       
     }
