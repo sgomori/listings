@@ -63,6 +63,9 @@ $route['homes\/(\d+)'] = 'listings/property/res/$1';
 $route['condos\/(\d+)'] = 'listings/property/con/$1';
 $route['rural\/(\d+)'] = 'listings/property/rur/$1';
 $route['map'] = 'listings/map';
+$route['homes\/(\d+)\/([\w\-]+)'] = 'listings/property/res/$1/$2';
+$route['condos\/(\d+)\/([\w\-]+)'] = 'listings/property/con/$1/$2';
+$route['rural\/(\d+)\/([\w\-]+)'] = 'listings/property/rur/$1/$2';
 
 $route['search'] = 'listings/search';
 

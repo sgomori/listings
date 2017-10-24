@@ -116,7 +116,14 @@ class Listings extends CI_Controller {
       $this->data['h1'] = 'Our Properties';
     }
     
-    $this->data['listings'] = $query->result_array();
+    $listings = $query->result_array();
+    
+    foreach ($listings as &$listing)
+    {
+      $listing['address_slug'] = $this->_get_address_slug($listing);
+    }
+    
+    $this->data['listings'] = $listings;
     $this->data['type'] = $type;
     $this->data['types'] = $this->types;
             
@@ -149,8 +156,9 @@ class Listings extends CI_Controller {
     
     $listings = array();
     $listings_coords = array();
+    $result = $query->result_array();
     
-    foreach ($query->result_array() as $listing)
+    foreach ($result as &$listing)
     {
       $lat = $listing['Lat'];
       $lon = $listing['Lon'];
@@ -166,6 +174,8 @@ class Listings extends CI_Controller {
         $lat = $lat_lon['lat'];
         $lon = $lat_lon['lon'];
       }
+      
+      $listing['address_slug'] = $this->_get_address_slug($listing);
       
       $listings[] = $listing;
       
@@ -190,9 +200,10 @@ class Listings extends CI_Controller {
 	}
   	
 
-	public function property($class, $matrix_unique_id)
+	public function property($class, $matrix_unique_id, $address_slug_suggestion = FALSE)
 	{    
     $property = $this->Listings_model->get_property_detail($class, $matrix_unique_id)->result_array();
+    
     $this->data['room_data'] = $this->Listings_model->get_room_detail($matrix_unique_id)->result_array();
     
     if ((!isset($property[0])) || (((int)$property[0]['Active'] === 0) && ($property[0]['Status'] !== 'Sold') && ($property[0]['Status'] !== 'Pending') && ($property[0]['Status'] !== 'Custom')))
@@ -209,7 +220,15 @@ class Listings extends CI_Controller {
     
       return;
     }
+
+    $address_slug = $this->_get_address_slug($property[0]);
     
+    if (($address_slug !== '') && ((!$address_slug_suggestion) || ($address_slug !== strtolower($address_slug_suggestion))))
+    {
+      header('HTTP/1.1 301 Moved Permanently');
+      header('Location: '.base_url().$this->types[$class]['path'].'/'.$matrix_unique_id.'/'.$address_slug);     
+    }
+        
     $open_houses = FALSE;
     
     if (isset($property[0]['Open_House_Date_NUM1']))
@@ -419,8 +438,15 @@ class Listings extends CI_Controller {
     $this->data['h1'] = 'Our Office\'s Listings';
 		$this->data['title'] = 'Office Listings';
 		$this->data['description'] = 'Office Listings by Royal LePage Dynamic';
+
+    $listings = $query->result_array();
     
-    $this->data['listings'] = $query->result_array();
+    foreach ($listings as &$listing)
+    {
+      $listing['address_slug'] = $this->_get_address_slug($listing);
+    }
+        
+    $this->data['listings'] = $listings;
     $this->data['type'] = FALSE;
     $this->data['types'] = $this->types;
             
@@ -436,8 +462,15 @@ class Listings extends CI_Controller {
     $development = str_replace('-', ' ', $development);
     
     $query = $this->Listings_model->get_development_listings($development);
- 
-    $this->data['listings'] = $query->result_array();
+    
+    $listings = $query->result_array();
+    
+    foreach ($listings as &$listing)
+    {
+      $listing['address_slug'] = $this->_get_address_slug($listing);
+    }
+     
+    $this->data['listings'] = $listings;
     $this->data['type'] = 'con';
     $this->data['types'] = $this->types;
         
@@ -448,8 +481,15 @@ class Listings extends CI_Controller {
 	public function latest($number)
 	{
     $query = $this->Listings_model->get_latest_listings($number);
- 
-    $this->data['listings'] = $query->result_array();
+
+    $listings = $query->result_array();
+    
+    foreach ($listings as &$listing)
+    {
+      $listing['address_slug'] = $this->_get_address_slug($listing);
+    }
+     
+    $this->data['listings'] = $listings;
     $this->data['type'] = FALSE;
     $this->data['types'] = $this->types;
         
@@ -460,9 +500,16 @@ class Listings extends CI_Controller {
 	public function facebook_latest()
 	{
     $query = $this->Listings_model->get_latest_listings(5);
- 
+
+    $listings = $query->result_array();
+    
+    foreach ($listings as &$listing)
+    {
+      $listing['address_slug'] = $this->_get_address_slug($listing);
+    }
+     
     $this->data['h1'] = 'Latest Listings';
-    $this->data['listings'] = $query->result_array();
+    $this->data['listings'] = $listings;
     $this->data['type'] = FALSE;
     $this->data['types'] = $this->types;
         
@@ -473,9 +520,16 @@ class Listings extends CI_Controller {
 	public function facebook_open_houses()
 	{
     $query = $this->Listings_model->get_open_houses();
- 
+
+    $listings = $query->result_array();
+    
+    foreach ($listings as &$listing)
+    {
+      $listing['address_slug'] = $this->_get_address_slug($listing);
+    }
+     
     $this->data['h1'] = 'Open Houses';
-    $this->data['listings'] = $query->result_array();
+    $this->data['listings'] = $listings;
     $this->data['type'] = FALSE;
     $this->data['types'] = $this->types;
         
@@ -550,9 +604,10 @@ class Listings extends CI_Controller {
     {
       
       $trans_date = explode(' ', $page['Last_Transaction_Date']);
+      $address_slug = $this->_get_address_slug($page);
       
       $pages[] = array(
-                      'url' => base_url($this->types[$page['class']]['path'].'/'.$page['Matrix_Unique_ID']),
+                      'url' => base_url($this->types[$page['class']]['path'].'/'.$page['Matrix_Unique_ID'].'/'.$address_slug),
                       'last_modified' => $trans_date[0],
                       'xml_change_freq' => 'weekly',
                       'xml_priority' => '0.6'
@@ -587,4 +642,51 @@ class Listings extends CI_Controller {
     
     return array('lat' => $lat, 'lon' => $lon);
 	}
+  
+  
+  private function _get_address_slug($property)
+  {
+    $slug_parts = array();
+    
+    if (intval($property['Display_Addrs_on_Pub_Web_Sites']) === 1)
+    {
+      if ($property['Suite_Number'] !== '')
+      {
+        $slug_parts[] = str_replace(' ', '-', $property['Suite_Number']);
+      }
+      
+      if ($property['Street_Number'] !== '')
+      {
+        $slug_parts[] = str_replace(' ', '-', $property['Street_Number']);
+      }
+      
+      if ($property['Street_Name'] !== '')
+      {
+        $slug_parts[] = str_replace(' ', '-', $property['Street_Name']);
+      }
+
+      if ($property['Street_Type'] !== '')
+      {
+        $slug_parts[] = str_replace(' ', '-', $property['Street_Type']);
+      }
+            
+      if ($property['Neighbourhood'] !== '')
+      {
+        $slug_parts[] = str_replace(' ', '-', $property['Neighbourhood']);
+      }
+      
+      if ($property['City_or_Town_Name'] !== '')
+      {
+        $slug_parts[] = str_replace(' ', '-', $property['City_or_Town_Name']);
+      }
+    }
+    else
+    {
+      return '';
+    }
+    
+    $slug_words = implode(' ', $slug_parts);
+    
+    return url_title($slug_words, '-', TRUE);               
+  }
 }

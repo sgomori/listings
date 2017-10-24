@@ -3,9 +3,9 @@
   <article class="hentry">
     <div class="property-featured">
       <?php if (file_exists(FCPATH.'assets/images/properties/image-'.$listing['Matrix_Unique_ID'].'-0.jpg')): ?>
-      <?php echo anchor($types[$listing['class']]['path'].'/'.$listing['Matrix_Unique_ID'], '<img src="'.$assets_path.'images/properties/image-'.$listing['Matrix_Unique_ID'].'-0.jpg" alt="">', array('class' => 'content-thumb')); ?>
+      <?php echo anchor($types[$listing['class']]['path'].'/'.$listing['Matrix_Unique_ID'].'/'.$listing['address_slug'], '<img src="'.$assets_path.'images/properties/image-'.$listing['Matrix_Unique_ID'].'-0.jpg" alt="">', array('class' => 'content-thumb')); ?>
       <?php else: ?>
-      <?php echo anchor($types[$listing['class']]['path'].'/'.$listing['Matrix_Unique_ID'], '<img src="'.$assets_path.'images/properties/default.gif" alt="">', array('class' => 'content-thumb')); ?>
+      <?php echo anchor($types[$listing['class']]['path'].'/'.$listing['Matrix_Unique_ID'].'/'.$listing['address_slug'], '<img src="'.$assets_path.'images/properties/default.gif" alt="">', array('class' => 'content-thumb')); ?>
       <?php endif; ?>
       <?php if (($listing['Status'] === 'Sold') && ($listing['Sold_Date'] !== '0000-00-00 00:00:00') && (strtotime($listing['Sold_Date']) < time())): ?>
       <span class="property-label">Sold</span>
@@ -29,7 +29,7 @@
               $address = $listing['Suite_Number'].' - '.$address;
             }
           ?>
-        <?php echo anchor($types[$listing['class']]['path'].'/'.$listing['Matrix_Unique_ID'], $address, array('class' => $listing['class'])); ?>
+        <?php echo anchor($types[$listing['class']]['path'].'/'.$listing['Matrix_Unique_ID'].'/'.$listing['address_slug'], $address, array('class' => $listing['class'])); ?>
         <?php endif; ?>
       </h2>
       <div class="property-excerpt">
@@ -60,7 +60,7 @@
             </span>
           </div>
           <div class="property-action">
-            <?php echo anchor($types[$listing['class']]['path'].'/'.$listing['Matrix_Unique_ID'], 'More Details'); ?>
+            <?php echo anchor($types[$listing['class']]['path'].'/'.$listing['Matrix_Unique_ID'].'/'.$listing['address_slug'], 'More Details'); ?>
           </div>
         </div>
         <div class="property-info property-fullwidth-info">
@@ -74,7 +74,7 @@
       </div>
     </div>
     <div class="property-action property-fullwidth-action">
-      <?php echo anchor($types[$listing['class']]['path'].'/'.$listing['Matrix_Unique_ID'], 'More Details'); ?>
+      <?php echo anchor($types[$listing['class']]['path'].'/'.$listing['Matrix_Unique_ID'].'/'.$listing['address_slug'], 'More Details'); ?>
     </div>
   </article>
   
