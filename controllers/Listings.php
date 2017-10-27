@@ -407,8 +407,15 @@ class Listings extends CI_Controller {
       $type = FALSE;
       $this->data['h1'] = 'Search Results';
     }	
+
+    $listings = $query->result_array();
     
-    $this->data['listings'] = $query->result_array();
+    foreach ($listings as &$listing)
+    {
+      $listing['address_slug'] = $this->_get_address_slug($listing);
+    }
+        
+    $this->data['listings'] = $listings;
     $this->data['type'] = $type;
     $this->data['types'] = $this->types;
             
