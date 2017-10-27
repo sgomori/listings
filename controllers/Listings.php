@@ -71,6 +71,14 @@ class Listings extends CI_Controller {
           (
             Area LIKE "R%"
           )
+          AND
+          (
+            Listing.Active = 1
+            OR
+            Listing.Status LIKE "Sold"
+            OR
+            Listing.Status LIKE "Custom"
+          ) 
         ';
         
         $query = $this->Listings_model->get_all_listings($where);
@@ -144,6 +152,8 @@ class Listings extends CI_Controller {
       AND
       (
         Active = 1
+        OR
+        Listing.Status LIKE "Custom"
       )
     ';
     
@@ -204,8 +214,6 @@ class Listings extends CI_Controller {
 	{    
     $property = $this->Listings_model->get_property_detail($class, $matrix_unique_id)->result_array();
     
-    $this->data['room_data'] = $this->Listings_model->get_room_detail($matrix_unique_id)->result_array();
-    
     if ((!isset($property[0])) || (((int)$property[0]['Active'] === 0) && ($property[0]['Status'] !== 'Sold') && ($property[0]['Status'] !== 'Pending') && ($property[0]['Status'] !== 'Custom')))
     {
       header('HTTP/1.0 404 Not Found');
@@ -228,6 +236,8 @@ class Listings extends CI_Controller {
       header('HTTP/1.1 301 Moved Permanently');
       header('Location: '.base_url().$this->types[$class]['path'].'/'.$matrix_unique_id.'/'.$address_slug);     
     }
+    
+    $this->data['room_data'] = $this->Listings_model->get_room_detail($matrix_unique_id)->result_array();            
         
     $open_houses = FALSE;
     
@@ -319,7 +329,27 @@ class Listings extends CI_Controller {
       $this->data['property']['Lat'] = $lat_lon['lat'];
       $this->data['property']['Lon'] = $lat_lon['lon'];
     }
+    
+    // Similar Properties        
+    $search = array();
+    $search[] = 'Total_Bedrooms = '.$this->data['property']['Total_Bedrooms'];
+    $search[] = 'CurrentPrice >= '.((int)$this->data['property']['CurrentPrice'] - 50000);
+    $search[] = 'CurrentPrice <= '.((int)$this->data['property']['CurrentPrice'] + 50000);
+    $search[] = 'Listing.Matrix_Unique_ID != '.$this->data['property']['Matrix_Unique_ID'];
 
+    $where = ' AND '.implode(' AND ', $search);
+      
+    $query = $this->Listings_model->search_current_listings_by_type($class, $where, 3);            
+
+    $similar_listings = $query->result_array();
+    
+    foreach ($similar_listings as &$listing)
+    {
+      $listing['address_slug'] = $this->_get_address_slug($listing);
+    }
+        
+    $this->data['similar_listings'] = $similar_listings;
+            
     $this->data['property_images'] = $property_images;
     $this->data['features'] = $features;
     $this->data['amenities'] = $amenities;
@@ -344,6 +374,7 @@ class Listings extends CI_Controller {
 
     $this->data['header_variant'] = $class;
     $this->data['property_detail'] = TRUE;
+    $this->data['types'] = $this->types;
     $this->_generate_template();
     $this->data['content'] = $this->load->view('property_detail', $this->data, TRUE);
                 

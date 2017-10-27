@@ -378,7 +378,7 @@ class ListingS_model extends CI_Model {
         Listing.Expiry_Date >= NOW()
         AND
         (
-          Status LIKE "Active"
+          Listing.Active = 1
           OR
           Status LIKE "Custom"
         )
@@ -413,7 +413,7 @@ class ListingS_model extends CI_Model {
         Listing.Expiry_Date >= NOW()
         AND
         (
-          Status LIKE "Active"
+          Listing.Active = 1
           OR
           Status LIKE "Custom"
         )
@@ -448,7 +448,7 @@ class ListingS_model extends CI_Model {
         Listing.Expiry_Date >= NOW()
         AND
         (
-          Status LIKE "Active"
+          Listing.Active = 1
           OR
           Status LIKE "Custom"
         )
@@ -474,7 +474,7 @@ class ListingS_model extends CI_Model {
   }
     
     
-  public function search_current_listings_by_type($type, $where)
+  public function search_current_listings_by_type($type, $where, $limit = FALSE)
   {
   
     $sql = '
@@ -498,7 +498,7 @@ class ListingS_model extends CI_Model {
         Listing.Expiry_Date >= NOW()
         AND
         (
-          Status LIKE "Active"
+          Listing.Active = 1
           OR
           Status LIKE "Custom"
         )
@@ -511,6 +511,11 @@ class ListingS_model extends CI_Model {
         .$where.'
         GROUP BY Listing.Matrix_Unique_ID 
         ORDER BY Date_Entered DESC';
+        
+    if ($limit)
+    {
+      $sql .= ' LIMIT '.$limit;
+    }
     
     if ($query = $this->db->query($sql))
     {
@@ -638,7 +643,7 @@ class ListingS_model extends CI_Model {
         )
         AND
         (
-          Status LIKE "Active"
+          Listing.Active = 1
           OR
           Status LIKE "Custom"
         )
@@ -672,7 +677,7 @@ class ListingS_model extends CI_Model {
         )
         AND
         (
-          Status LIKE "Active"
+          Listing.Active = 1
           OR
           Status LIKE "Custom"
         )
@@ -706,7 +711,7 @@ class ListingS_model extends CI_Model {
         )
         AND
         (
-          Status LIKE "Active"
+          Listing.Active = 1
           OR
           Status LIKE "Custom"
         )

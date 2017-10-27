@@ -66,7 +66,7 @@
 							    <div class="row">
 							      <div class="col-md-4">
 							        <div class="property-detail">
-							          <h4 class="property-detail-title">Property Detail</h4>
+							          <h2 class="property-highlights-title">Property Detail</h2>
 							          <div class="property-detail-content">
 							            <div class="detail-field row">
 							              <span class="col-xs-6 col-md-5 detail-field-label">Type</span>
@@ -109,7 +109,7 @@
 							      <div class="col-md-8">
 							        <div class="property-desc">
 							          <?php if ($open_houses): ?>
-							          <h4 class="property-detail-title open-house">Open House</h4>
+							          <h2 class="property-detail-title open-house">Open House</h2>
 							          
 							          <p><strong><?php echo ucwords(strtolower($open_houses['heading'])); ?></strong></p>
 							          
@@ -126,7 +126,7 @@
 							          <?php endif; ?>
 							          
 							          <?php endif; ?>
-							          <h4 class="property-detail-title">Property Description</h4>
+							          <h2 class="property-detail-title">Property Description</h2>
 							          <p><?php echo $property['Public_Remarks']; ?></p>
 
 							          <?php if ((isset($property['Virtual_Tour_Link'])) && ($property['Virtual_Tour_Link'] !== '')): ?>
@@ -144,7 +144,7 @@
 							  </div>
 
 							  <div class="property-feature">
-							    <h4 class="property-feature-title">Property Features</h4>
+							    <h2 class="property-feature-title">Property Features</h2>
 							    <div class="property-feature-content clearfix">
 							      <?php foreach ($features as $feature): ?>
 							      <div class="has">
@@ -156,7 +156,7 @@
 							  
 							  <?php if ($amenities): ?>
 							  <div class="property-feature">
-							    <h4 class="property-feature-title">Amenities</h4>
+							    <h2 class="property-feature-title">Amenities</h2>
 							    <div class="property-feature-content clearfix">
 							      <?php foreach ($amenities as $amenity): ?>
 							      <div class="has">
@@ -169,7 +169,7 @@
 							  
 							  <?php if ($site_influences): ?>
 							  <div class="property-feature">
-							    <h4 class="property-feature-title">Site Influences</h4>
+							    <h2 class="property-feature-title">Site Influences</h2>
 							    <div class="property-feature-content clearfix">
 							      <?php foreach ($site_influences as $site_influence): ?>
 							      <div class="has">
@@ -182,7 +182,7 @@
 							  
 							  <?php if ($flooring): ?>
 							  <div class="property-feature">
-							    <h4 class="property-feature-title">Flooring</h4>
+							    <h2 class="property-feature-title">Flooring</h2>
 							    <div class="property-feature-content clearfix">
 							      <?php foreach ($flooring as $floor): ?>
 							      <div class="has">
@@ -194,7 +194,7 @@
 							  <?php endif; ?>
 							  
 							  <div class="property-feature">
-							    <h4 class="property-feature-title">More Details</h4>
+							    <h2 class="property-feature-title">More Details</h2>
 							    <div class="property-feature-content clearfix">
 							      <table class="table table-striped table-condensed rooms">                    
   							      <?php if (isset($property['School_Division'])): ?>
@@ -319,7 +319,7 @@
 							  </div>
 
 							  <div class="property-feature">
-							    <h4 class="property-feature-title">Rooms</h4>
+							    <h2 class="property-feature-title">Rooms</h2>
 							    <div class="property-feature-content clearfix">
 							      <table class="table table-striped table-condensed rooms">
                       <tr>
@@ -340,7 +340,7 @@
 							  </div>
 
 							  <div class="property-map">
-							    <h4 class="property-map-title">Find this property on map</h4>
+							    <h2 class="property-map-title">Find this property on map</h2>
 							    <div class="property-map-content">
 										<div id="google-property-map" class="property-map-box">
                     </div>
@@ -451,7 +451,7 @@
 	            <div class="noo-sidebar-inner">
 	              <!-- START FIND PROPERTY -->
 	              <div class="block-sidebar find-property">
-	                <h3 class="title-block-sidebar">Find Property</h3>
+	                <h4 class="title-block-sidebar">Find Property</h4>
 	                <div class="gsearch">
 	                  <div class="gsearch-wrap">
 	                    <form class="gsearchform" method="get" role="search">
@@ -516,7 +516,7 @@
 
 	              <!-- START CALCULATOR -->
 	              <div class="block-sidebar">
-	                <h3 class="title-block-sidebar" id="calculator-anchor">Mortgage Calculator</h3>
+	                <h4 class="title-block-sidebar" id="calculator-anchor">Mortgage Calculator</h4>
 	                <div class="calculator">
 	                  <div class="calculator-wrap">
 	                    <form id="calculator">
@@ -562,7 +562,67 @@
 	                </div>
 	              </div>
 	              <!-- END CALCULATOR -->
-	              
+                
+                <?php if (!empty($similar_listings)): ?>
+	              <!-- START SIMILAR -->
+	              <div class="block-sidebar">
+	                <h4 class="title-block-sidebar" id="calculator-anchor">Similar Listings</h4>
+
+
+                  <?php foreach ($similar_listings as $listing) : ?>
+	                <div class="similar-listing">                  
+                    <article class="hentry">
+                      <div class="property-featured">
+                        <?php if (file_exists(FCPATH.'assets/images/properties/image-'.$listing['Matrix_Unique_ID'].'-0.jpg')): ?>
+                        <?php echo anchor($types[$listing['class']]['path'].'/'.$listing['Matrix_Unique_ID'].'/'.$listing['address_slug'], '<img src="'.$assets_path.'images/properties/image-'.$listing['Matrix_Unique_ID'].'-0.jpg" alt="">', array('class' => 'content-thumb')); ?>
+                        <?php else: ?>
+                        <?php echo anchor($types[$listing['class']]['path'].'/'.$listing['Matrix_Unique_ID'].'/'.$listing['address_slug'], '<img src="'.$assets_path.'images/properties/default.gif" alt="">', array('class' => 'content-thumb')); ?>
+                        <?php endif; ?>
+                       <div class="property-price">$ <?php echo number_format($listing['CurrentPrice'], 0); ?></div>                            
+                      </div>
+                      <div class="property-wrap">
+                        <h5 class="property-title">
+                          <?php if (intval($listing['Display_Addrs_on_Pub_Web_Sites']) === 1): ?>
+                            <?php
+                              $address = $listing['Street_Number'].' '.ucwords(strtolower($listing['Street_Name'])).' '.ucfirst(strtolower($listing['Street_Type'])).' - '.$listing['Neighbourhood'].', '.ucwords(strtolower($listing['City_or_Town_Name']));
+                              
+                              if ($listing['Suite_Number'] !== '')
+                              {
+                                $address = $listing['Suite_Number'].' - '.$address;
+                              }
+                            ?>
+                          <?php echo anchor($types[$listing['class']]['path'].'/'.$listing['Matrix_Unique_ID'].'/'.$listing['address_slug'], $address, array('class' => $listing['class'])); ?>
+                          <?php endif; ?>
+                        </h5>
+
+                        <div class="property-summary">
+                          <div class="property-detail">
+                            <div class="size">
+                              <span><?php echo $listing['Total_FloorLiv_Area_SF']; ?> sqft</span>
+                            </div>
+                            <div class="bedrooms">
+                              <span><?php echo $listing['Total_Bedrooms']; ?> bedroom<?php if ((int)$listing['Total_Bedrooms'] > 1): ?>s<?php endif; ?></span>
+                            </div>
+                            <div class="bathrooms">
+                              <span><?php echo $listing['Number_of_Total_Baths']; ?> bathroom<?php if ((int)$listing['Number_of_Total_Baths'] > 1): ?>s<?php endif; ?></span>
+                            </div>
+                            <div class="property-action">
+                              <?php echo anchor($types[$listing['class']]['path'].'/'.$listing['Matrix_Unique_ID'].'/'.$listing['address_slug'], 'More Details'); ?>
+                            </div>
+                          </div>
+
+                        </div>
+                      </div>
+
+                    </article>
+	                </div>                        
+                  <?php endforeach; ?>
+  
+
+	              </div>
+	              <!-- END SIMILAR -->
+                <?php endif; ?>
+                	              
 	            </div>
 	          </div>
 	          <!-- END SIDEBAR -->
