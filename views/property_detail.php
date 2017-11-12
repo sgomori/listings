@@ -417,7 +417,7 @@
 												    <li><a href="https://plus.google.com/102215000599552351305/posts" title="Google +" target="_blank"><i class="fa fa-google-plus"></i></a></li>
 												  </ul>
 							            <div class="agent-action">
-							              <a href="mailto:Tyson@WinnipegHomes.com"">Email Tyson</a>
+							              <a href="mailto:Tyson@WinnipegHomes.com">Email Tyson</a>
 							            </div>
 							          </div>
 
