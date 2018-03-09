@@ -69,7 +69,9 @@ class Listings extends CI_Controller {
           )
           AND
           (
-            Area LIKE "R%"
+            Listing.Area LIKE "R%"
+            OR
+            Listing.City_or_Town_Name LIKE "Headingley%"
           )
           AND
           (
