@@ -216,7 +216,27 @@ class Listings extends CI_Controller {
 	{    
     $property = $this->Listings_model->get_property_detail($class, $matrix_unique_id)->result_array();
     
-    if ((!isset($property[0])) || (((int)$property[0]['Active'] === 0) && ($property[0]['Status'] !== 'Sold') && ($property[0]['Status'] !== 'Pending') && ($property[0]['Status'] !== 'Custom')))
+    if ((!isset($property[0])) || 
+          (((int)$property[0]['Active'] === 0) && 
+            ($property[0]['Status'] !== 'Sold') && 
+            ($property[0]['Status'] !== 'Pending') &&
+            ($property[0]['Status'] !== 'Custom') &&            
+            (
+              ($property[0]['Sales_Rep_MUI_1'] == '564206') ||
+              ($property[0]['Sales_Rep_MUI_1'] == '16212643') ||
+              ($property[0]['Sales_Rep_MUI_2'] == '564206') ||
+              ($property[0]['Sales_Rep_MUI_2'] == '16212643')
+            )                            
+          ) ||
+          (((int)$property[0]['Active'] === 0) &&          
+            (
+              ($property[0]['Sales_Rep_MUI_1'] !== '564206') ||
+              ($property[0]['Sales_Rep_MUI_1'] !== '16212643') ||
+              ($property[0]['Sales_Rep_MUI_2'] !== '564206') ||
+              ($property[0]['Sales_Rep_MUI_2'] !== '16212643')
+            )                            
+          )
+        )
     {
       header('HTTP/1.0 404 Not Found');
       
