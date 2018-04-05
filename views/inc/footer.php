@@ -41,7 +41,7 @@
           			<li><a href="https://www.facebook.com/WinnipegHomes.Com" rel="me" target="_blank">facebook.com/WinnipegHomes.Com</a></li>
           			<li><a href="http://www.pinterest.com/MyWinnipegHomes/" target="_blank">pinterest.com/MyWinnipegHomes/</a></li>
           			<li><a href="http://www.yelp.ca/biz/tyson-sonnichsen-royal-lepage-dynamic-winnipeg" rel="me" target="_blank">Tyson Sonnichsen on YELP.ca</a></li>
-          			<li><a href="http://www.myvirtualpaper.com/doc/winnipeg-real-estate-news" rel="me" target="_blank">Real Estate News</a></li>
+          			<li><a href="<?php echo $wpg_news_link; ?>" target="_blank">Real Estate News</a></li>
           		</ul>
           	</div>
         	</div>

@@ -38,6 +38,8 @@ class Listings extends CI_Controller {
   {
     $this->data['analytics'] = $this->load->view($this->analtyics, $this->data, TRUE);
     $this->data['header'] = $this->load->view($this->header_view, $this->data, TRUE);
+    
+    $this->data['wpg_news_link'] = file_get_contents('/home4/winnipg2/wpg_news/wpg_news_link.txt');
     $this->data['footer'] = $this->load->view($this->footer_view, $this->data, TRUE);    
   }
 
