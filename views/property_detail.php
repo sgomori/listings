@@ -143,7 +143,8 @@
 							    </div>
 							  </div>
 
-							  <div class="property-feature">
+							  <?php if ($features): ?>
+                <div class="property-feature">
 							    <h2 class="property-feature-title">Property Features</h2>
 							    <div class="property-feature-content clearfix">
 							      <?php foreach ($features as $feature): ?>
@@ -153,6 +154,7 @@
 							      <?php endforeach; ?>
 							    </div>
 							  </div>
+                <?php endif; ?>                
 							  
 							  <?php if ($amenities): ?>
 							  <div class="property-feature">
@@ -318,7 +320,8 @@
 							    </div>
 							  </div>
 
-							  <div class="property-feature">
+							  <?php if ($room_data): ?>
+                <div class="property-feature">
 							    <h2 class="property-feature-title">Rooms</h2>
 							    <div class="property-feature-content clearfix">
 							      <table class="table table-striped table-condensed rooms">
@@ -338,6 +341,7 @@
 							      </table>
 							    </div>
 							  </div>
+                <?php endif; ?>                                                
 
 							  <div class="property-map">
 							    <h2 class="property-map-title">Find this property on map</h2>

@@ -232,9 +232,9 @@ class Listings extends CI_Controller {
           ) ||
           (((int)$property[0]['Active'] === 0) &&          
             (
-              ($property[0]['Sales_Rep_MUI_1'] !== '564206') ||
-              ($property[0]['Sales_Rep_MUI_1'] !== '16212643') ||
-              ($property[0]['Sales_Rep_MUI_2'] !== '564206') ||
+              ($property[0]['Sales_Rep_MUI_1'] !== '564206') &&
+              ($property[0]['Sales_Rep_MUI_1'] !== '16212643') &&
+              ($property[0]['Sales_Rep_MUI_2'] !== '564206') &&
               ($property[0]['Sales_Rep_MUI_2'] !== '16212643')
             )                            
           )
