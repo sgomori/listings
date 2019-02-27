@@ -538,6 +538,27 @@ class Listings extends CI_Controller {
         
     $this->load->view('listings_only', $this->data);
 	}
+  
+  
+  public function street($search)
+	{
+    $search = str_replace('-', ' ', $search);
+    
+    $query = $this->Listings_model->get_listings_by_street_search($search);
+    
+    $listings = $query->result_array();
+    
+    foreach ($listings as &$listing)
+    {
+      $listing['address_slug'] = $this->_get_address_slug($listing);
+    }
+     
+    $this->data['listings'] = $listings;
+    $this->data['type'] = 'con';
+    $this->data['types'] = $this->types;
+        
+    $this->load->view('listings_only', $this->data);
+	}
 	
 	
 	public function latest($number)

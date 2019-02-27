@@ -594,7 +594,7 @@ class ListingS_model extends CI_Model {
       else if ($development === 'creekbend hollow')
       {
         $sql .= ' Condominium_Name LIKE "%creek bend%" OR Condominium_Name LIKE "%creekbend%"';
-      }
+      }         
       else
       {
         $sql .= ' Condominium_Name LIKE "'.$development.'" ';
@@ -614,6 +614,49 @@ class ListingS_model extends CI_Model {
   
   }  
 
+
+  public function get_listings_by_street_search($search)
+  {
+  
+    $sql = '
+        SELECT "res" AS class, Listing.Matrix_Unique_ID, Listing.LastChangeTypeDate, Listing.Display_Addrs_on_Pub_Web_Sites,
+          Listing.LastChangeType, Listing.Style, Listing.Suite_Number, Listing.Street_Number, Listing.Street_Name, 
+          Listing.Street_Type, Listing.Neighbourhood, Listing.City_or_Town_Name, 
+          Listing.Public_Remarks, Listing.Total_FloorLiv_Area_SF, Listing.Number_of_Total_Baths, 
+          Listing.Total_Bedrooms, Listing.CurrentPrice, Listing.Total_FloorLiv_Area_SF, 
+          Listing.Number_of_Total_Baths, Listing.Total_Bedrooms, Listing.Date_Entered, 
+          Listing.Status, Listing.Sold_Date, Open_House_Date_NUM1, Agent_1.First_Name AS Agent_1_First_Name, 
+          Agent_1.Last_Name AS Agent_1_Last_Name, Agent_2.First_Name AS Agent_2_First_Name, 
+          Agent_2.Last_Name AS Agent_2_Last_Name 
+        FROM
+        wpg_rets_property_res Listing
+        LEFT JOIN wpg_rets_openhouse_openhouse ON Listing.Matrix_Unique_ID = wpg_rets_openhouse_openhouse.Listing_MUI 
+          AND NOW() < wpg_rets_openhouse_openhouse.Open_House_Date_NUM1 + INTERVAL 1 DAY
+          AND wpg_rets_openhouse_openhouse.IsDeleted = 0
+        LEFT JOIN wpg_rets_agent_agent Agent_1 ON Listing.Sales_Rep_MUI_1 = Agent_1.Matrix_Unique_ID
+        LEFT JOIN wpg_rets_agent_agent Agent_2 ON Listing.Sales_Rep_MUI_2 = Agent_2.Matrix_Unique_ID        
+        WHERE
+        Listing.Expiry_Date >= NOW()
+        AND
+        (
+          Listing.Sales_Rep_MUI_1 IN (564206, 16212643)
+          OR
+          Listing.Sales_Rep_MUI_2 IN (564206, 16212643)
+        )
+        AND Street_Name LIKE "%'.$search.'%"
+        GROUP BY Listing.Matrix_Unique_ID 
+        ORDER BY Sold_Date ASC, Date_Entered DESC';
+    
+  
+    if ($query = $this->db->query($sql))
+    {
+      return $query;
+    } 
+    
+    return FALSE;
+  
+  } 
+  
 
   public function get_latest_listings($limit)
   {
