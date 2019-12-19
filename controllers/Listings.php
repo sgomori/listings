@@ -117,6 +117,8 @@ class Listings extends CI_Controller {
           Listing.Status LIKE "Sold"
           OR
           Listing.Status LIKE "Custom"
+          OR
+          Listing.Status LIKE "Pending"
         ) 
       ';
       

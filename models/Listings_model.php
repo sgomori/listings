@@ -135,6 +135,8 @@ class ListingS_model extends CI_Model {
           Listing.Status LIKE "Sold"
           OR
           Listing.Status LIKE "Custom"
+          OR
+          Listing.Status LIKE "Pending"
         ) 
         GROUP BY Listing.Matrix_Unique_ID 
         ORDER BY Sold_Date ASC, Date_Entered DESC';
