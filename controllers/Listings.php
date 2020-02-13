@@ -82,6 +82,8 @@ class Listings extends CI_Controller {
             Listing.Status LIKE "Sold"
             OR
             Listing.Status LIKE "Custom"
+            OR
+            Listing.Status LIKE "Pending"
           ) 
         ';
         
@@ -135,6 +137,11 @@ class Listings extends CI_Controller {
     foreach ($listings as &$listing)
     {
       $listing['address_slug'] = $this->_get_address_slug($listing);
+      
+      if ($listing['Status'] === 'Pending')
+      {
+        $listing['Status'] = '';
+      }                                                
     }
     
     $this->data['listings'] = $listings;
@@ -253,7 +260,7 @@ class Listings extends CI_Controller {
       $this->load->view('standard_page', $this->data);
     
       return;
-    }
+    }                        
 
     $address_slug = $this->_get_address_slug($property[0]);
     
@@ -262,7 +269,12 @@ class Listings extends CI_Controller {
       header('HTTP/1.1 301 Moved Permanently');
       header('Location: '.base_url().$this->types[$class]['path'].'/'.$matrix_unique_id.'/'.$address_slug);     
     }
-    
+
+    if ($property[0]['Status'] === 'Pending')
+    {
+      $property[0]['Status'] = '';
+    }
+        
     $this->data['room_data'] = $this->Listings_model->get_room_detail($matrix_unique_id)->result_array();            
         
     $open_houses = FALSE;

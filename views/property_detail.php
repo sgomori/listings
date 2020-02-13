@@ -38,7 +38,7 @@
                       <span class="property-label">Sale Pending</span>                    
                       <?php elseif ((isset($property['Open_House_Date_NUM1'])) && ((strtotime($property['Open_House_Date_NUM1']) + (3600 * 24)) > time())): ?>
                       <span class="property-label">Open House - <?php echo date('l', strtotime($property['Open_House_Date_NUM1'])); ?></span>                        
-                      <?php elseif ((strtotime($property['LastChangeTypeDate']) > (time() - (3600 * 24 * 14))) && (!in_array(strtolower($property['LastChangeType']), array('price change', 'back on market')))): ?>
+                      <?php elseif ((strtotime($property['LastChangeTypeDate']) > (time() - (3600 * 24 * 14))) && (!in_array(strtolower($property['LastChangeType']), array('price change', 'back on market', 'pending')))): ?>
                       <span class="property-label"><?php echo $property['LastChangeType']; ?></span>
                       <?php endif; ?>
                       <img src="<?php echo base_url().$property_image; ?>" alt="image" />
