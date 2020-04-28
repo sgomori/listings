@@ -16,7 +16,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <meta property="og:image:type" content="image/jpeg" />
   <meta property="og:image:width" content="<?php echo $og_width; ?>" />
   <meta property="og:image:height" content="<?php echo $og_height; ?>" />
-  <link rel="publisher" href="https://plus.google.com/+Winnipeghomescom">
   <link rel="shortcut icon" href="<?php echo $assets_path; ?>images/icon/favicon.ico" type="image/x-icon">
 
   <!-- GOOGLE WEB FONTS INCLUDE -->
