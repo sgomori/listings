@@ -51,14 +51,14 @@ class Listings extends CI_Controller {
       if ($type == 'open-houses')
       {
         $query = $this->Listings_model->get_open_houses();
-    		$this->data['title'] = 'Listings | Open Houses';
-    		$this->data['description'] = 'Upcoming Open Houses with Blair Sonnichsen and Tyson Sonnichsen';
+    		$this->data['title'] = 'Open Houses for Sale';
+    		$this->data['description'] = 'Open Houses with Blair Sonnichsen and Tyson Sonnichsen';
       }
       else if ($type == 'sold')
       {
         $query = $this->Listings_model->get_sold_listings();
-    		$this->data['title'] = 'Listings | Recently Sold';
-    		$this->data['description'] = 'Recently Sold Listings by Blair Sonnichsen and Tyson Sonnichsen';
+    		$this->data['title'] = 'Recently Sold';
+    		$this->data['description'] = 'Recently Sold by Blair Sonnichsen and Tyson Sonnichsen';
       }
       else if ($type == 'rur')
       {
@@ -89,15 +89,15 @@ class Listings extends CI_Controller {
         
         $query = $this->Listings_model->get_all_listings($where);
         $this->data['header_variant'] = $type;
-    		$this->data['title'] = 'Rural Listings';
-    		$this->data['description'] = 'Rural Listings by Blair Sonnichsen and Tyson Sonnichsen';
+    		$this->data['title'] = 'Rural Listings for Sale';
+    		$this->data['description'] = 'Rural Listings for Sale by Blair Sonnichsen and Tyson Sonnichsen';
       }
       else
       {
         $query = $this->Listings_model->get_listings_by_type($type);
         $this->data['header_variant'] = $type;
-    		$this->data['title'] = $this->types[$type]['title'].' Listings';
-    		$this->data['description'] = $this->types[$type]['title'].' Listings by Blair Sonnichsen and Tyson Sonnichsen';
+    		$this->data['title'] = $this->types[$type]['title'].' for Sale';
+    		$this->data['description'] = $this->types[$type]['title'].' for Sale by Blair Sonnichsen and Tyson Sonnichsen';
       }
       	     
       $this->types[$type]['active'] = ' class="active '.$type.'"';
@@ -126,8 +126,8 @@ class Listings extends CI_Controller {
       
       $query = $this->Listings_model->get_all_listings($where);
 
-  		$this->data['title'] = 'Listings | Winnipeg Homes for Sale';
-  		$this->data['description'] = 'Winnipeg Homes for Sale by Blair Sonnichsen and Tyson Sonnichsen';      
+  		$this->data['title'] = 'Winnipeg Homes & Condos for Sale';
+  		$this->data['description'] = 'Winnipeg Homes & Condos for Sale by Blair Sonnichsen and Tyson Sonnichsen';      
       $this->types['all']['active'] = ' class="active"';
       $this->data['h1'] = 'Our Properties';
     }
@@ -141,7 +141,27 @@ class Listings extends CI_Controller {
       if ($listing['Status'] === 'Pending')
       {
         $listing['Status'] = '';
-      }                                                
+      }
+      
+		  $city_prov = ucfirst(strtolower($listing['City_or_Town_Name']));
+      $prov = FALSE;
+      
+      if ($city_prov === 'Winnipeg')
+      {
+        $city_prov .= ', Manitoba';
+        $prov = 'Manitoba';
+      }
+      
+      $postal_code = strtoupper($listing['Postal_Code']);
+
+      if ((strpos($postal_code, ' ') === FALSE) && (strlen($postal_code) === 6))
+      {
+        $postal_code = substr($postal_code, 0, 3).' '.substr($postal_code, 2, 3);
+      }
+      
+      $listing['city_prov'] = $city_prov;      
+      $listing['prov'] = $prov;
+      $listing['postal_code'] = $postal_code;                                          
     }
     
     $this->data['listings'] = $listings;
@@ -172,7 +192,7 @@ class Listings extends CI_Controller {
     
     $query = $this->Listings_model->get_all_listings($where);
 
-		$this->data['title'] = 'Listings Map | Winnipeg Homes for Sale';
+		$this->data['title'] = 'Listings Map';
 		$this->data['description'] = 'Winnipeg Homes for Sale by Blair Sonnichsen and Tyson Sonnichsen';      
     $this->types['map']['active'] = ' class="active"';
     $this->data['h1'] = 'Our Properties on the Map';
@@ -394,14 +414,67 @@ class Listings extends CI_Controller {
     $this->data['site_influences'] = $site_influences;
     $this->data['flooring'] = $flooring;
 
-		$this->data['title'] = 'MLS '.$this->data['property']['ML_Number'];
+		$this->data['title'] = '';
     
     if (intval($this->data['property']['Display_Addrs_on_Pub_Web_Sites']) === 1)
 		{
-		  $this->data['title'] .= ', '.$this->data['property']['Street_Number'].' '.ucwords(strtolower($this->data['property']['Street_Name'])).' '.ucfirst(strtolower($this->data['property']['Street_Type']));
-		}
+		  $city_prov = ucfirst(strtolower($this->data['property']['City_or_Town_Name']));
+      $prov = FALSE;
+      
+      if ($city_prov === 'Winnipeg')
+      {
+        $city_prov .= ', Manitoba';
+        $prov = 'Manitoba';
+      }
+      
+      $postal_code = strtoupper($this->data['property']['Postal_Code']);
 
+      if ((strpos($postal_code, ' ') === FALSE) && (strlen($postal_code) === 6))
+      {
+        $postal_code = substr($postal_code, 0, 3).' '.substr($postal_code, 2, 3);
+      }
+      
+      $this->data['city_prov'] = $city_prov;      
+      $this->data['prov'] = $prov;
+      $this->data['postal_code'] = $postal_code;
+      $this->data['title'] .= $this->data['property']['Street_Number'].' '.ucwords(strtolower($this->data['property']['Street_Name'])).' '.ucfirst(strtolower($this->data['property']['Street_Type'])).', '.$city_prov.' '.$postal_code.' - ';
+		}
+    
+    $this->data['title'] .= 'MLS '.$this->data['property']['ML_Number'].': '.$this->data['property']['Agent_1_First_Name'].' '.$this->data['property']['Agent_1_Last_Name'];
+                          
 		$this->data['description'] = 'Property details for '.$this->data['title'];
+    
+    $listing_date_stamp = strtotime($this->data['property']['Date_Entered'].' UTC');
+    
+    $updated_stamp = 0;
+    $this->data['updated_date'] = FALSE;    
+    
+    if (strtotime($this->data['property']['Last_ImgTransDate'].' UTC') > $updated_stamp)
+    {
+      $updated_stamp = strtotime($this->data['property']['Last_ImgTransDate'].' UTC');
+    }
+
+    if (strtotime($this->data['property']['LastChangeTypeDate'].' UTC') > $updated_stamp)
+    {
+      $updated_stamp = strtotime($this->data['property']['LastChangeTypeDate'].' UTC');
+    }
+
+    if (strtotime($this->data['property']['Last_Transaction_Date'].' UTC') > $updated_stamp)
+    {
+      $updated_stamp = strtotime($this->data['property']['Last_Transaction_Date'].' UTC');
+    }
+    
+    if (strtotime($this->data['property']['LastListPriceChangeDate'].' UTC') > $updated_stamp)
+    {
+      $updated_stamp = strtotime($this->data['property']['LastListPriceChangeDate'].' UTC');
+    }
+    
+    if (date('Y-m-d', $updated_stamp) !== date('Y-m-d', $listing_date_stamp))
+    {
+      $this->data['updated_date'] = date('Y-m-d', $updated_stamp);  
+    }
+    
+    $this->data['listing_date'] = date('Y-m-d', $listing_date_stamp);
 		
 		if (isset($property_images[0]))
 		{
@@ -482,6 +555,26 @@ class Listings extends CI_Controller {
     foreach ($listings as &$listing)
     {
       $listing['address_slug'] = $this->_get_address_slug($listing);
+      
+		  $city_prov = ucfirst(strtolower($listing['City_or_Town_Name']));
+      $prov = FALSE;
+      
+      if ($city_prov === 'Winnipeg')
+      {
+        $city_prov .= ', Manitoba';
+        $prov = 'Manitoba';
+      }
+      
+      $postal_code = strtoupper($listing['Postal_Code']);
+
+      if ((strpos($postal_code, ' ') === FALSE) && (strlen($postal_code) === 6))
+      {
+        $postal_code = substr($postal_code, 0, 3).' '.substr($postal_code, 2, 3);
+      }
+      
+      $listing['city_prov'] = $city_prov;      
+      $listing['prov'] = $prov;
+      $listing['postal_code'] = $postal_code;   
     }
         
     $this->data['listings'] = $listings;
@@ -512,8 +605,8 @@ class Listings extends CI_Controller {
     
     $this->types['all']['active'] = ' class="active"';
     $this->data['h1'] = 'Our Office\'s Listings';
-		$this->data['title'] = 'Office Listings';
-		$this->data['description'] = 'Office Listings by Royal LePage Dynamic';
+		$this->data['title'] = 'Office Listings for Sale';
+		$this->data['description'] = 'Royal LePage Dynamic Office Listings';
 
     $listings = $query->result_array();
     
@@ -699,14 +792,35 @@ class Listings extends CI_Controller {
     
     foreach ($query->result_array() as $page)
     {
+      $updated_stamp = $page['Last_Transaction_Date'];
       
-      $trans_date = explode(' ', $page['Last_Transaction_Date']);
+      if (strtotime($page['Last_ImgTransDate'].' UTC') > $updated_stamp)
+      {
+        $updated_stamp = strtotime($page['Last_ImgTransDate'].' UTC');
+      }
+  
+      if (strtotime($page['LastChangeTypeDate'].' UTC') > $updated_stamp)
+      {
+        $updated_stamp = strtotime($page['LastChangeTypeDate'].' UTC');
+      }
+  
+      if (strtotime($page['Last_Transaction_Date'].' UTC') > $updated_stamp)
+      {
+        $updated_stamp = strtotime($page['Last_Transaction_Date'].' UTC');
+      }
+      
+      if (strtotime($page['LastListPriceChangeDate'].' UTC') > $updated_stamp)
+      {
+        $updated_stamp = strtotime($page['LastListPriceChangeDate'].' UTC');
+      }
+      
+      $updated_date = date('Y-m-d', $updated_stamp); 
       $address_slug = $this->_get_address_slug($page);
       
       $pages[] = array(
                       'url' => base_url($this->types[$page['class']]['path'].'/'.$page['Matrix_Unique_ID'].'/'.$address_slug),
-                      'last_modified' => $trans_date[0],
-                      'xml_change_freq' => 'weekly',
+                      'last_modified' => $updated_date,
+                      'xml_change_freq' => 'daily',
                       'xml_priority' => '0.6'
                       );
       

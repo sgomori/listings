@@ -10,8 +10,8 @@
  				  	<!-- START MAIN CONTENT -->
 				  	<div class="noo-content col-xs-12 col-md-8">
 				  		<!-- START ARTICLE PROPERTY -->
-							<article class="property">
-							  <h1 class="properties-header">
+							<article class="property" itemscope itemtype="http://schema.org/RealEstateListing">
+							  <h1 class="properties-header" itemprop="name">
 							    <?php if (intval($property['Display_Addrs_on_Pub_Web_Sites']) === 1): ?>
                     <?php
                         $address = $property['Street_Number'].' '.ucwords(strtolower($property['Street_Name'])).' '.ucfirst(strtolower($property['Street_Type']));
@@ -23,7 +23,7 @@
                       ?>
 							    <span id="civic_address"><?php echo $address; ?></span>
 							    <?php endif; ?>
-							    <small><?php echo $property['Neighbourhood']; ?>, <?php echo ucwords(strtolower($property['City_or_Town_Name'])); ?></small>
+							    <small><?php echo $property['Neighbourhood']; ?>, <?php echo $city_prov; ?> <?php echo $postal_code; ?></small>
 							  </h1>
 							  
 							  <?php if (!empty($property_images)): ?>
@@ -126,18 +126,29 @@
 							          <?php endif; ?>
 							          
 							          <?php endif; ?>
+                                                
 							          <h2 class="property-detail-title">Property Description</h2>
-							          <p><?php echo $property['Public_Remarks']; ?></p>
+							          <p itemprop="description"><?php echo $property['Public_Remarks']; ?></p>
 
 							          <?php if ((isset($property['Virtual_Tour_Link'])) && ($property['Virtual_Tour_Link'] !== '')): ?>
 							          <p><a href="<?php echo $property['Virtual_Tour_Link']; ?>" target="_blank">View the virtual tour</a></p>
-							          <?php endif; ?>                        
+							          <?php endif; ?>
                         
-                        <p class="listed-by">Listed by <span itemscope itemtype="http://schema.org/RealEstateAgent"><span itemprop="name"><?php echo $property['Agent_1_First_Name']; ?> <?php echo $property['Agent_1_Last_Name']; ?></span></span>
-                        <?php if (isset($property['Agent_2_First_Name']) && ($property['Agent_1_First_Name'] !== '')): ?>
-                          and <span itemscope itemtype="http://schema.org/RealEstateAgent"><span itemprop="name"><?php echo $property['Agent_2_First_Name']; ?> <?php echo $property['Agent_2_Last_Name']; ?></span></span>
-                        <?php endif; ?>
-                        </p>
+                        <p class="meta">
+                          <span class="listed-by">Listing Agent: <span itemscope itemtype="http://schema.org/RealEstateAgent"><span itemprop="name"><?php echo $property['Agent_1_First_Name']; ?> <?php echo $property['Agent_1_Last_Name']; ?></span></span>
+                          <?php if (isset($property['Agent_2_First_Name']) && ($property['Agent_1_First_Name'] !== '')): ?>
+                            and <span itemscope itemtype="http://schema.org/RealEstateAgent"><span itemprop="name"><?php echo $property['Agent_2_First_Name']; ?> <?php echo $property['Agent_2_Last_Name']; ?></span></span>
+                          <?php endif; ?>
+                          </span>
+                          
+                          <br />                                                    
+                          <span>Listing Date: <span itemprop="datePosted"><?php echo $listing_date; ?></span></span>
+                          
+                          <?php if ($updated_date): ?>
+                          <br />
+                          <span>Updated: <span itemprop="dateModified"><?php echo $updated_date; ?></span></span>
+                          <?php endif; ?>
+                        </p>                 
 							        </div>
 							      </div>
 							    </div>

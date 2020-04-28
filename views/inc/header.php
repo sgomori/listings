@@ -5,10 +5,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 <head>
   <meta charset="utf-8">
-  <title>Winnipeg Homes - <?php echo $title; ?></title>
+  <title><?php echo $title; ?> | Winnipeg Homes</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="<?php echo $description; ?>">
-  <meta property="og:title" content="Winnipeg Homes - <?php echo $title; ?>">
+  <meta property="og:title" content="<?php echo $title; ?> | Winnipeg Homes">
   <meta property="og:description" content="<?php echo $description; ?>">
   <meta property="og:site_name" content="Winnipeg Homes - Listings | An Experience Worth Repeating" />
   <meta property="og:url" content="<?php echo current_url(); ?>" />  

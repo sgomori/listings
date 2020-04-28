@@ -25,7 +25,7 @@ class ListingS_model extends CI_Model {
           Listing.Street_Type, Listing.Neighbourhood, Listing.City_or_Town_Name, Listing.Postal_Code,
           Listing.Public_Remarks, Listing.Total_FloorLiv_Area_SF, Listing.Number_of_Total_Baths, 
           Listing.Total_Bedrooms, Listing.CurrentPrice, Listing.Total_FloorLiv_Area_SF, 
-          Listing.Number_of_Total_Baths, Listing.Total_Bedrooms, Listing.Date_Entered, 
+          Listing.Number_of_Total_Baths, Listing.Total_Bedrooms, Listing.Date_Entered, Listing.Last_ImgTransDate, Listing.LastListPriceChangeDate,
           Listing.Status, Listing.Sold_Date, Listing.Last_Transaction_Date, Open_House_Date_NUM1, Agent_1.First_Name AS Agent_1_First_Name, 
           Agent_1.Last_Name AS Agent_1_Last_Name, Agent_2.First_Name AS Agent_2_First_Name, 
           Agent_2.Last_Name AS Agent_2_Last_Name,
@@ -48,7 +48,7 @@ class ListingS_model extends CI_Model {
           Listing.Street_Type, Listing.Neighbourhood, Listing.City_or_Town_Name, Listing.Postal_Code,
           Listing.Public_Remarks, Listing.Total_FloorLiv_Area_SF, Listing.Number_of_Total_Baths, 
           Listing.Total_Bedrooms, Listing.CurrentPrice, Listing.Total_FloorLiv_Area_SF, 
-          Listing.Number_of_Total_Baths, Listing.Total_Bedrooms, Listing.Date_Entered, 
+          Listing.Number_of_Total_Baths, Listing.Total_Bedrooms, Listing.Date_Entered, Listing.Last_ImgTransDate, Listing.LastListPriceChangeDate,
           Listing.Status, Listing.Sold_Date, Listing.Last_Transaction_Date, Open_House_Date_NUM1, Agent_1.First_Name AS Agent_1_First_Name, 
           Agent_1.Last_Name AS Agent_1_Last_Name, Agent_2.First_Name AS Agent_2_First_Name, 
           Agent_2.Last_Name AS Agent_2_Last_Name,
@@ -71,7 +71,7 @@ class ListingS_model extends CI_Model {
           Listing.Street_Type, Listing.Neighbourhood, Listing.City_or_Town_Name, Listing.Postal_Code,
           Listing.Public_Remarks, Listing.Total_FloorLiv_Area_SF, Listing.Number_of_Total_Baths, 
           Listing.Total_Bedrooms, Listing.CurrentPrice, Listing.Total_FloorLiv_Area_SF, 
-          Listing.Number_of_Total_Baths, Listing.Total_Bedrooms, Listing.Date_Entered, 
+          Listing.Number_of_Total_Baths, Listing.Total_Bedrooms, Listing.Date_Entered, Listing.Last_ImgTransDate, Listing.LastListPriceChangeDate, 
           Listing.Status, Listing.Sold_Date, Listing.Last_Transaction_Date, Open_House_Date_NUM1, Agent_1.First_Name AS Agent_1_First_Name, 
           Agent_1.Last_Name AS Agent_1_Last_Name, Agent_2.First_Name AS Agent_2_First_Name, 
           Agent_2.Last_Name AS Agent_2_Last_Name,
@@ -106,10 +106,10 @@ class ListingS_model extends CI_Model {
     $sql = '
         SELECT "'.$type.'" AS class, Listing.Matrix_Unique_ID, Listing.LastChangeTypeDate, Listing.Display_Addrs_on_Pub_Web_Sites,
           Listing.LastChangeType, Listing.Style, Listing.Suite_Number, Listing.Street_Number, Listing.Street_Name, 
-          Listing.Street_Type, Listing.Neighbourhood, Listing.City_or_Town_Name, 
+          Listing.Street_Type, Listing.Neighbourhood, Listing.City_or_Town_Name, Listing.Postal_Code,
           Listing.Public_Remarks, Listing.Total_FloorLiv_Area_SF, Listing.Number_of_Total_Baths, 
           Listing.Total_Bedrooms, Listing.CurrentPrice, Listing.Total_FloorLiv_Area_SF, 
-          Listing.Number_of_Total_Baths, Listing.Total_Bedrooms, Listing.Date_Entered, 
+          Listing.Number_of_Total_Baths, Listing.Total_Bedrooms, Listing.Date_Entered, Listing.Last_ImgTransDate, Listing.LastListPriceChangeDate, 
           Listing.Status, Listing.Sold_Date, Open_House_Date_NUM1, Agent_1.First_Name AS Agent_1_First_Name, 
           Agent_1.Last_Name AS Agent_1_Last_Name, Agent_2.First_Name AS Agent_2_First_Name, 
           Agent_2.Last_Name AS Agent_2_Last_Name 
@@ -158,10 +158,10 @@ class ListingS_model extends CI_Model {
     $sql = '
         SELECT "res" AS class, Listing.Matrix_Unique_ID, Listing.LastChangeTypeDate, Listing.Display_Addrs_on_Pub_Web_Sites,
           Listing.LastChangeType, Listing.Style, Listing.Suite_Number, Listing.Street_Number, Listing.Street_Name, 
-          Listing.Street_Type, Listing.Neighbourhood, Listing.City_or_Town_Name, 
+          Listing.Street_Type, Listing.Neighbourhood, Listing.City_or_Town_Name, Listing.Postal_Code,
           Listing.Public_Remarks, Listing.Total_FloorLiv_Area_SF, Listing.Number_of_Total_Baths, 
           Listing.Total_Bedrooms, Listing.CurrentPrice, Listing.Total_FloorLiv_Area_SF, 
-          Listing.Number_of_Total_Baths, Listing.Total_Bedrooms, Listing.Date_Entered, 
+          Listing.Number_of_Total_Baths, Listing.Total_Bedrooms, Listing.Date_Entered, Listing.Last_ImgTransDate, Listing.LastListPriceChangeDate,
           Listing.Status, Listing.Sold_Date, Open_House_Date_NUM1, Agent_1.First_Name AS Agent_1_First_Name, 
           Agent_1.Last_Name AS Agent_1_Last_Name, Agent_2.First_Name AS Agent_2_First_Name, 
           Agent_2.Last_Name AS Agent_2_Last_Name 
@@ -188,10 +188,10 @@ class ListingS_model extends CI_Model {
         
         SELECT "con" AS class, Listing.Matrix_Unique_ID, Listing.LastChangeTypeDate, Listing.Display_Addrs_on_Pub_Web_Sites,
           Listing.LastChangeType, Listing.Style, Listing.Suite_Number, Listing.Street_Number, Listing.Street_Name, 
-          Listing.Street_Type, Listing.Neighbourhood, Listing.City_or_Town_Name, 
+          Listing.Street_Type, Listing.Neighbourhood, Listing.City_or_Town_Name, Listing.Postal_Code,
           Listing.Public_Remarks, Listing.Total_FloorLiv_Area_SF, Listing.Number_of_Total_Baths, 
           Listing.Total_Bedrooms, Listing.CurrentPrice, Listing.Total_FloorLiv_Area_SF, 
-          Listing.Number_of_Total_Baths, Listing.Total_Bedrooms, Listing.Date_Entered, 
+          Listing.Number_of_Total_Baths, Listing.Total_Bedrooms, Listing.Date_Entered, Listing.Last_ImgTransDate, Listing.LastListPriceChangeDate,
           Listing.Status, Listing.Sold_Date, Open_House_Date_NUM1, Agent_1.First_Name AS Agent_1_First_Name, 
           Agent_1.Last_Name AS Agent_1_Last_Name, Agent_2.First_Name AS Agent_2_First_Name, 
           Agent_2.Last_Name AS Agent_2_Last_Name 
@@ -218,10 +218,10 @@ class ListingS_model extends CI_Model {
         
         SELECT "rur" AS class, Listing.Matrix_Unique_ID, Listing.LastChangeTypeDate, Listing.Display_Addrs_on_Pub_Web_Sites,
           Listing.LastChangeType, Listing.Style, Listing.Suite_Number, Listing.Street_Number, Listing.Street_Name, 
-          Listing.Street_Type, Listing.Neighbourhood, Listing.City_or_Town_Name, 
+          Listing.Street_Type, Listing.Neighbourhood, Listing.City_or_Town_Name, Listing.Postal_Code,
           Listing.Public_Remarks, Listing.Total_FloorLiv_Area_SF, Listing.Number_of_Total_Baths, 
           Listing.Total_Bedrooms, Listing.CurrentPrice, Listing.Total_FloorLiv_Area_SF, 
-          Listing.Number_of_Total_Baths, Listing.Total_Bedrooms, Listing.Date_Entered, 
+          Listing.Number_of_Total_Baths, Listing.Total_Bedrooms, Listing.Date_Entered, Listing.Last_ImgTransDate, Listing.LastListPriceChangeDate,
           Listing.Status, Listing.Sold_Date, Open_House_Date_NUM1, Agent_1.First_Name AS Agent_1_First_Name, 
           Agent_1.Last_Name AS Agent_1_Last_Name, Agent_2.First_Name AS Agent_2_First_Name, 
           Agent_2.Last_Name AS Agent_2_Last_Name 
@@ -263,10 +263,10 @@ class ListingS_model extends CI_Model {
     $sql = '
         SELECT "res" AS class, Listing.Matrix_Unique_ID, Listing.LastChangeTypeDate, Listing.Display_Addrs_on_Pub_Web_Sites,
           Listing.LastChangeType, Listing.Style, Listing.Suite_Number, Listing.Street_Number, Listing.Street_Name, 
-          Listing.Street_Type, Listing.Neighbourhood, Listing.City_or_Town_Name, 
+          Listing.Street_Type, Listing.Neighbourhood, Listing.City_or_Town_Name, Listing.Postal_Code,
           Listing.Public_Remarks, Listing.Total_FloorLiv_Area_SF, Listing.Number_of_Total_Baths, 
           Listing.Total_Bedrooms, Listing.CurrentPrice, Listing.Total_FloorLiv_Area_SF, 
-          Listing.Number_of_Total_Baths, Listing.Total_Bedrooms, Listing.Date_Entered, 
+          Listing.Number_of_Total_Baths, Listing.Total_Bedrooms, Listing.Date_Entered, Listing.Last_ImgTransDate, Listing.LastListPriceChangeDate,
           Listing.Status, Listing.Sold_Date, Agent_1.First_Name AS Agent_1_First_Name, 
           Agent_1.Last_Name AS Agent_1_Last_Name, Agent_2.First_Name AS Agent_2_First_Name, 
           Agent_2.Last_Name AS Agent_2_Last_Name 
@@ -291,10 +291,10 @@ class ListingS_model extends CI_Model {
         
         SELECT "con" AS class, Listing.Matrix_Unique_ID, Listing.LastChangeTypeDate, Listing.Display_Addrs_on_Pub_Web_Sites,
           Listing.LastChangeType, Listing.Style, Listing.Suite_Number, Listing.Street_Number, Listing.Street_Name, 
-          Listing.Street_Type, Listing.Neighbourhood, Listing.City_or_Town_Name, 
+          Listing.Street_Type, Listing.Neighbourhood, Listing.City_or_Town_Name, Listing.Postal_Code,
           Listing.Public_Remarks, Listing.Total_FloorLiv_Area_SF, Listing.Number_of_Total_Baths, 
           Listing.Total_Bedrooms, Listing.CurrentPrice, Listing.Total_FloorLiv_Area_SF, 
-          Listing.Number_of_Total_Baths, Listing.Total_Bedrooms, Listing.Date_Entered, 
+          Listing.Number_of_Total_Baths, Listing.Total_Bedrooms, Listing.Date_Entered, Listing.Last_ImgTransDate, Listing.LastListPriceChangeDate,
           Listing.Status, Listing.Sold_Date, Agent_1.First_Name AS Agent_1_First_Name, 
           Agent_1.Last_Name AS Agent_1_Last_Name, Agent_2.First_Name AS Agent_2_First_Name, 
           Agent_2.Last_Name AS Agent_2_Last_Name 
@@ -319,10 +319,10 @@ class ListingS_model extends CI_Model {
         
         SELECT "rur" AS class, Listing.Matrix_Unique_ID, Listing.LastChangeTypeDate, Listing.Display_Addrs_on_Pub_Web_Sites,
           Listing.LastChangeType, Listing.Style, Listing.Suite_Number, Listing.Street_Number, Listing.Street_Name, 
-          Listing.Street_Type, Listing.Neighbourhood, Listing.City_or_Town_Name, 
+          Listing.Street_Type, Listing.Neighbourhood, Listing.City_or_Town_Name, Listing.Postal_Code,
           Listing.Public_Remarks, Listing.Total_FloorLiv_Area_SF, Listing.Number_of_Total_Baths, 
           Listing.Total_Bedrooms, Listing.CurrentPrice, Listing.Total_FloorLiv_Area_SF, 
-          Listing.Number_of_Total_Baths, Listing.Total_Bedrooms, Listing.Date_Entered, 
+          Listing.Number_of_Total_Baths, Listing.Total_Bedrooms, Listing.Date_Entered, Listing.Last_ImgTransDate, Listing.LastListPriceChangeDate,
           Listing.Status, Listing.Sold_Date, Agent_1.First_Name AS Agent_1_First_Name, 
           Agent_1.Last_Name AS Agent_1_Last_Name, Agent_2.First_Name AS Agent_2_First_Name, 
           Agent_2.Last_Name AS Agent_2_Last_Name 
@@ -362,10 +362,10 @@ class ListingS_model extends CI_Model {
     $sql = '
         SELECT "res" AS class, Listing.Matrix_Unique_ID, Listing.LastChangeTypeDate, Listing.Display_Addrs_on_Pub_Web_Sites,
           Listing.LastChangeType, Listing.Style, Listing.Suite_Number, Listing.Street_Number, Listing.Street_Name, 
-          Listing.Street_Type, Listing.Neighbourhood, Listing.City_or_Town_Name, 
+          Listing.Street_Type, Listing.Neighbourhood, Listing.City_or_Town_Name, Listing.Postal_Code,
           Listing.Public_Remarks, Listing.Total_FloorLiv_Area_SF, Listing.Number_of_Total_Baths, 
           Listing.Total_Bedrooms, Listing.CurrentPrice, Listing.Total_FloorLiv_Area_SF, 
-          Listing.Number_of_Total_Baths, Listing.Total_Bedrooms, Listing.Date_Entered, 
+          Listing.Number_of_Total_Baths, Listing.Total_Bedrooms, Listing.Date_Entered, Listing.Last_ImgTransDate, Listing.LastListPriceChangeDate,
           Listing.Status, Listing.Sold_Date, Open_House_Date_NUM1, Agent_1.First_Name AS Agent_1_First_Name, 
           Agent_1.Last_Name AS Agent_1_Last_Name, Agent_2.First_Name AS Agent_2_First_Name, 
           Agent_2.Last_Name AS Agent_2_Last_Name 
@@ -397,10 +397,10 @@ class ListingS_model extends CI_Model {
         
         SELECT "con" AS class, Listing.Matrix_Unique_ID, Listing.LastChangeTypeDate, Listing.Display_Addrs_on_Pub_Web_Sites,
           Listing.LastChangeType, Listing.Style, Listing.Suite_Number, Listing.Street_Number, Listing.Street_Name, 
-          Listing.Street_Type, Listing.Neighbourhood, Listing.City_or_Town_Name, 
+          Listing.Street_Type, Listing.Neighbourhood, Listing.City_or_Town_Name, Listing.Postal_Code,
           Listing.Public_Remarks, Listing.Total_FloorLiv_Area_SF, Listing.Number_of_Total_Baths, 
           Listing.Total_Bedrooms, Listing.CurrentPrice, Listing.Total_FloorLiv_Area_SF, 
-          Listing.Number_of_Total_Baths, Listing.Total_Bedrooms, Listing.Date_Entered, 
+          Listing.Number_of_Total_Baths, Listing.Total_Bedrooms, Listing.Date_Entered, Listing.Last_ImgTransDate, Listing.LastListPriceChangeDate, 
           Listing.Status, Listing.Sold_Date, Open_House_Date_NUM1, Agent_1.First_Name AS Agent_1_First_Name, 
           Agent_1.Last_Name AS Agent_1_Last_Name, Agent_2.First_Name AS Agent_2_First_Name, 
           Agent_2.Last_Name AS Agent_2_Last_Name 
@@ -432,10 +432,10 @@ class ListingS_model extends CI_Model {
         
         SELECT "rur" AS class, Listing.Matrix_Unique_ID, Listing.LastChangeTypeDate, Listing.Display_Addrs_on_Pub_Web_Sites,
           Listing.LastChangeType, Listing.Style, Listing.Suite_Number, Listing.Street_Number, Listing.Street_Name, 
-          Listing.Street_Type, Listing.Neighbourhood, Listing.City_or_Town_Name, 
+          Listing.Street_Type, Listing.Neighbourhood, Listing.City_or_Town_Name, Listing.Postal_Code,
           Listing.Public_Remarks, Listing.Total_FloorLiv_Area_SF, Listing.Number_of_Total_Baths, 
           Listing.Total_Bedrooms, Listing.CurrentPrice, Listing.Total_FloorLiv_Area_SF, 
-          Listing.Number_of_Total_Baths, Listing.Total_Bedrooms, Listing.Date_Entered, 
+          Listing.Number_of_Total_Baths, Listing.Total_Bedrooms, Listing.Date_Entered, Listing.Last_ImgTransDate, Listing.LastListPriceChangeDate, 
           Listing.Status, Listing.Sold_Date, Open_House_Date_NUM1, Agent_1.First_Name AS Agent_1_First_Name, 
           Agent_1.Last_Name AS Agent_1_Last_Name, Agent_2.First_Name AS Agent_2_First_Name, 
           Agent_2.Last_Name AS Agent_2_Last_Name 
@@ -482,10 +482,10 @@ class ListingS_model extends CI_Model {
     $sql = '
         SELECT "'.$type.'" AS class, Listing.Matrix_Unique_ID, Listing.LastChangeTypeDate, Listing.Display_Addrs_on_Pub_Web_Sites,
           Listing.LastChangeType, Listing.Style, Listing.Suite_Number, Listing.Street_Number, Listing.Street_Name, 
-          Listing.Street_Type, Listing.Neighbourhood, Listing.City_or_Town_Name, 
+          Listing.Street_Type, Listing.Neighbourhood, Listing.City_or_Town_Name, Listing.Postal_Code,
           Listing.Public_Remarks, Listing.Total_FloorLiv_Area_SF, Listing.Number_of_Total_Baths, 
           Listing.Total_Bedrooms, Listing.CurrentPrice, Listing.Total_FloorLiv_Area_SF, 
-          Listing.Number_of_Total_Baths, Listing.Total_Bedrooms, Listing.Date_Entered, 
+          Listing.Number_of_Total_Baths, Listing.Total_Bedrooms, Listing.Date_Entered, Listing.Last_ImgTransDate, Listing.LastListPriceChangeDate,
           Listing.Status, Listing.Sold_Date, Open_House_Date_NUM1, Agent_1.First_Name AS Agent_1_First_Name, 
           Agent_1.Last_Name AS Agent_1_Last_Name, Agent_2.First_Name AS Agent_2_First_Name, 
           Agent_2.Last_Name AS Agent_2_Last_Name 
@@ -565,10 +565,10 @@ class ListingS_model extends CI_Model {
     $sql = '
         SELECT "con" AS class, Listing.Matrix_Unique_ID, Listing.LastChangeTypeDate, Listing.Display_Addrs_on_Pub_Web_Sites,
           Listing.LastChangeType, Listing.Style, Listing.Suite_Number, Listing.Street_Number, Listing.Street_Name, 
-          Listing.Street_Type, Listing.Neighbourhood, Listing.City_or_Town_Name, 
+          Listing.Street_Type, Listing.Neighbourhood, Listing.City_or_Town_Name, Listing.Postal_Code,
           Listing.Public_Remarks, Listing.Total_FloorLiv_Area_SF, Listing.Number_of_Total_Baths, 
           Listing.Total_Bedrooms, Listing.CurrentPrice, Listing.Total_FloorLiv_Area_SF, 
-          Listing.Number_of_Total_Baths, Listing.Total_Bedrooms, Listing.Date_Entered, 
+          Listing.Number_of_Total_Baths, Listing.Total_Bedrooms, Listing.Date_Entered, Listing.Last_ImgTransDate, Listing.LastListPriceChangeDate,
           Listing.Status, Listing.Sold_Date, Open_House_Date_NUM1, Agent_1.First_Name AS Agent_1_First_Name, 
           Agent_1.Last_Name AS Agent_1_Last_Name, Agent_2.First_Name AS Agent_2_First_Name, 
           Agent_2.Last_Name AS Agent_2_Last_Name 
@@ -623,10 +623,10 @@ class ListingS_model extends CI_Model {
     $sql = '
         SELECT "res" AS class, Listing.Matrix_Unique_ID, Listing.LastChangeTypeDate, Listing.Display_Addrs_on_Pub_Web_Sites,
           Listing.LastChangeType, Listing.Style, Listing.Suite_Number, Listing.Street_Number, Listing.Street_Name, 
-          Listing.Street_Type, Listing.Neighbourhood, Listing.City_or_Town_Name, 
+          Listing.Street_Type, Listing.Neighbourhood, Listing.City_or_Town_Name, Listing.Postal_Code,
           Listing.Public_Remarks, Listing.Total_FloorLiv_Area_SF, Listing.Number_of_Total_Baths, 
           Listing.Total_Bedrooms, Listing.CurrentPrice, Listing.Total_FloorLiv_Area_SF, 
-          Listing.Number_of_Total_Baths, Listing.Total_Bedrooms, Listing.Date_Entered, 
+          Listing.Number_of_Total_Baths, Listing.Total_Bedrooms, Listing.Date_Entered, Listing.Last_ImgTransDate, Listing.LastListPriceChangeDate,
           Listing.Status, Listing.Sold_Date, Open_House_Date_NUM1, Agent_1.First_Name AS Agent_1_First_Name, 
           Agent_1.Last_Name AS Agent_1_Last_Name, Agent_2.First_Name AS Agent_2_First_Name, 
           Agent_2.Last_Name AS Agent_2_Last_Name 
@@ -665,10 +665,10 @@ class ListingS_model extends CI_Model {
     $sql = '
         SELECT "res" AS class, Listing.Matrix_Unique_ID, Listing.LastChangeTypeDate, Listing.Display_Addrs_on_Pub_Web_Sites,
           Listing.LastChangeType, Listing.Style, Listing.Suite_Number, Listing.Street_Number, Listing.Street_Name, 
-          Listing.Street_Type, Listing.Neighbourhood, Listing.City_or_Town_Name, 
+          Listing.Street_Type, Listing.Neighbourhood, Listing.City_or_Town_Name, Listing.Postal_Code,
           Listing.Public_Remarks, Listing.Total_FloorLiv_Area_SF, Listing.Number_of_Total_Baths, 
           Listing.Total_Bedrooms, Listing.CurrentPrice, Listing.Total_FloorLiv_Area_SF, 
-          Listing.Number_of_Total_Baths, Listing.Total_Bedrooms, Listing.Date_Entered, 
+          Listing.Number_of_Total_Baths, Listing.Total_Bedrooms, Listing.Date_Entered, Listing.Last_ImgTransDate, Listing.LastListPriceChangeDate,
           Listing.Status, Listing.Sold_Date, Open_House_Date_NUM1, Agent_1.First_Name AS Agent_1_First_Name, 
           Agent_1.Last_Name AS Agent_1_Last_Name, Agent_2.First_Name AS Agent_2_First_Name, 
           Agent_2.Last_Name AS Agent_2_Last_Name 
@@ -699,10 +699,10 @@ class ListingS_model extends CI_Model {
         
         SELECT "con" AS class, Listing.Matrix_Unique_ID, Listing.LastChangeTypeDate, Listing.Display_Addrs_on_Pub_Web_Sites,
           Listing.LastChangeType, Listing.Style, Listing.Suite_Number, Listing.Street_Number, Listing.Street_Name, 
-          Listing.Street_Type, Listing.Neighbourhood, Listing.City_or_Town_Name, 
+          Listing.Street_Type, Listing.Neighbourhood, Listing.City_or_Town_Name, Listing.Postal_Code,
           Listing.Public_Remarks, Listing.Total_FloorLiv_Area_SF, Listing.Number_of_Total_Baths, 
           Listing.Total_Bedrooms, Listing.CurrentPrice, Listing.Total_FloorLiv_Area_SF, 
-          Listing.Number_of_Total_Baths, Listing.Total_Bedrooms, Listing.Date_Entered, 
+          Listing.Number_of_Total_Baths, Listing.Total_Bedrooms, Listing.Date_Entered, Listing.Last_ImgTransDate, Listing.LastListPriceChangeDate,
           Listing.Status, Listing.Sold_Date, Open_House_Date_NUM1, Agent_1.First_Name AS Agent_1_First_Name, 
           Agent_1.Last_Name AS Agent_1_Last_Name, Agent_2.First_Name AS Agent_2_First_Name, 
           Agent_2.Last_Name AS Agent_2_Last_Name 
@@ -733,10 +733,10 @@ class ListingS_model extends CI_Model {
         
         SELECT "rur" AS class, Listing.Matrix_Unique_ID, Listing.LastChangeTypeDate, Listing.Display_Addrs_on_Pub_Web_Sites,
           Listing.LastChangeType, Listing.Style, Listing.Suite_Number, Listing.Street_Number, Listing.Street_Name, 
-          Listing.Street_Type, Listing.Neighbourhood, Listing.City_or_Town_Name, 
+          Listing.Street_Type, Listing.Neighbourhood, Listing.City_or_Town_Name, Listing.Postal_Code,
           Listing.Public_Remarks, Listing.Total_FloorLiv_Area_SF, Listing.Number_of_Total_Baths, 
           Listing.Total_Bedrooms, Listing.CurrentPrice, Listing.Total_FloorLiv_Area_SF, 
-          Listing.Number_of_Total_Baths, Listing.Total_Bedrooms, Listing.Date_Entered, 
+          Listing.Number_of_Total_Baths, Listing.Total_Bedrooms, Listing.Date_Entered, Listing.Last_ImgTransDate, Listing.LastListPriceChangeDate,
           Listing.Status, Listing.Sold_Date, Open_House_Date_NUM1, Agent_1.First_Name AS Agent_1_First_Name, 
           Agent_1.Last_Name AS Agent_1_Last_Name, Agent_2.First_Name AS Agent_2_First_Name, 
           Agent_2.Last_Name AS Agent_2_Last_Name 
