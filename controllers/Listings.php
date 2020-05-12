@@ -767,7 +767,7 @@ class Listings extends CI_Controller {
     
     foreach ($this->types as $key => $type)
     {
-      if ($key === 'all')
+      if (($key === 'all') || ($key === 'map'))
       {
         continue;
       }
