@@ -17,6 +17,7 @@ class Listings extends CI_Controller {
 		$this->data['og_image'] = base_url('assets/images/WH-OG.jpg');
 		$this->data['og_width'] = 728;
 		$this->data['og_height'] = 382;
+    $this->data['no_index'] = FALSE;
 		$this->header_view = 'inc/header';
 		$this->footer_view = 'inc/footer';
 		$this->analtyics = 'inc/analytics';
@@ -191,7 +192,9 @@ class Listings extends CI_Controller {
     ';
     
     $query = $this->Listings_model->get_all_listings($where);
-
+    
+    $this->data['no_index'] = TRUE;
+    
 		$this->data['title'] = 'Listings Map';
 		$this->data['description'] = 'Winnipeg Homes for Sale by Blair Sonnichsen and Tyson Sonnichsen';      
     $this->types['map']['active'] = ' class="active"';
