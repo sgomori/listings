@@ -267,7 +267,7 @@ class ListingS_model extends CI_Model {
           Listing.Public_Remarks, Listing.Total_FloorLiv_Area_SF, Listing.Number_of_Total_Baths, 
           Listing.Total_Bedrooms, Listing.CurrentPrice, Listing.Total_FloorLiv_Area_SF, 
           Listing.Number_of_Total_Baths, Listing.Total_Bedrooms, Listing.Date_Entered, Listing.Last_ImgTransDate, Listing.LastListPriceChangeDate,
-          Listing.Status, Listing.Sold_Date, Agent_1.First_Name AS Agent_1_First_Name, 
+          Listing.Status, Listing.Sold_Date, Listing.Last_Transaction_Date, Agent_1.First_Name AS Agent_1_First_Name, 
           Agent_1.Last_Name AS Agent_1_Last_Name, Agent_2.First_Name AS Agent_2_First_Name, 
           Agent_2.Last_Name AS Agent_2_Last_Name 
         FROM
@@ -286,6 +286,10 @@ class ListingS_model extends CI_Model {
           OR
           Listing.Sales_Rep_MUI_2 IN (564206, 16212643)
         )
+        AND
+        (
+          Listing.Matrix_Unique_ID > 100000
+        )
               
         UNION
         
@@ -295,7 +299,7 @@ class ListingS_model extends CI_Model {
           Listing.Public_Remarks, Listing.Total_FloorLiv_Area_SF, Listing.Number_of_Total_Baths, 
           Listing.Total_Bedrooms, Listing.CurrentPrice, Listing.Total_FloorLiv_Area_SF, 
           Listing.Number_of_Total_Baths, Listing.Total_Bedrooms, Listing.Date_Entered, Listing.Last_ImgTransDate, Listing.LastListPriceChangeDate,
-          Listing.Status, Listing.Sold_Date, Agent_1.First_Name AS Agent_1_First_Name, 
+          Listing.Status, Listing.Sold_Date, Listing.Last_Transaction_Date, Agent_1.First_Name AS Agent_1_First_Name, 
           Agent_1.Last_Name AS Agent_1_Last_Name, Agent_2.First_Name AS Agent_2_First_Name, 
           Agent_2.Last_Name AS Agent_2_Last_Name 
         FROM
@@ -314,7 +318,11 @@ class ListingS_model extends CI_Model {
           OR
           Listing.Sales_Rep_MUI_2 IN (564206, 16212643)
         )
-              
+        AND
+        (
+          Listing.Matrix_Unique_ID > 100000
+        )
+                      
         UNION
         
         SELECT "rur" AS class, Listing.Matrix_Unique_ID, Listing.LastChangeTypeDate, Listing.Display_Addrs_on_Pub_Web_Sites,
@@ -323,7 +331,7 @@ class ListingS_model extends CI_Model {
           Listing.Public_Remarks, Listing.Total_FloorLiv_Area_SF, Listing.Number_of_Total_Baths, 
           Listing.Total_Bedrooms, Listing.CurrentPrice, Listing.Total_FloorLiv_Area_SF, 
           Listing.Number_of_Total_Baths, Listing.Total_Bedrooms, Listing.Date_Entered, Listing.Last_ImgTransDate, Listing.LastListPriceChangeDate,
-          Listing.Status, Listing.Sold_Date, Agent_1.First_Name AS Agent_1_First_Name, 
+          Listing.Status, Listing.Sold_Date, Listing.Last_Transaction_Date, Agent_1.First_Name AS Agent_1_First_Name, 
           Agent_1.Last_Name AS Agent_1_Last_Name, Agent_2.First_Name AS Agent_2_First_Name, 
           Agent_2.Last_Name AS Agent_2_Last_Name 
         FROM
@@ -342,7 +350,11 @@ class ListingS_model extends CI_Model {
           OR
           Listing.Sales_Rep_MUI_2 IN (564206, 16212643)
         )
-              
+        AND
+        (
+          Listing.Matrix_Unique_ID > 100000
+        )
+                      
         ORDER BY Sold_Date DESC';
     
   

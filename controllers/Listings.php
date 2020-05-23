@@ -771,6 +771,16 @@ class Listings extends CI_Controller {
       {
         continue;
       }
+      else if ($key === 'sold')
+      {
+        $pages[] = array(
+                        'url' => base_url($type['path']),
+                        'last_modified' => NULL,
+                        'xml_change_freq' => 'daily',
+                        'xml_priority' => '0.4'
+                        );
+        continue;
+      }
       
       $pages[] = array(
                       'url' => base_url($type['path']),
@@ -792,6 +802,22 @@ class Listings extends CI_Controller {
     ';
         
     $query = $this->Listings_model->get_all_listings($where);
+    
+    $pages = array_merge($pages, $this->_generate_xml_sitemap_content($query, 'daily', '0.6'));
+
+    $sold_query = $this->Listings_model->get_sold_listings();
+    
+    $pages = array_merge($pages, $this->_generate_xml_sitemap_content($sold_query, 'monthly', '0.1'));
+     
+    $this->data['pages'] = $pages;
+    $this->output->set_content_type('text/xml');
+	  $this->load->view('xml_sitemap', $this->data);
+	}
+
+
+  private function _generate_xml_sitemap_content($query, $frequency, $priority)
+  {
+    $items = array();
     
     foreach ($query->result_array() as $page)
     {
@@ -820,20 +846,17 @@ class Listings extends CI_Controller {
       $updated_date = date('Y-m-d', $updated_stamp); 
       $address_slug = $this->_get_address_slug($page);
       
-      $pages[] = array(
+      $items[] = array(
                       'url' => base_url($this->types[$page['class']]['path'].'/'.$page['Matrix_Unique_ID'].'/'.$address_slug),
                       'last_modified' => $updated_date,
-                      'xml_change_freq' => 'daily',
-                      'xml_priority' => '0.6'
+                      'xml_change_freq' => $frequency,
+                      'xml_priority' => $priority
                       );
-      
     }
-     
-    $this->data['pages'] = $pages;
-    $this->output->set_content_type('text/xml');
-	  $this->load->view('xml_sitemap', $this->data);
-	}
-	
+    
+    return $items;
+  }
+  	
 	
 	private function _set_coordinates($class, $matrix_unique_id, $address)
 	{
