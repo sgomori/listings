@@ -640,6 +640,11 @@ class Listings extends CI_Controller {
     foreach ($listings as &$listing)
     {
       $listing['address_slug'] = $this->_get_address_slug($listing);
+      
+      if ($listing['Status'] === 'Pending')
+      {
+        $listing['Status'] = '';
+      } 
     }
      
     $this->data['listings'] = $listings;
@@ -661,6 +666,11 @@ class Listings extends CI_Controller {
     foreach ($listings as &$listing)
     {
       $listing['address_slug'] = $this->_get_address_slug($listing);
+      
+      if ($listing['Status'] === 'Pending')
+      {
+        $listing['Status'] = '';
+      } 
     }
      
     $this->data['listings'] = $listings;
@@ -680,6 +690,11 @@ class Listings extends CI_Controller {
     foreach ($listings as &$listing)
     {
       $listing['address_slug'] = $this->_get_address_slug($listing);
+      
+      if ($listing['Status'] === 'Pending')
+      {
+        $listing['Status'] = '';
+      }  
     }
      
     $this->data['listings'] = $listings;
@@ -699,6 +714,11 @@ class Listings extends CI_Controller {
     foreach ($listings as &$listing)
     {
       $listing['address_slug'] = $this->_get_address_slug($listing);
+      
+      if ($listing['Status'] === 'Pending')
+      {
+        $listing['Status'] = '';
+      } 
     }
      
     $this->data['h1'] = 'Latest Listings';
@@ -719,6 +739,11 @@ class Listings extends CI_Controller {
     foreach ($listings as &$listing)
     {
       $listing['address_slug'] = $this->_get_address_slug($listing);
+      
+      if ($listing['Status'] === 'Pending')
+      {
+        $listing['Status'] = '';
+      } 
     }
      
     $this->data['h1'] = 'Open Houses';
