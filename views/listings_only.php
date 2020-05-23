@@ -1,6 +1,6 @@
 <?php foreach ($listings as $listing) : ?>
 
-  <article class="hentry">
+  <article class="hentry" itemscope itemtype="http://schema.org/RealEstateListing">
     <div class="property-featured">
       <?php if (file_exists(FCPATH.'assets/images/properties/image-'.$listing['Matrix_Unique_ID'].'-0.jpg')): ?>
       <?php echo anchor($types[$listing['class']]['path'].'/'.$listing['Matrix_Unique_ID'].'/'.$listing['address_slug'], '<img src="'.$assets_path.'images/properties/image-'.$listing['Matrix_Unique_ID'].'-0.jpg" alt="">', array('class' => 'content-thumb')); ?>
@@ -13,13 +13,13 @@
       <span class="property-label">Sale Pending</span>                    
       <?php elseif ((isset($listing['Open_House_Date_NUM1'])) && ((strtotime($listing['Open_House_Date_NUM1']) + (3600 * 24)) > time())): ?>
       <span class="property-label">Open House - <?php echo date('l', strtotime($listing['Open_House_Date_NUM1'])); ?></span>                        
-      <?php elseif ((strtotime($listing['LastChangeTypeDate']) > (time() - (3600 * 24 * 14))) && (!in_array(strtolower($listing['LastChangeType']), array('price change', 'back on market')))): ?>
+      <?php elseif ((strtotime($listing['LastChangeTypeDate']) > (time() - (3600 * 24 * 14))) && (!in_array(strtolower($listing['LastChangeType']), array('price change', 'back on market', 'pending')))): ?>
       <span class="property-label"><?php echo $listing['LastChangeType']; ?></span>
       <?php endif; ?>
       <span class="property-category"><?php echo $listing['Style']; ?></span>
     </div>
     <div class="property-wrap">
-      <h2 class="property-title">
+      <h2 class="property-title" itemprop="name">
         <?php if (intval($listing['Display_Addrs_on_Pub_Web_Sites']) === 1): ?>
           <?php
             $address = $listing['Street_Number'].' '.ucwords(strtolower($listing['Street_Name'])).' '.ucfirst(strtolower($listing['Street_Type'])).' - '.$listing['Neighbourhood'].', '.ucwords(strtolower($listing['City_or_Town_Name']));
@@ -29,7 +29,7 @@
               $address = $listing['Suite_Number'].' - '.$address;
             }
           ?>
-        <?php echo anchor($types[$listing['class']]['path'].'/'.$listing['Matrix_Unique_ID'].'/'.$listing['address_slug'], $address, array('class' => $listing['class'])); ?>
+        <?php echo anchor($types[$listing['class']]['path'].'/'.$listing['Matrix_Unique_ID'].'/'.$listing['address_slug'], $address, array('class' => $listing['class'], 'itemprop' => 'url')); ?>
         <?php endif; ?>
       </h2>
       <div class="property-excerpt">
@@ -60,7 +60,7 @@
             </span>
           </div>
           <div class="property-action">
-            <?php echo anchor($types[$listing['class']]['path'].'/'.$listing['Matrix_Unique_ID'].'/'.$listing['address_slug'], 'More Details'); ?>
+            <?php echo anchor($types[$listing['class']]['path'].'/'.$listing['Matrix_Unique_ID'].'/'.$listing['address_slug'], 'More Details', array('itemprop' => 'url')); ?>
           </div>
         </div>
         <div class="property-info property-fullwidth-info">
@@ -74,7 +74,7 @@
       </div>
     </div>
     <div class="property-action property-fullwidth-action">
-      <?php echo anchor($types[$listing['class']]['path'].'/'.$listing['Matrix_Unique_ID'].'/'.$listing['address_slug'], 'More Details'); ?>
+      <?php echo anchor($types[$listing['class']]['path'].'/'.$listing['Matrix_Unique_ID'].'/'.$listing['address_slug'], 'More Details', array('itemprop' => 'url')); ?>
     </div>
   </article>
   
