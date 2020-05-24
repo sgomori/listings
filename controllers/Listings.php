@@ -815,7 +815,38 @@ class Listings extends CI_Controller {
                       );      
     }
 
-    $where = '
+    $pages[] = array(
+                    'url' => base_url('office'),
+                    'last_modified' => NULL,
+                    'xml_change_freq' => 'daily',
+                    'xml_priority' => '0.7'
+                    ); 
+                      
+    $bt_where = '
+      AND
+      (
+        Listing.Sales_Rep_MUI_1 IN (564206, 16212643)
+        OR
+        Listing.Sales_Rep_MUI_2 IN (564206, 16212643)
+      )
+      AND
+      (
+        Listing.Active = 1
+        OR
+        Listing.Status LIKE "Sold"
+        OR
+        Listing.Status LIKE "Custom"
+        OR
+        Listing.Status LIKE "Pending"
+      ) 
+    ';
+    
+    $bt_result = $this->Listings_model->get_all_listings($bt_where);
+    
+    $pages = array_merge($pages, $this->_generate_xml_sitemap_content($bt_result, 'daily', '0.8'));
+
+
+    $office_where = '
       AND
       (
         Status LIKE "Active"
@@ -825,14 +856,15 @@ class Listings extends CI_Controller {
         Active = 1
       )
     ';
-        
-    $query = $this->Listings_model->get_all_listings($where);
     
-    $pages = array_merge($pages, $this->_generate_xml_sitemap_content($query, 'daily', '0.6'));
+    $office_result = $this->Listings_model->get_all_listings($office_where);
+    
+    $pages = array_merge($pages, $this->_generate_xml_sitemap_content($office_result, 'daily', '0.6'));
 
-    $sold_query = $this->Listings_model->get_sold_listings();
     
-    $pages = array_merge($pages, $this->_generate_xml_sitemap_content($sold_query, 'monthly', '0.1'));
+    $sold_result = $this->Listings_model->get_sold_listings();
+    
+    $pages = array_merge($pages, $this->_generate_xml_sitemap_content($sold_result, 'monthly', '0.1'));
      
     $this->data['pages'] = $pages;
     $this->output->set_content_type('text/xml');
