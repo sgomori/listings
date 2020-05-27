@@ -251,6 +251,9 @@ class Listings extends CI_Controller {
     $property = $this->Listings_model->get_property_detail($class, $matrix_unique_id)->result_array();
     
     if ((!isset($property[0])) || 
+          ((strtotime($property[0]['Expiry_Date']) < time()) &&
+            ($property[0]['Status'] !== 'Sold')
+          ) ||          
           (((int)$property[0]['Active'] === 0) && 
             ($property[0]['Status'] !== 'Sold') && 
             ($property[0]['Status'] !== 'Pending') &&

@@ -559,7 +559,6 @@ class ListingS_model extends CI_Model {
         LEFT JOIN wpg_rets_agent_agent Agent_2 ON Property.Sales_Rep_MUI_2 = Agent_2.Matrix_Unique_ID
         WHERE 
         Property.Matrix_Unique_ID = '.$matrix_unique_id.'
-        AND Property.Expiry_Date >= NOW()
         ORDER BY Open_House.InputEntryOrder ASC';
     
     if ($query = $this->db->query($sql))
