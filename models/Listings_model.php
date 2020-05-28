@@ -279,7 +279,7 @@ class ListingS_model extends CI_Model {
         AND
         Sold_Date != "0000-00-00 00:00:00"
         AND
-        Sold_Date < NOW()
+        Sold_Date BETWEEN DATE_SUB(CURDATE(), INTERVAL 1 YEAR) AND NOW()
         AND
         (
           Listing.Sales_Rep_MUI_1 IN (564206, 16212643)
@@ -311,7 +311,7 @@ class ListingS_model extends CI_Model {
         AND
         Sold_Date != "0000-00-00 00:00:00"
         AND
-        Sold_Date < NOW()
+        Sold_Date BETWEEN DATE_SUB(CURDATE(), INTERVAL 1 YEAR) AND NOW()
         AND
         (
           Listing.Sales_Rep_MUI_1 IN (564206, 16212643)
@@ -343,7 +343,7 @@ class ListingS_model extends CI_Model {
         AND
         Sold_Date != "0000-00-00 00:00:00"
         AND
-        Sold_Date < NOW()
+        Sold_Date BETWEEN DATE_SUB(CURDATE(), INTERVAL 1 YEAR) AND NOW()
         AND
         (
           Listing.Sales_Rep_MUI_1 IN (564206, 16212643)
