@@ -134,7 +134,11 @@ class Listings extends CI_Controller {
     }
     
     $listings = $query->result_array();
-    
+
+    $listing['city_prov'] = '';      
+    $listing['prov'] = '';
+    $listing['postal_code'] = '';    
+          
     foreach ($listings as &$listing)
     {
       $listing['address_slug'] = $this->_get_address_slug($listing);
@@ -268,7 +272,7 @@ class Listings extends CI_Controller {
               ($property[0]['Sales_Rep_MUI_2'] == '16212643')
             )                            
           ) ||
-          (((int)$property[0]['Active'] === 0) &&          
+          ((((int)$property[0]['Active'] === 0) || ($property[0]['Status'] !== 'Active')) &&          
             (
               ($property[0]['Sales_Rep_MUI_1'] !== '564206') &&
               ($property[0]['Sales_Rep_MUI_1'] !== '16212643') &&
@@ -424,7 +428,10 @@ class Listings extends CI_Controller {
     $this->data['flooring'] = $flooring;
 
 		$this->data['title'] = '';
-    
+    $this->data['city_prov'] = '';      
+    $this->data['prov'] = '';
+    $this->data['postal_code'] = '';
+          
     if (intval($this->data['property']['Display_Addrs_on_Pub_Web_Sites']) === 1)
 		{
 		  $city_prov = ucfirst(strtolower($this->data['property']['City_or_Town_Name']));
@@ -560,7 +567,11 @@ class Listings extends CI_Controller {
     }	
 
     $listings = $query->result_array();
-    
+
+    $listing['city_prov'] = '';      
+    $listing['prov'] = '';
+    $listing['postal_code'] = '';   
+          
     foreach ($listings as &$listing)
     {
       $listing['address_slug'] = $this->_get_address_slug($listing);
@@ -622,6 +633,26 @@ class Listings extends CI_Controller {
     foreach ($listings as &$listing)
     {
       $listing['address_slug'] = $this->_get_address_slug($listing);
+      
+		  $city_prov = ucfirst(strtolower($listing['City_or_Town_Name']));
+      $prov = FALSE;
+      
+      if ($city_prov === 'Winnipeg')
+      {
+        $city_prov .= ', Manitoba';
+        $prov = 'Manitoba';
+      }
+      
+      $postal_code = strtoupper($listing['Postal_Code']);
+
+      if ((strpos($postal_code, ' ') === FALSE) && (strlen($postal_code) === 6))
+      {
+        $postal_code = substr($postal_code, 0, 3).' '.substr($postal_code, 2, 3);
+      }
+      
+      $listing['city_prov'] = $city_prov;      
+      $listing['prov'] = $prov;
+      $listing['postal_code'] = $postal_code;
     }
         
     $this->data['listings'] = $listings;
