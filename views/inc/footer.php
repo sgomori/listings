@@ -53,16 +53,29 @@
   </div>
   <!-- END SITE -->
 
+  <!-- GOOGLE WEB FONTS INCLUDE -->
+  <link href="http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,300italic,400italic" rel="stylesheet" type="text/css">
+    
+  <!-- STYLESHEETS -->
+  <link rel="stylesheet" href="<?php echo $assets_path; ?>css/bootstrap.min.css" media="all" type="text/css">
+  <link rel="stylesheet" href="<?php echo $assets_path; ?>css/bootstrap-theme.min.css" media="all" type="text/css">
+
+  <!-- THEME STYLESHEETS -->
+  <link rel="stylesheet" href="<?php echo $assets_path; ?>css/citilights.min.css" media="all" type="text/css">
+  <link rel="stylesheet" href="<?php echo $assets_path; ?>css/wpghomes.css" media="all" type="text/css">
+
+  <link rel="stylesheet" href="<?php echo $assets_path; ?>css/jquery.nouislider.min.css" media="all" type="text/css">
+  <link rel="stylesheet" href="<?php echo $assets_path; ?>css/flexslider.css" media="all" type="text/css">    
+  <link rel="stylesheet" href="<?php echo $assets_path; ?>css/font-awesome.min.css" media="all" type="text/css">
+  
+  <link rel="shortcut icon" href="<?php echo $assets_path; ?>images/icon/favicon.ico" type="image/x-icon" media="all">
+    
   <!-- JQUERY PLUGIN -->
   <script type="text/javascript" src="<?php echo $assets_path; ?>script/jquery.min.js"></script>
   <script type="text/javascript" src="<?php echo $assets_path; ?>script/bootstrap.min.js"></script>
   <script type="text/javascript" src="<?php echo $assets_path; ?>script/jquery.parallax-1.1.3.js"></script>
-  <script type="text/javascript" src="<?php echo $assets_path; ?>script/SmoothScroll.js"></script>
-  <script type="text/javascript" src="<?php echo $assets_path; ?>script/jquery.carouFredSel-6.2.1-packed.js"></script>
-  <script type="text/javascript" src="<?php echo $assets_path; ?>script/jquery.touchSwipe.min.js"></script>
-  <script type="text/javascript" src="<?php echo $assets_path; ?>script/imagesloaded.pkgd.min.js"></script>
-  <script type="text/javascript" src="<?php echo $assets_path; ?>script/jquery.nouislider.all.min.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCobf10IDhEOEPJsT_ImoVc1sN-qU-Xbpo&sensor=false"></script>
+  <script type="text/javascript" src="http://listings.winnipeghomes.com/assets/script/jquery.nouislider.all.min.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCobf10IDhEOEPJsT_ImoVc1sN-qU-Xbpo" async defer></script>
   <script type="text/javascript" src="<?php echo $assets_path; ?>script/infobox.js"></script>
 
   <!-- THEME SCRIPT -->

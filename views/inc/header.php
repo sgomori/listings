@@ -19,30 +19,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <meta property="og:image:type" content="image/jpeg" />
   <meta property="og:image:width" content="<?php echo $og_width; ?>" />
   <meta property="og:image:height" content="<?php echo $og_height; ?>" />
-  <link rel="shortcut icon" href="<?php echo $assets_path; ?>images/icon/favicon.ico" type="image/x-icon">
-
-  <!-- GOOGLE WEB FONTS INCLUDE -->
-  <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,300italic,400italic' rel='stylesheet' type='text/css'>
-
-  <!-- STYLESHEETS -->
-  <link rel="stylesheet" href="<?php echo $assets_path; ?>css/bootstrap.min.css">
-  <link rel="stylesheet" href="<?php echo $assets_path; ?>css/bootstrap-theme.min.css">
-  <link rel="stylesheet" href="<?php echo $assets_path; ?>css/font-awesome.min.css">
-  <link rel="stylesheet" href="<?php echo $assets_path; ?>css/jquery.nouislider.min.css">
-
-  <!-- THEME STYLESHEETS -->
-  <link rel="stylesheet" href="<?php echo $assets_path; ?>css/style.css">
-  <link rel="stylesheet" href="<?php echo $assets_path; ?>css/shortcode.css">
-  <link rel="stylesheet" href="<?php echo $assets_path; ?>css/citilights-shortcode.css">
-  <link rel="stylesheet" href="<?php echo $assets_path; ?>css/color/color1.css">
-  <link rel="stylesheet" href="<?php echo $assets_path; ?>css/flexslider.css">
-  <link rel="stylesheet" href="<?php echo $assets_path; ?>css/wpghomes.css">
-  
-  <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
-  
+    
   <script>
     var base_url = '<?php echo base_url(); ?>';
   </script>
@@ -104,7 +81,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               </nav>
             </div>
             <img src="<?php echo $assets_path; ?>images/winnipeg-homes-logo.png" alt="Winnipeg Homes" id="wpghomes-logo" />
-            <img class="header-bg" src="<?php echo $assets_path; ?>images/header-bg-<?php echo $header_variant; ?>.jpg" alt="Winnipeg Homes" />
+
+            <picture>
+              <source type="image/webp" srcset="<?php echo $assets_path; ?>images/header-bg-<?php echo $header_variant; ?>.webp">
+              <source type="image/jpeg" srcset="<?php echo $assets_path; ?>images/header-bg-<?php echo $header_variant; ?>.jpg">
+              <img class="header-bg" src="<?php echo $assets_path; ?>images/header-bg-<?php echo $header_variant; ?>.jpg" alt="Winnipeg Homes" />
+            </picture>
+            
           </div>
         </div>
       </div>

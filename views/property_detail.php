@@ -30,7 +30,7 @@
 							  
                 <div id="gallery" class="flexslider">
                   <ul class="slides">
-                    <?php foreach ($property_images as $property_image): ?>
+                    <?php foreach ($property_images as $i => $property_image): ?>
                 		<li>
                 	    <?php if (($property['Status'] === 'Sold') && ($property['Sold_Date'] !== '0000-00-00 00:00:00') && (strtotime($property['Sold_Date']) < time())): ?>
                       <span class="property-label">Sold</span>
@@ -41,7 +41,7 @@
                       <?php elseif ((strtotime($property['LastChangeTypeDate']) > (time() - (3600 * 24 * 14))) && ($property['LastChangeType']) && ($property['LastChangeType'] !== '') && (!in_array(strtolower($property['LastChangeType']), array('price change', 'back on market', 'pending')))): ?>
                       <span class="property-label"><?php echo $property['LastChangeType']; ?></span>
                       <?php endif; ?>
-                      <img src="<?php echo base_url().$property_image; ?>" alt="image" />
+                      <img <?php if ($i > 0): ?>class="lazy" data-<?php endif; ?>src="<?php echo base_url().$property_image; ?>" alt="image" />
                 		</li>
                 		<?php endforeach; ?>
                   </ul>
@@ -49,9 +49,9 @@
                   
                 <div id="carousel" class="flexslider">
                   <ul class="slides">
-                    <?php foreach ($property_images as $property_image): ?>
+                    <?php foreach ($property_images as $i => $property_image): ?>
                 		<li>
-                	    <img src="<?php echo base_url().$property_image; ?>" alt="image" />
+                	    <img <?php if ($i > 0): ?>class="lazy" data-<?php endif; ?>src="<?php echo base_url().$property_image; ?>" alt="image" />
                 		</li>
                 		<?php endforeach; ?>
                   </ul>
@@ -372,7 +372,11 @@
 							  <div class="agents grid clearfix">
 							    <article class="hentry">
 							      <div class="agent-featured">
-							          <img src="<?php echo $assets_path; ?>images/agent/Blair.jpg" class="attachment-agent-thumb" alt="Blair Sonnichsen">
+                      <picture>
+                        <source type="image/webp" class="lazy" data-srcset="<?php echo $assets_path; ?>images/agent/Blair.webp">
+                        <source type="image/jpeg" class="lazy" data-srcset="<?php echo $assets_path; ?>images/agent/Blair.jpg">
+                        <img class="lazy" data-src="<?php echo $assets_path; ?>images/agent/Blair.jpg" class="attachment-agent-thumb" alt="Blair Sonnichsen">
+                      </picture>
 							      </div>
 							      <div class="agent-wrap">
 							        <div class="agent-summary">
@@ -415,7 +419,11 @@
 							  <div class="agents grid clearfix">
 							    <article class="hentry">
 							      <div class="agent-featured">
-							          <img src="<?php echo $assets_path; ?>images/agent/Tyson.jpg" class="attachment-agent-thumb" alt="Tyson Sonnichsen">
+                      <picture>
+                        <source type="image/webp" class="lazy" data-srcset="<?php echo $assets_path; ?>images/agent/Tyson.webp">
+                        <source type="image/jpeg" class="lazy" data-srcset="<?php echo $assets_path; ?>images/agent/Tyson.jpg">
+                        <img class="lazy" data-src="<?php echo $assets_path; ?>images/agent/Tyson.jpg" class="attachment-agent-thumb" alt="Tyson Sonnichsen">
+                      </picture>
 							      </div>
 							      <div class="agent-wrap">
 							        <div class="agent-summary">
@@ -458,7 +466,11 @@
 							  <div class="agents grid clearfix">
 							    <article class="hentry">
 							      <div class="agent-featured">
-							          <img src="<?php echo $assets_path; ?>images/agent/Nancy.jpg" class="attachment-agent-thumb" alt="Nancy Dilts">
+                      <picture>
+                        <source type="image/webp" class="lazy" data-srcset="<?php echo $assets_path; ?>images/agent/Nancy.webp">
+                        <source type="image/jpeg" class="lazy" data-srcset="<?php echo $assets_path; ?>images/agent/Nancy.jpg">
+                        <img class="lazy" data-src="<?php echo $assets_path; ?>images/agent/Nancy.jpg" class="attachment-agent-thumb" alt="Nancy Dilts">
+                      </picture>
 							      </div>
 							      <div class="agent-wrap">
 							        <div class="agent-summary">
@@ -630,9 +642,9 @@
                     <article class="hentry">
                       <div class="property-featured">
                         <?php if (file_exists(FCPATH.'assets/images/properties/image-'.$listing['Matrix_Unique_ID'].'-0.jpg')): ?>
-                        <?php echo anchor($types[$listing['class']]['path'].'/'.$listing['Matrix_Unique_ID'].'/'.$listing['address_slug'], '<img src="'.$assets_path.'images/properties/image-'.$listing['Matrix_Unique_ID'].'-0.jpg" alt="">', array('class' => 'content-thumb')); ?>
+                        <?php echo anchor($types[$listing['class']]['path'].'/'.$listing['Matrix_Unique_ID'].'/'.$listing['address_slug'], '<img class="lazy" data-src="'.$assets_path.'images/properties/image-'.$listing['Matrix_Unique_ID'].'-0.jpg" alt="">', array('class' => 'content-thumb')); ?>
                         <?php else: ?>
-                        <?php echo anchor($types[$listing['class']]['path'].'/'.$listing['Matrix_Unique_ID'].'/'.$listing['address_slug'], '<img src="'.$assets_path.'images/properties/default.gif" alt="">', array('class' => 'content-thumb')); ?>
+                        <?php echo anchor($types[$listing['class']]['path'].'/'.$listing['Matrix_Unique_ID'].'/'.$listing['address_slug'], '<img class="lazy" data-src="'.$assets_path.'images/properties/default.gif" alt="">', array('class' => 'content-thumb')); ?>
                         <?php endif; ?>
                        <div class="property-price">$ <?php echo number_format($listing['CurrentPrice'], 0); ?></div>                            
                       </div>
