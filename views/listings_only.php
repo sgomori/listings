@@ -1,6 +1,6 @@
 <?php foreach ($listings as $listing) : ?>
 
-  <article class="hentry" itemscope itemtype="http://schema.org/RealEstateListing">
+  <article class="hentry" itemscope itemtype="https://schema.org/RealEstateListing">
     <div class="property-featured">
       <?php if (file_exists(FCPATH.'assets/images/properties/image-'.$listing['Matrix_Unique_ID'].'-0.jpg')): ?>
       <?php echo anchor($types[$listing['class']]['path'].'/'.$listing['Matrix_Unique_ID'].'/'.$listing['address_slug'], '<img src="'.$assets_path.'images/properties/image-'.$listing['Matrix_Unique_ID'].'-0.jpg" alt="">', array('class' => 'content-thumb')); ?>
@@ -35,9 +35,9 @@
       <div class="property-excerpt">
         <p><?php echo substr($listing['Public_Remarks'], 0, 30); ?>...</p>
         <p class="property-fullwidth-excerpt"><?php echo substr($listing['Public_Remarks'], 0, 200); ?>...</p>
-        <p class="property-fullwidth-excerpt listed-by">Listed by <span itemscope itemtype="http://schema.org/RealEstateAgent"><span itemprop="name"><?php echo $listing['Agent_1_First_Name']; ?> <?php echo $listing['Agent_1_Last_Name']; ?></span></span>
+        <p class="property-fullwidth-excerpt listed-by">Listed by <span itemscope itemtype="https://schema.org/RealEstateAgent"><span itemprop="name"><?php echo $listing['Agent_1_First_Name']; ?> <?php echo $listing['Agent_1_Last_Name']; ?></span></span>
         <?php if (isset($listing['Agent_2_First_Name']) && ($listing['Agent_1_First_Name'] !== '')): ?>
-          and <span itemscope itemtype="http://schema.org/RealEstateAgent"><span itemprop="name"><?php echo $listing['Agent_2_First_Name']; ?> <?php echo $listing['Agent_2_Last_Name']; ?></span></span>
+          and <span itemscope itemtype="https://schema.org/RealEstateAgent"><span itemprop="name"><?php echo $listing['Agent_2_First_Name']; ?> <?php echo $listing['Agent_2_Last_Name']; ?></span></span>
         <?php endif; ?>
         </p>
       </div>

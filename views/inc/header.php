@@ -55,12 +55,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <div class="toggle"></div>
               <nav>
                 <ul>
-                  <li class="home"><a href="http://WinnipegHomes.com/">Home</a></li>
-                  <li class="services"><a href="http://WinnipegHomes.com/services/buying-a-home">Services</a>
+                  <li class="home"><a href="https://WinnipegHomes.com/">Home</a></li>
+                  <li class="services"><a href="https://WinnipegHomes.com/services/buying-a-home">Services</a>
                     <ul>
-                      <li><a href="http://WinnipegHomes.com/services/buying-a-home">Buying a home</a></li>
-                      <li><a href="http://WinnipegHomes.com/services/selling-a-home">Selling a home</a></li>
-                      <li><a href="http://WinnipegHomes.com/services/working-with-a-realtor">Working with a Realtor</a></li>
+                      <li><a href="https://WinnipegHomes.com/services/buying-a-home">Buying a home</a></li>
+                      <li><a href="https://WinnipegHomes.com/services/selling-a-home">Selling a home</a></li>
+                      <li><a href="https://WinnipegHomes.com/services/working-with-a-realtor">Working with a Realtor</a></li>
                     </ul>
                   </li>
                   <li class="listings active"><a href="<?php echo base_url(); ?>">Listings</a>
@@ -68,15 +68,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                       <li><a href="<?php echo base_url(); ?>homes">Homes</a></li>
                       <li><a href="<?php echo base_url(); ?>condos">Condos</a></li>
                       <li><a href="<?php echo base_url(); ?>rural">Rural</a></li>
-                      <li><a href="http://WinnipegHomes.com/developments">Developments</a></li>
+                      <li><a href="https://WinnipegHomes.com/developments">Developments</a></li>
                       <li><a href="<?php echo base_url(); ?>office">Office Listings</a></li>
                     </ul>
                   </li>
-                  <li class="homes-wanted"><a href="http://WinnipegHomes.com/homes-wanted">Homes Wanted</a></li>
-                  <li class="mls-map"><a href="http://WinnipegHomes.com/mls-map">MLS Map</a></li>
-                  <li class="blog"><a href="http://WinnipegHomes.com/blog">Blog</a></li>
-                  <li class="contact"><a href="http://WinnipegHomes.com/contact">Contact</a></li>
-                  <li class="testimonials"><a href="http://WinnipegHomes.com/testimonials">Testimonials</a></li>
+                  <li class="homes-wanted"><a href="https://WinnipegHomes.com/homes-wanted">Homes Wanted</a></li>
+                  <li class="mls-map"><a href="https://WinnipegHomes.com/mls-map">MLS Map</a></li>
+                  <li class="blog"><a href="https://WinnipegHomes.com/blog">Blog</a></li>
+                  <li class="contact"><a href="https://WinnipegHomes.com/contact">Contact</a></li>
+                  <li class="testimonials"><a href="https://WinnipegHomes.com/testimonials">Testimonials</a></li>
                 </ul>
               </nav>
             </div>

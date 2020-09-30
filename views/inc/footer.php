@@ -10,18 +10,18 @@
           			<li><a href="<?php echo base_url(); ?>homes">Homes</a></li>
           			<li><a href="<?php echo base_url(); ?>condos">Condominiums</a></li>
           			<li><a href="<?php echo base_url(); ?>rural">Rural/Farms</a></li>
-          			<li><a href="http://WinnipegHomes.com/developments">Developments</a></li>
-          			<li><a href="http://WinnipegHomes.com/mls-map">MLS Map</a></li>
+          			<li><a href="https://WinnipegHomes.com/developments">Developments</a></li>
+          			<li><a href="https://WinnipegHomes.com/mls-map">MLS Map</a></li>
           		</ul>
           	</div>
           	
           	
-          	<div itemscope itemtype="http://schema.org/RealEstateAgent" class="col-xs-12 col-md-3 contact">
+          	<div itemscope itemtype="https://schema.org/RealEstateAgent" class="col-xs-12 col-md-3 contact">
           		<h3 itemprop="name">Blair &amp; Tyson Sonnichsen</h3>
-          		<span itemprop="branchOf" itemscope itemtype="http://schema.org/Organization">
+          		<span itemprop="branchOf" itemscope itemtype="https://schema.org/Organization">
           			<span itemprop="name">Royal LePage Dynamic</span>
           		</span>
-          		<div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+          		<div itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
           			<span itemprop="streetAddress">1450 Corydon Ave.</span>
           			<span class="city-prov">
           				<span itemprop="addressLocality">Winnipeg</span>, 
@@ -36,11 +36,11 @@
           	<div class="col-xs-12 col-md-3">
           		<h3>Join the Discussion</h3>
               <ul>
-          			<li><a href="http://WinnipegHomes.com/contact">Send Us Your Comments</a></li>
-          			<li><a href="http://google.com/+WinnipegHomesCom" rel="publisher" target="_blank">google.com/+WinnipegHomesCom</a></li>
+          			<li><a href="https://WinnipegHomes.com/contact">Send Us Your Comments</a></li>
+          			<li><a href="https://google.com/+WinnipegHomesCom" rel="publisher" target="_blank">google.com/+WinnipegHomesCom</a></li>
           			<li><a href="https://www.facebook.com/WinnipegHomes.Com" rel="me" target="_blank">facebook.com/WinnipegHomes.Com</a></li>
-          			<li><a href="http://www.pinterest.com/MyWinnipegHomes/" target="_blank">pinterest.com/MyWinnipegHomes/</a></li>
-          			<li><a href="http://www.yelp.ca/biz/tyson-sonnichsen-royal-lepage-dynamic-winnipeg" rel="me" target="_blank">Tyson Sonnichsen on YELP.ca</a></li>
+          			<li><a href="https://www.pinterest.com/MyWinnipegHomes/" target="_blank">pinterest.com/MyWinnipegHomes/</a></li>
+          			<li><a href="https://www.yelp.ca/biz/tyson-sonnichsen-royal-lepage-dynamic-winnipeg" rel="me" target="_blank">Tyson Sonnichsen on YELP.ca</a></li>
           			<li><a href="<?php echo $wpg_news_link; ?>" target="_blank">Real Estate News</a></li>
           		</ul>
           	</div>
@@ -54,7 +54,7 @@
   <!-- END SITE -->
 
   <!-- GOOGLE WEB FONTS INCLUDE -->
-  <link href="http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,300italic,400italic" rel="stylesheet" type="text/css">
     
   <!-- STYLESHEETS -->
   <link rel="stylesheet" href="<?php echo $assets_path; ?>css/bootstrap.min.css" media="all" type="text/css">
@@ -74,7 +74,7 @@
   <script type="text/javascript" src="<?php echo $assets_path; ?>script/jquery.min.js"></script>
   <script type="text/javascript" src="<?php echo $assets_path; ?>script/bootstrap.min.js"></script>
   <script type="text/javascript" src="<?php echo $assets_path; ?>script/jquery.parallax-1.1.3.js"></script>
-  <script type="text/javascript" src="http://listings.winnipeghomes.com/assets/script/jquery.nouislider.all.min.js"></script>
+  <script type="text/javascript" src="https://listings.winnipeghomes.com/assets/script/jquery.nouislider.all.min.js"></script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCobf10IDhEOEPJsT_ImoVc1sN-qU-Xbpo" async defer></script>
   <script type="text/javascript" src="<?php echo $assets_path; ?>script/infobox.js"></script>
 

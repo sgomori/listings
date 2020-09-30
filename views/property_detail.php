@@ -10,7 +10,7 @@
  				  	<!-- START MAIN CONTENT -->
 				  	<div class="noo-content col-xs-12 col-md-8">
 				  		<!-- START ARTICLE PROPERTY -->
-							<article class="property" itemscope itemtype="http://schema.org/RealEstateListing">
+							<article class="property" itemscope itemtype="https://schema.org/RealEstateListing">
 							  <h1 class="properties-header" itemprop="name">
 							    <?php if (intval($property['Display_Addrs_on_Pub_Web_Sites']) === 1): ?>
                     <?php
@@ -135,9 +135,9 @@
 							          <?php endif; ?>
                         
                         <p class="meta">
-                          <span class="listed-by">Listing Agent: <span itemscope itemtype="http://schema.org/RealEstateAgent"><span itemprop="name"><?php echo $property['Agent_1_First_Name']; ?> <?php echo $property['Agent_1_Last_Name']; ?></span></span>
+                          <span class="listed-by">Listing Agent: <span itemscope itemtype="https://schema.org/RealEstateAgent"><span itemprop="name"><?php echo $property['Agent_1_First_Name']; ?> <?php echo $property['Agent_1_Last_Name']; ?></span></span>
                           <?php if (isset($property['Agent_2_First_Name']) && ($property['Agent_1_First_Name'] !== '')): ?>
-                            and <span itemscope itemtype="http://schema.org/RealEstateAgent"><span itemprop="name"><?php echo $property['Agent_2_First_Name']; ?> <?php echo $property['Agent_2_Last_Name']; ?></span></span>
+                            and <span itemscope itemtype="https://schema.org/RealEstateAgent"><span itemprop="name"><?php echo $property['Agent_2_First_Name']; ?> <?php echo $property['Agent_2_Last_Name']; ?></span></span>
                           <?php endif; ?>
                           </span>
                           
