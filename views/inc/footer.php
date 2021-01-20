@@ -37,9 +37,8 @@
           		<h3>Join the Discussion</h3>
               <ul>
           			<li><a href="https://WinnipegHomes.com/contact">Send Us Your Comments</a></li>
-          			<li><a href="https://google.com/+WinnipegHomesCom" rel="publisher" target="_blank">google.com/+WinnipegHomesCom</a></li>
           			<li><a href="https://www.facebook.com/WinnipegHomes.Com" rel="me" target="_blank">facebook.com/WinnipegHomes.Com</a></li>
-          			<li><a href="https://www.pinterest.com/MyWinnipegHomes/" target="_blank">pinterest.com/MyWinnipegHomes/</a></li>
+          			<li><a href="https://dmsconnect.cld.bz/Sonnichsen-Blair-Tyson" target="_blank">Winnipeg Homes Bookshelf</a></li>
           			<li><a href="https://www.yelp.ca/biz/tyson-sonnichsen-royal-lepage-dynamic-winnipeg" rel="me" target="_blank">Tyson Sonnichsen on YELP.ca</a></li>
           			<li><a href="<?php echo $wpg_news_link; ?>" target="_blank">Real Estate News</a></li>
           		</ul>
