@@ -509,53 +509,6 @@
 							      </form>
 							    </div>
 							  </div>
-                
-							  <div class="agents grid clearfix">
-							    <article class="hentry">
-							      <div class="agent-featured">
-                      <picture>
-                        <source type="image/webp" class="lazy" data-srcset="<?php echo $assets_path; ?>images/agent/Belinda.webp">
-                        <source type="image/jpeg" class="lazy" data-srcset="<?php echo $assets_path; ?>images/agent/Belinda.jpg">
-                        <img class="lazy" data-src="<?php echo $assets_path; ?>images/agent/Belinda.jpg" class="attachment-agent-thumb" alt="Belinda Marks">
-                      </picture>
-							      </div>
-							      <div class="agent-wrap">
-							        <div class="agent-summary">
-							          <div class="agent-info">
-							            <div><strong>Belinda Marks</strong></div>
-							            <div>Royal LePage Dynamic</div>
-							            <div><i class="fa fa-phone"></i>&nbsp;204-989-5000</div>
-							            <div><i class="fa fa-envelope-square"></i>&nbsp;<a href="mailto:Belinda@WinnipegHomes.com">Belinda@WinnipegHomes.com</a></div>
-							          </div>
-							          <div class="agent-desc">
-							          	<ul class="social-list agent-social clearfix">
-												    <li><a href="https://www.facebook.com/WinnipegHomesCom" title="Facebook" target="_blank"><i class="fa fa-facebook"></i></a></li>
-												  </ul>
-							            <div class="agent-action">
-							              <a href="mailto:Belinda@WinnipegHomes.com">Email Belinda</a>
-							            </div>
-							          </div>
-
-							        </div>
-							      </div>
-							    </article>
-							    <div class="contact-agent">
-							      <form role="form" id="conactagentform" method="post">
-							        <div class="form-group">
-							          <input type="text" name="name" class="form-control" placeholder="Your Name *">
-							        </div>
-							        <div class="form-group">
-							          <input type="email" name="email" class="form-control" placeholder="Your Email *">
-							        </div>
-							        <div class="form-group">
-							          <textarea name="message" class="form-control" placeholder="Message *"></textarea>
-							        </div>
-							        <div class="form-action">
-							          <button type="submit" class="btn btn-default send-message" data-email="Belinda@WinnipegHomes.com" data-cc="Blair@WinnipegHomes.com">Send a Message</button>
-							        </div>
-							      </form>
-							    </div>
-							  </div>
 							</div>
 
 						</div>	  		
