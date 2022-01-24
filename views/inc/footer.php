@@ -51,30 +51,13 @@
     <!-- END FOOTER -->
   </div>
   <!-- END SITE -->
-
-  <!-- GOOGLE WEB FONTS INCLUDE -->
-  <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,300italic,400italic" rel="stylesheet" type="text/css">
-    
-  <!-- STYLESHEETS -->
-  <link rel="stylesheet" href="<?php echo $assets_path; ?>css/bootstrap.min.css" media="all" type="text/css">
-  <link rel="stylesheet" href="<?php echo $assets_path; ?>css/bootstrap-theme.min.css" media="all" type="text/css">
-
-  <!-- THEME STYLESHEETS -->
-  <link rel="stylesheet" href="<?php echo $assets_path; ?>css/citilights.min.css" media="all" type="text/css">
-  <link rel="stylesheet" href="<?php echo $assets_path; ?>css/wpghomes.css" media="all" type="text/css">
-
-  <link rel="stylesheet" href="<?php echo $assets_path; ?>css/jquery.nouislider.min.css" media="all" type="text/css">
-  <link rel="stylesheet" href="<?php echo $assets_path; ?>css/flexslider.css" media="all" type="text/css">    
-  <link rel="stylesheet" href="<?php echo $assets_path; ?>css/font-awesome.min.css" media="all" type="text/css">
-  
-  <link rel="shortcut icon" href="<?php echo $assets_path; ?>images/icon/favicon.ico" type="image/x-icon" media="all">
-    
+      
   <!-- JQUERY PLUGIN -->
   <script type="text/javascript" src="<?php echo $assets_path; ?>script/jquery.min.js"></script>
   <script type="text/javascript" src="<?php echo $assets_path; ?>script/bootstrap.min.js"></script>
   <script type="text/javascript" src="<?php echo $assets_path; ?>script/jquery.parallax-1.1.3.js"></script>
-  <script type="text/javascript" src="https://listings.winnipeghomes.com/assets/script/jquery.nouislider.all.min.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCobf10IDhEOEPJsT_ImoVc1sN-qU-Xbpo" async defer></script>
+  <script type="text/javascript" src="<?php echo $assets_path; ?>script/jquery.nouislider.all.min.js"></script>
+  <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCobf10IDhEOEPJsT_ImoVc1sN-qU-Xbpo"></script>
   <script type="text/javascript" src="<?php echo $assets_path; ?>script/infobox.js"></script>
 
   <!-- THEME SCRIPT -->
@@ -89,13 +72,21 @@
   </script>
   <script src="<?php echo $assets_path; ?>script/listings-map.js"></script>
   <?php elseif ($property_detail): ?>
+    <?php
+      if (!$property['Lat'])
+      {
+        $property['Lat'] = 49.8756157;
+        $property['Lon'] = -97.1358158;                
+      }
+    ?>                            
   <script>
     var lat = <?php echo $property['Lat']; ?>;
     var lon = <?php echo $property['Lon']; ?>;
   </script>
   <script src="<?php echo $assets_path; ?>script/property-map.js"></script>
   <?php endif; ?>
-
+  
+  <link rel="shortcut icon" href="<?php echo $assets_path; ?>images/icon/favicon.ico" type="image/x-icon" media="all">    
 </body>
 
 </html>

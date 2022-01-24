@@ -334,20 +334,28 @@ class Listings extends CI_Controller {
     $this->data['property'] = $property[0];
     $this->data['open_houses'] = $open_houses;
     
-    $property_images = array();
+    $property_images_jpg = array();
+    $property_images_webp = array();    
+            
     foreach (glob('assets/images/properties/image-'.$matrix_unique_id.'*.jpg') as $filename)
     {
-      $property_images[] = $filename;
+      $file_name_parts = explode('.', $filename);
+      
+      $property_images_jpg[] = $file_name_parts[0].'.jpg';
+      $property_images_webp[] = $file_name_parts[0].'.webp'; 
     }
     
-    natsort($property_images);
+    natsort($property_images_jpg);
+    natsort($property_images_webp);
        
-    if (count($property_images) > 1)
+    if (count($property_images_jpg) > 1)
     {
-      unset($property_images[0]);
+      unset($property_images_jpg[0]);
+      unset($property_images_webp[0]);
     }
     
-    $property_images = array_values($property_images);
+    $property_images_jpg = array_values($property_images_jpg);
+    $property_images_webp = array_values($property_images_webp);
     
     $feature_list = $this->data['property']['Features'];
     
@@ -421,7 +429,8 @@ class Listings extends CI_Controller {
         
     $this->data['similar_listings'] = $similar_listings;
             
-    $this->data['property_images'] = $property_images;
+    $this->data['property_images_jpg'] = $property_images_jpg;
+    $this->data['property_images_webp'] = $property_images_webp;
     $this->data['features'] = $features;
     $this->data['amenities'] = $amenities;
     $this->data['site_influences'] = $site_influences;
@@ -492,9 +501,9 @@ class Listings extends CI_Controller {
     
     $this->data['listing_date'] = date('Y-m-d', $listing_date_stamp);
 		
-		if (isset($property_images[0]))
+		if (isset($property_images_jpg[0]))
 		{
-      $this->data['og_image'] = base_url($property_images[0]);
+      $this->data['og_image'] = base_url($property_images_jpg[0]);
   		$this->data['og_width'] = 640;
   		$this->data['og_height'] = 480;		
 		}

@@ -20,25 +20,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <meta property="og:image:width" content="<?php echo $og_width; ?>" />
   <meta property="og:image:height" content="<?php echo $og_height; ?>" />
     
+  <!-- STYLESHEETS -->
+  <link rel="stylesheet" href="<?php echo $assets_path; ?>css/packaged-css-min.css" media="all" type="text/css">    
+  <link rel="stylesheet" href="<?php echo $assets_path; ?>css/wpghomes.css" media="all" type="text/css">
+      
   <script>
     var base_url = '<?php echo base_url(); ?>';
   </script>
-  
-  <!-- Facebook Pixel Code -->
-  <script>
-  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-  n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-  n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-  t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
-  document,'script','https://connect.facebook.net/en_US/fbevents.js');
-  fbq('init', '832690430240759'); // Insert your pixel ID here.
-  fbq('track', 'PageView');
-  </script>
-  <noscript><img height="1" width="1" style="display:none"
-  src="https://www.facebook.com/tr?id=832690430240759&ev=PageView&noscript=1"
-  /></noscript>
-  <!-- DO NOT MODIFY -->
-  <!-- End Facebook Pixel Code -->
 </head>
 
 <body class="page-fullwidth">

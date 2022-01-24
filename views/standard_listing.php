@@ -46,7 +46,7 @@
                     <article class="hentry" id="id_<?php echo $listing['Matrix_Unique_ID']; ?>" itemscope itemtype="https://schema.org/RealEstateListing">
                       <div class="property-featured">
                         <?php if (file_exists(FCPATH.'assets/images/properties/image-'.$listing['Matrix_Unique_ID'].'-0.jpg')): ?>
-                        <?php echo anchor($types[$listing['class']]['path'].'/'.$listing['Matrix_Unique_ID'].'/'.$listing['address_slug'], '<img src="'.$assets_path.'images/properties/image-'.$listing['Matrix_Unique_ID'].'-0.jpg" alt="">', array('class' => 'content-thumb')); ?>
+                        <?php echo anchor($types[$listing['class']]['path'].'/'.$listing['Matrix_Unique_ID'].'/'.$listing['address_slug'], '<picture><source type="image/webp" srcset="'.$assets_path.'images/properties/image-'.$listing['Matrix_Unique_ID'].'-0.webp"><source type="image/jpeg" srcset="'.$assets_path.'images/properties/image-'.$listing['Matrix_Unique_ID'].'-0.jpg"><img src="'.$assets_path.'images/properties/image-'.$listing['Matrix_Unique_ID'].'-0.jpg" alt="image"></picture>', array('class' => 'content-thumb')); ?>
                         <?php else: ?>
                         <?php echo anchor($types[$listing['class']]['path'].'/'.$listing['Matrix_Unique_ID'].'/'.$listing['address_slug'], '<img src="'.$assets_path.'images/properties/default.gif" alt="">', array('class' => 'content-thumb')); ?>
                         <?php endif; ?>
