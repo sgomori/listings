@@ -21,7 +21,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <meta property="og:image:height" content="<?php echo $og_height; ?>" />
     
   <!-- STYLESHEETS -->
-  <link rel="stylesheet" href="<?php echo $assets_path; ?>css/packaged-css-min.css" media="all" type="text/css">    
+  <link rel="stylesheet" href="<?php echo $assets_path; ?>css/packaged-css-min.css" media="all" type="text/css">
+  <link rel="stylesheet" href="<?php echo $assets_path; ?>css/fonts.css" media="all" type="text/css">
   <link rel="stylesheet" href="<?php echo $assets_path; ?>css/wpghomes.css" media="all" type="text/css">
       
   <script>
