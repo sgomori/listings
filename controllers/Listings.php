@@ -848,7 +848,7 @@ class Listings extends CI_Controller {
                         'url' => base_url($type['path']),
                         'last_modified' => NULL,
                         'xml_change_freq' => 'daily',
-                        'xml_priority' => '0.4'
+                        'xml_priority' => '0.7'
                         );
         continue;
       }
@@ -864,8 +864,8 @@ class Listings extends CI_Controller {
     $pages[] = array(
                     'url' => base_url('office'),
                     'last_modified' => NULL,
-                    'xml_change_freq' => 'daily',
-                    'xml_priority' => '0.7'
+                    'xml_change_freq' => 'hourly',
+                    'xml_priority' => '0.8'
                     ); 
                       
     $bt_where = '
@@ -879,8 +879,6 @@ class Listings extends CI_Controller {
       (
         Listing.Active = 1
         OR
-        Listing.Status LIKE "Sold"
-        OR
         Listing.Status LIKE "Custom"
         OR
         Listing.Status LIKE "Pending"
@@ -889,7 +887,7 @@ class Listings extends CI_Controller {
     
     $bt_result = $this->Listings_model->get_all_listings($bt_where);
     
-    $pages = array_merge($pages, $this->_generate_xml_sitemap_content($bt_result, 'daily', '0.8'));
+    $pages = array_merge($pages, $this->_generate_xml_sitemap_content($bt_result, 'daily', '1'));
 
 
     $office_where = '
@@ -911,7 +909,7 @@ class Listings extends CI_Controller {
     
     $office_result = $this->Listings_model->get_all_listings($office_where);
     
-    $pages = array_merge($pages, $this->_generate_xml_sitemap_content($office_result, 'daily', '0.6'));
+    $pages = array_merge($pages, $this->_generate_xml_sitemap_content($office_result, 'daily', '0.8'));
 
     
     $sold_result = $this->Listings_model->get_sold_listings();
