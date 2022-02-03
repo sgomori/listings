@@ -901,6 +901,12 @@ class Listings extends CI_Controller {
       (
         Active = 1
       )
+      AND
+      (
+        Listing.Sales_Rep_MUI_1 NOT IN (564206, 16212643)
+        OR
+        Listing.Sales_Rep_MUI_2 NOT IN (564206, 16212643)
+      )
     ';
     
     $office_result = $this->Listings_model->get_all_listings($office_where);
