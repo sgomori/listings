@@ -135,9 +135,9 @@ class Listings extends CI_Controller {
     
     $listings = $query->result_array();
 
-    $listing['city_prov'] = '';      
-    $listing['prov'] = '';
-    $listing['postal_code'] = '';    
+    $city_prov = '';      
+    $prov = '';
+    $postal_code = '';    
           
     foreach ($listings as &$listing)
     {
@@ -282,13 +282,86 @@ class Listings extends CI_Controller {
           )
         )
     {
-      header('HTTP/1.0 404 Not Found');
+
+      $where = '
+        AND
+        (
+          Listing.Sales_Rep_MUI_1 IN (564206, 16212643)
+          OR
+          Listing.Sales_Rep_MUI_2 IN (564206, 16212643)
+        )
+        AND
+        (
+          Listing.Active = 1
+          OR
+          Listing.Status LIKE "Sold"
+          OR
+          Listing.Status LIKE "Custom"
+          OR
+          Listing.Status LIKE "Pending"
+        ) 
+      ';
       
+      $query = $this->Listings_model->get_latest_listings(10);
+
+      $full_listings = $query->result_array();
+      
+      $listings = array($full_listings[0]);
+      
+      unset($full_listings[0]);
+      $full_listings = array_values($full_listings);
+      
+      for ($i = 0; $i < 4; $i++)
+      {
+        $random_spot = mt_rand(0, count($full_listings) - 1);
+        $listings[] = $full_listings[$random_spot];
+        unset($full_listings[$random_spot]);
+        $full_listings = array_values($full_listings);
+      }
+      
+      shuffle($listings);
+      
+      $city_prov = '';      
+      $prov = '';
+      $postal_code = '';    
+            
+      foreach ($listings as &$listing)
+      {
+        $listing['address_slug'] = $this->_get_address_slug($listing);
+        
+        if ($listing['Status'] === 'Pending')
+        {
+          $listing['Status'] = '';
+        }
+        
+  		  $city_prov = ucfirst(strtolower($listing['City_or_Town_Name']));
+        $prov = FALSE;
+        
+        if ($city_prov === 'Winnipeg')
+        {
+          $city_prov .= ', Manitoba';
+          $prov = 'Manitoba';
+        }
+        
+        $postal_code = strtoupper($listing['Postal_Code']);
+  
+        if ((strpos($postal_code, ' ') === FALSE) && (strlen($postal_code) === 6))
+        {
+          $postal_code = substr($postal_code, 0, 3).' '.substr($postal_code, 2, 3);
+        }
+        
+        $listing['city_prov'] = $city_prov;      
+        $listing['prov'] = $prov;
+        $listing['postal_code'] = $postal_code;                                          
+      }
+      
+      $this->data['listings'] = $listings;
+      $this->data['type'] = $class;
       $this->data['header_variant'] = $class;
-      $this->data['analytics'] = '';
-      $this->data['header'] = $this->load->view($this->header_view, $this->data, TRUE);
-      $this->data['footer'] = $this->load->view($this->footer_view, $this->data, TRUE);
-      
+      $this->data['types'] = $this->types;
+              
+      $this->_generate_template();
+
       $this->data['content'] = $this->load->view('property_not_found', $this->data, TRUE);
       $this->load->view('standard_page', $this->data);
     
