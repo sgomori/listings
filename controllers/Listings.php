@@ -430,46 +430,89 @@ class Listings extends CI_Controller {
     $property_images_jpg = array_values($property_images_jpg);
     $property_images_webp = array_values($property_images_webp);
     
-    $feature_list = $this->data['property']['Features'];
-    
-    if (isset($this->data['property']['Goods_Included']))
+    $features = FALSE;
+    $feature_list = FALSE;
+
+    if ((isset($this->data['property']['Features'])) && ($this->data['property']['Features'] !== ''))
     {
-      $feature_list .= ','.$this->data['property']['Goods_Included'];
+      $feature_list = $this->data['property']['Features'];
+      
+      if ((isset($this->data['property']['Goods_Included'])) && ($this->data['property']['Goods_Included'] !== ''))
+      {
+        $feature_list .= ','.$this->data['property']['Goods_Included'];
+      }
+    }
+    else if ((isset($this->data['property']['Goods_Included'])) && ($this->data['property']['Goods_Included'] !== ''))
+    {
+      $feature_list .= $this->data['property']['Goods_Included'];
     }
     
-    $features = explode(',', $feature_list);
-    sort($features);
+ 
+    if ($feature_list)
+    {
+      $features = explode(',', $feature_list);
+      sort($features);
+      
+      foreach ($features as &$feature)
+      {
+        $feature = ucwords($feature);
+      }
+    }
     
-    if (isset($this->data['property']['Amenities']))
+    $amenities = FALSE;
+    
+    if ((isset($this->data['property']['Amenities'])) && ($this->data['property']['Amenities'] !== ''))
     {
       $amenities = explode(',', $this->data['property']['Amenities']);
       sort($amenities);
+      
+      foreach ($amenities as &$amenity)
+      {
+        $amenity = ucwords($amenity);
+      }
     }
-    else
-    {
-      $amenities = FALSE;
-    }
-    
-    if (isset($this->data['property']['Site_Influences']))
+
+    $site_influences = FALSE;
+        
+    if ((isset($this->data['property']['Site_Influences'])) && ($this->data['property']['Site_Influences'] !== ''))
     {
       $site_influences = explode(',', $this->data['property']['Site_Influences']);
       sort($site_influences);
-    }
-    else
-    {
-      $site_influences = FALSE;
+      
+      foreach ($site_influences as &$site_influence)
+      {
+        $site_influence = ucwords($site_influence);
+      }
     }
     
-    if (isset($this->data['property']['Flooring']))
+    $flooring = FALSE;
+        
+    if ((isset($this->data['property']['Flooring'])) && ($this->data['property']['Flooring'] !== ''))
     {
       $flooring = explode(',', $this->data['property']['Flooring']);
       sort($flooring);
-    }
-    else
-    {
-      $flooring = FALSE;
+      
+      foreach ($flooring as &$floor)
+      {
+        $floor = ucwords($floor);
+      }
     }
     
+    $parking_elements = FALSE;
+        
+    if ((isset($this->data['property']['Parking'])) && ($this->data['property']['Parking'] !== ''))
+    {
+      $parking_elements = explode(',', $this->data['property']['Parking']);
+      sort($parking_elements);
+      
+      foreach ($parking_elements as &$parking)
+      {
+        $parking = ucwords($parking);
+      }
+    }
+    
+    $other_detail = array();
+
     if (($this->data['property']['Lat'] == '') || ($this->data['property']['Lon'] == ''))
     {
       $street = trim($this->data['property']['Street_Number']).'+'.str_replace(' ', '+', trim($this->data['property']['Street_Name'])).'+'.str_replace(' ', '+', trim($this->data['property']['Street_Type']));
@@ -508,6 +551,7 @@ class Listings extends CI_Controller {
     $this->data['amenities'] = $amenities;
     $this->data['site_influences'] = $site_influences;
     $this->data['flooring'] = $flooring;
+    $this->data['parking_elements'] = $parking_elements;
 
 		$this->data['title'] = '';
     $this->data['city_prov'] = '';      

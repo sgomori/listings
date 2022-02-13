@@ -11,7 +11,7 @@
 				  	<div class="noo-content col-xs-12 col-md-8">
 				  		<!-- START ARTICLE PROPERTY -->
 							<article class="property" itemscope itemtype="https://schema.org/RealEstateListing">
-							  <h1 class="properties-header" itemprop="name">
+							  <h1 class="single-property-header" itemprop="name">
 							    <?php if (intval($property['Display_Addrs_on_Pub_Web_Sites']) === 1): ?>
                     <?php
                         $address = $property['Street_Number'].' '.ucwords(strtolower($property['Street_Name'])).' '.ucfirst(strtolower($property['Street_Type']));
@@ -25,6 +25,8 @@
 							    <?php endif; ?>
 							    <small><?php echo $property['Neighbourhood']; ?>, <?php echo $city_prov; ?> <?php echo $postal_code; ?></small>
 							  </h1>
+                
+
 							  
 							  <?php if (!empty($property_images_jpg)): ?>
 							  
@@ -90,6 +92,11 @@
 							              <span class="col-xs-6 col-md-5 detail-field-label">Location</span>
 							              <span class="col-xs-6 col-md-7 detail-field-value"><?php echo $property['Neighbourhood']; ?></span>
 
+                            <?php if (isset($property['Condominium_Name'])): ?>
+							              <span class="col-xs-6 col-md-5 detail-field-label">Condo</span>
+							              <span class="col-xs-6 col-md-7 detail-field-value"><?php echo $property['Condominium_Name']; ?></span>                            
+                            <?php endif; ?>
+                            
 							              <span class="col-xs-6 col-md-5 detail-field-label">Price</span>
 							              <span class="col-xs-6 col-md-7 detail-field-value">$ <?php echo number_format($property['CurrentPrice'], 0); ?></span>
 
@@ -105,11 +112,37 @@
 							              <span class="col-xs-6 col-md-5 detail-field-label">Year Built</span>
 							              <span class="col-xs-6 col-md-7 detail-field-value"><?php echo $property['Year_Built']; ?></span>
 
+                            <?php
+                              if (strpos($property['Heating'], ',') !== FALSE)
+                              {
+                                $new_values = array();
+                                $field_values = explode(',', $property['Heating']);
+                                
+                                foreach ($field_values as $field_value)
+                                {
+                                  $new_values[] = ucwords(trim($field_value));
+                                }
+                                
+                                $property['Heating'] = implode(', ', $new_values);
+                              }
+                              
+                            ?>
+                        
 							              <span class="col-xs-6 col-md-5 detail-field-label">Heating</span>
 							              <span class="col-xs-6 col-md-7 detail-field-value"><?php echo $property['Heating']; ?></span>
 							              
 							              <span class="col-xs-6 col-md-5 detail-field-label">Title</span>
 							              <span class="col-xs-6 col-md-7 detail-field-value"><?php echo $property['Title_to_Land']; ?></span>
+                            
+                            <?php if (isset($property['Lot_Shape'])): ?>
+							              <span class="col-xs-6 col-md-5 detail-field-label">Lot Shape</span>
+							              <span class="col-xs-6 col-md-7 detail-field-value"><?php echo $property['Lot_Shape']; ?></span>                            
+                            <?php endif; ?>
+                            
+                            <?php if (isset($property['Total_Acres'])): ?>
+							              <span class="col-xs-6 col-md-5 detail-field-label">Acres</span>
+							              <span class="col-xs-6 col-md-7 detail-field-value"><?php echo $property['Total_Acres']; ?></span>                            
+                            <?php endif; ?>
 							              
 							            </div>
 							          </div>
@@ -214,122 +247,249 @@
 							    </div>
 							  </div>
 							  <?php endif; ?>
+                
+							  <?php if ($parking_elements): ?>
+							  <div class="property-feature">
+							    <h2 class="property-feature-title">Parking</h2>
+							    <div class="property-feature-content clearfix">
+							      <?php foreach ($parking_elements as $parking): ?>
+							      <div class="has">
+							        <i class="fa fa-check-circle"></i> <?php echo $parking; ?>
+                    </div>
+							      <?php endforeach; ?>
+							    </div>
+							  </div>
+							  <?php endif; ?>
 							  
 							  <div class="property-feature">
 							    <h2 class="property-feature-title">More Details</h2>
 							    <div class="property-feature-content clearfix">
 							      <table class="table table-striped table-condensed rooms">                    
-  							      <?php if (isset($property['School_Division'])): ?>
+  							      <?php if ((isset($property['School_Division'])) && ($property['School_Division'] !== '')): ?>
                       <tr>
   							        <td>School Division</td>
                         <td><?php echo $property['School_Division']; ?></td>
                       </tr>
                       <?php endif; ?>
 
-  							      <?php if (isset($property['HOA_Fee'])): ?>
+  							      <?php if ((isset($property['HOA_Fee'])) && ($property['HOA_Fee'] !== '')): ?>
                       <tr>
   							        <td>Condo Fee</td>
                         <td>$<?php echo number_format($property['HOA_Fee'], 2); ?></td>
                       </tr>
+                      <?php endif; ?>
+                      
+                      <?php if ((isset($property['HOA_Pay_Schedule'])) && ($property['HOA_Pay_Schedule'] !== '')): ?>
                       <tr>
   							        <td>Condo Fee Schedule</td>
                         <td><?php echo $property['HOA_Pay_Schedule']; ?></td>
                       </tr>
+                      <?php endif; ?>
+                      
+                      <?php if ((isset($property['HOA_Includes'])) && ($property['HOA_Includes'] !== '')): ?>
+                      <?php
+                        if (strpos($property['HOA_Includes'], ',') !== FALSE)
+                          {
+                            $new_values = array();
+                            $field_values = explode(',', $property['HOA_Includes']);
+                            
+                            foreach ($field_values as $field_value)
+                            {
+                              $new_values[] = ucwords(trim($field_value));
+                            }
+                            
+                            $property['HOA_Includes'] = implode(', ', $new_values);
+                          }
+                        
+                      ?>  
                       <tr>
   							        <td>Condo Fee Includes</td>
                         <td><?php echo $property['HOA_Includes']; ?></td>
                       </tr>
                       <?php endif; ?>
 
-  							      <?php if (isset($property['Bedrooms_Above_Grade'])): ?>
+  							      <?php if ((isset($property['Bedrooms_Above_Grade'])) && ($property['Bedrooms_Above_Grade'] !== '')): ?>
                       <tr>
   							        <td>Bedrooms Above Grade</td>
                         <td><?php echo $property['Bedrooms_Above_Grade']; ?></td>
                       </tr>
                       <?php endif; ?>
                       
-  							      <?php if (isset($property['Number_of_Half_Baths'])): ?>
+  							      <?php if ((isset($property['Number_of_Half_Baths'])) && ($property['Number_of_Half_Baths'] !== '')): ?>
                       <tr>
   							        <td>Half Baths</td>
                         <td><?php echo $property['Number_of_Half_Baths']; ?></td>
                       </tr>
                       <?php endif; ?>
-                      
-  							      <?php if (isset($property['Parking'])): ?>
-                      <tr>
-  							        <td>Parking</td>
-                        <td><?php echo $property['Parking']; ?></td>
-                      </tr>
-                      <?php endif; ?>
                                             
-  							      <?php if (intval($property['HasFirePlace']) === 1): ?>
+  							      <?php if ((intval($property['HasFirePlace']) === 1) && ((isset($property['Fireplace'])) && ($property['Fireplace'] !== ''))): ?>
+                      <?php
+                        if (strpos($property['Fireplace'], ',') !== FALSE)
+                        {
+                          $new_values = array();
+                          $field_values = explode(',', $property['Fireplace']);
+                          
+                          foreach ($field_values as $field_value)
+                          {
+                            $new_values[] = ucwords(trim($field_value));
+                          }
+                          
+                          $property['Fireplace'] = implode(', ', $new_values);
+                        }
+                        
+                      ?>
                       <tr>
   							        <td>Fireplace</td>
                         <td><?php echo $property['Fireplace']; ?></td>
                       </tr>
-                      <tr>
-  							        <td>Fireplace Fuel</td>
-                        <td><?php echo $property['Fireplace_Fuel']; ?></td>
-                      </tr>
+                      
+                        <?php if ((isset($property['Fireplace_Fuel'])) && ($property['Fireplace_Fuel'] !== '')): ?>
+                        <?php
+                          if (strpos($property['Fireplace_Fuel'], ',') !== FALSE)
+                          {
+                            $new_values = array();
+                            $field_values = explode(',', $property['Fireplace_Fuel']);
+                            
+                            foreach ($field_values as $field_value)
+                            {
+                              $new_values[] = ucwords(trim($field_value));
+                            }
+                            
+                            $property['Fireplace_Fuel'] = implode(', ', $new_values);
+                          }
+                          
+                        ?>
+                        <tr>
+    							        <td>Fireplace Fuel</td>
+                          <td><?php echo $property['Fireplace_Fuel']; ?></td>
+                        </tr>
+                        <?php endif; ?>
                       <?php endif; ?>
                                                                   
-  							      <?php if (isset($property['Construction_Type'])): ?>
+  							      <?php if ((isset($property['Construction_Type'])) && ($property['Construction_Type'] !== '')): ?>
                       <tr>
   							        <td>Construction Type</td>
                         <td><?php echo $property['Construction_Type']; ?></td>
                       </tr>
                       <?php endif; ?>
 
-  							      <?php if (isset($property['Foundation'])): ?>
+  							      <?php if ((isset($property['Exterior'])) && ($property['Exterior'] !== '')): ?>
+                      <?php
+                        if (strpos($property['Exterior'], ',') !== FALSE)
+                          {
+                            $new_values = array();
+                            $field_values = explode(',', $property['Exterior']);
+                            
+                            foreach ($field_values as $field_value)
+                            {
+                              $new_values[] = ucwords(trim($field_value));
+                            }
+                            
+                            $property['Exterior'] = implode(', ', $new_values);
+                          }
+                        
+                      ?>                         
+                      <tr>
+  							        <td>Exterior</td>
+                        <td><?php echo $property['Exterior']; ?></td>
+                      </tr>
+                      <?php endif; ?>
+                                                                  
+  							      <?php if ((isset($property['Foundation'])) && ($property['Foundation'] !== '')): ?>
+                      <?php
+                        if (strpos($property['Foundation'], ',') !== FALSE)
+                          {
+                            $new_values = array();
+                            $field_values = explode(',', $property['Foundation']);
+                            
+                            foreach ($field_values as $field_value)
+                            {
+                              $new_values[] = ucwords(trim($field_value));
+                            }
+                            
+                            $property['Foundation'] = implode(', ', $new_values);
+                          }
+                        
+                      ?>  
                       <tr>
   							        <td>Foundation</td>
                         <td><?php echo $property['Foundation']; ?></td>
                       </tr>
                       <?php endif; ?>
                                             
-  							      <?php if (isset($property['Depth_In_Feet'])): ?>
+  							      <?php if ((isset($property['Depth_In_Feet'])) && ($property['Depth_In_Feet'] !== '')): ?>
                       <tr>
   							        <td>Depth</td>
                         <td><?php echo $property['Depth_In_Feet']; ?> ft</td>
                       </tr>
                       <?php endif; ?>
                       
-  							      <?php if (isset($property['Frontage_In_Feet'])): ?>
+  							      <?php if ((isset($property['Frontage_In_Feet'])) && ($property['Frontage_In_Feet'] !== '')): ?>
                       <tr>
   							        <td>Frontage</td>
                         <td><?php echo $property['Frontage_In_Feet']; ?> ft</td>
                       </tr>
                       <?php endif; ?>
                       
-  							      <?php if (isset($property['HeatingFuel'])): ?>
+  							      <?php if ((isset($property['HeatingFuel'])) && ($property['HeatingFuel'] !== '')): ?>
                       <tr>
   							        <td>Heating Fuel</td>
                         <td><?php echo $property['HeatingFuel']; ?></td>
                       </tr>
                       <?php endif; ?>
                                        
-  							      <?php if (isset($property['Basement'])): ?>
+  							      <?php if ((isset($property['Basement'])) && ($property['Basement'] !== '')): ?>
                       <tr>
   							        <td>Basement</td>
                         <td><?php echo $property['Basement']; ?></td>
                       </tr>
                       <?php endif; ?>
                       
-  							      <?php if (isset($property['Basement_Develop'])): ?>
+  							      <?php if ((isset($property['Basement_Develop'])) && ($property['Basement_Develop'] !== '')): ?>
                       <tr>
   							        <td>Basement Type</td>
                         <td><?php echo $property['Basement_Develop']; ?></td>
                       </tr>
                       <?php endif; ?>
                       
-  							      <?php if (isset($property['Sewer'])): ?>
+  							      <?php if ((isset($property['Sewer'])) && ($property['Sewer'] !== '')): ?>
+                      <?php
+                        if (strpos($property['Sewer'], ',') !== FALSE)
+                          {
+                            $new_values = array();
+                            $field_values = explode(',', $property['Sewer']);
+                            
+                            foreach ($field_values as $field_value)
+                            {
+                              $new_values[] = ucwords(trim($field_value));
+                            }
+                            
+                            $property['Sewer'] = implode(', ', $new_values);
+                          }
+                        
+                      ?> 
                       <tr>
   							        <td>Sewer</td>
                         <td><?php echo $property['Sewer']; ?></td>
                       </tr>
                       <?php endif; ?>
                       
-  							      <?php if (isset($property['Water'])): ?>
+  							      <?php if ((isset($property['Water'])) && ($property['Water'] !== '')): ?>
+                      <?php
+                        if (strpos($property['Water'], ',') !== FALSE)
+                          {
+                            $new_values = array();
+                            $field_values = explode(',', $property['Water']);
+                            
+                            foreach ($field_values as $field_value)
+                            {
+                              $new_values[] = ucwords(trim($field_value));
+                            }
+                            
+                            $property['Water'] = implode(', ', $new_values);
+                          }
+                        
+                      ?>                       
                       <tr>
   							        <td>Water</td>
                         <td><?php echo $property['Water']; ?></td>
