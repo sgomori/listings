@@ -19,7 +19,7 @@
     							  </h1>
                   </div>
                   
-                  <p>It's possible the property you're looking for has been removed. You might find a similar property in our <?php echo anchor($types[$type]['path'], $types[$type]['title'].' Listings'); ?>. Alternatively, have a look some of our recent listings below.</p>  
+                  <p>It's possible the property you're looking for has been removed. You might find a similar property in our <?php echo anchor($types[$type]['path'], $types[$type]['title'].' Listings'); ?>. Alternatively, have a look at some of our recent listings below.</p>  
                   <!-- END PROPERTIES HEADER -->
 
                   <!-- START PROPERTIES CONTENT -->
