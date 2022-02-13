@@ -26,7 +26,12 @@
 							    <small><?php echo $property['Neighbourhood']; ?>, <?php echo $city_prov; ?> <?php echo $postal_code; ?></small>
 							  </h1>
                 
-
+                <h2 class="properties-sub-header">
+                  <span class="size"><?php echo $property['Total_FloorLiv_Area_SF']; ?> sqft</span>
+                  <span class="bedrooms"><?php echo $property['Total_Bedrooms']; ?> bedroom<?php if ((int)$property['Total_Bedrooms'] > 1): ?>s<?php endif; ?></span>
+                  <span class="bathrooms"><?php echo $property['Number_of_Total_Baths']; ?> bathroom<?php if ((int)$property['Number_of_Total_Baths'] > 1): ?>s<?php endif; ?></span>
+                  <span class="price">$ <?php echo number_format($property['CurrentPrice'], 0); ?></span>
+                </h2>
 							  
 							  <?php if (!empty($property_images_jpg)): ?>
 							  
@@ -80,38 +85,57 @@
 							          <h2 class="property-highlights-title">Property Detail</h2>
 							          <div class="property-detail-content">
 							            <div class="detail-field row">
-							              <span class="col-xs-6 col-md-5 detail-field-label">Type</span>
+							              <?php if ((isset($property['Property_Type'])) && ($property['Property_Type'] !== '')): ?>
+                            <span class="col-xs-6 col-md-5 detail-field-label">Type</span>
 							              <span class="col-xs-6 col-md-7 detail-field-value"><?php echo $property['Property_Type']; ?> / <?php echo $property['Type']; ?></span>
+                            <?php endif; ?>
 
-							              <span class="col-xs-6 col-md-5 detail-field-label">Style</span>
+							              <?php if ((isset($property['Style'])) && ($property['Style'] !== '')): ?>
+                            <span class="col-xs-6 col-md-5 detail-field-label">Style</span>
 							              <span class="col-xs-6 col-md-7 detail-field-value"><?php echo $property['Style']; ?></span>
+                            <?php endif; ?>
 
-							              <span class="col-xs-6 col-md-5 detail-field-label">MLS&reg; #</span>
+							              <?php if ((isset($property['ML_Number'])) && ($property['ML_Number'] !== '')): ?>
+                            <span class="col-xs-6 col-md-5 detail-field-label">MLS&reg; #</span>
 							              <span class="col-xs-6 col-md-7 detail-field-value" id="ml_number"><?php echo $property['ML_Number']; ?></span>
+                            <?php endif; ?>
 							              
-							              <span class="col-xs-6 col-md-5 detail-field-label">Location</span>
-							              <span class="col-xs-6 col-md-7 detail-field-value"><?php echo $property['Neighbourhood']; ?></span>
+							              <?php if ((isset($property['Neighbourhood'])) && ($property['Neighbourhood'] !== '')): ?>
+                            <span class="col-xs-6 col-md-5 detail-field-label">Location</span>
+							              <span class="col-xs-6 col-md-7 detail-field-value"><?php echo $property['Neighbourhood']; ?> (<?php echo $property['Area']; ?>)</span>
+                            <?php endif; ?>
 
-                            <?php if (isset($property['Condominium_Name'])): ?>
+                            <?php if ((isset($property['Condominium_Name'])) && ($property['Condominium_Name'] !== '')): ?>
 							              <span class="col-xs-6 col-md-5 detail-field-label">Condo</span>
 							              <span class="col-xs-6 col-md-7 detail-field-value"><?php echo $property['Condominium_Name']; ?></span>                            
                             <?php endif; ?>
                             
-							              <span class="col-xs-6 col-md-5 detail-field-label">Price</span>
+							              <?php if ((isset($property['CurrentPrice'])) && ($property['CurrentPrice'] !== '')): ?>
+                            <span class="col-xs-6 col-md-5 detail-field-label">Price</span>
 							              <span class="col-xs-6 col-md-7 detail-field-value">$ <?php echo number_format($property['CurrentPrice'], 0); ?></span>
+                            <?php endif; ?>
 
-							              <span class="col-xs-6 col-md-5 detail-field-label">Area</span>
+							              <?php if ((isset($property['Total_FloorLiv_Area_SF'])) && ($property['Total_FloorLiv_Area_SF'] !== '')): ?>
+                            <span class="col-xs-6 col-md-5 detail-field-label">Area</span>
 							              <span class="col-xs-6 col-md-7 detail-field-value"><?php echo $property['Total_FloorLiv_Area_SF']; ?> sqft</span>
+                            <?php endif; ?>
 
-							              <span class="col-xs-6 col-md-5 detail-field-label">Bedrooms</span>
+							              <?php if ((isset($property['Total_Bedrooms'])) && ($property['Total_Bedrooms'] !== '')): ?>
+                            <span class="col-xs-6 col-md-5 detail-field-label">Bedrooms</span>
 							              <span class="col-xs-6 col-md-7 detail-field-value"><?php echo $property['Total_Bedrooms']; ?></span>
+                            <?php endif; ?>
 
-							              <span class="col-xs-6 col-md-5 detail-field-label">Bathrooms</span>
+							              <?php if ((isset($property['Number_of_Total_Baths'])) && ($property['Number_of_Total_Baths'] !== '')): ?>
+                            <span class="col-xs-6 col-md-5 detail-field-label">Bathrooms</span>
 							              <span class="col-xs-6 col-md-7 detail-field-value"><?php echo $property['Number_of_Total_Baths']; ?></span>
-
-							              <span class="col-xs-6 col-md-5 detail-field-label">Year Built</span>
+                            <?php endif; ?>
+                            
+							              <?php if ((isset($property['Year_Built'])) && ($property['Year_Built'] !== '') && ($property['Year_Built'] !== '0')): ?>
+                            <span class="col-xs-6 col-md-5 detail-field-label">Year Built</span>
 							              <span class="col-xs-6 col-md-7 detail-field-value"><?php echo $property['Year_Built']; ?></span>
-
+                            <?php endif; ?>
+                            
+                            <?php if ((isset($property['Heating'])) && ($property['Heating'] !== '')): ?>
                             <?php
                               if (strpos($property['Heating'], ',') !== FALSE)
                               {
@@ -130,16 +154,19 @@
                         
 							              <span class="col-xs-6 col-md-5 detail-field-label">Heating</span>
 							              <span class="col-xs-6 col-md-7 detail-field-value"><?php echo $property['Heating']; ?></span>
-							              
-							              <span class="col-xs-6 col-md-5 detail-field-label">Title</span>
-							              <span class="col-xs-6 col-md-7 detail-field-value"><?php echo $property['Title_to_Land']; ?></span>
+							              <?php endif; ?>
                             
-                            <?php if (isset($property['Lot_Shape'])): ?>
+							              <?php if ((isset($property['Title_to_Land'])) && ($property['Title_to_Land'] !== '')): ?>
+                            <span class="col-xs-6 col-md-5 detail-field-label">Title</span>
+							              <span class="col-xs-6 col-md-7 detail-field-value"><?php echo $property['Title_to_Land']; ?></span>
+                            <?php endif; ?>
+                            
+                            <?php if ((isset($property['Lot_Shape'])) && ($property['Lot_Shape'] !== '')): ?>
 							              <span class="col-xs-6 col-md-5 detail-field-label">Lot Shape</span>
 							              <span class="col-xs-6 col-md-7 detail-field-value"><?php echo $property['Lot_Shape']; ?></span>                            
                             <?php endif; ?>
                             
-                            <?php if (isset($property['Total_Acres'])): ?>
+                            <?php if ((isset($property['Total_Acres'])) && ($property['Total_Acres'] !== '')): ?>
 							              <span class="col-xs-6 col-md-5 detail-field-label">Acres</span>
 							              <span class="col-xs-6 col-md-7 detail-field-value"><?php echo $property['Total_Acres']; ?></span>                            
                             <?php endif; ?>

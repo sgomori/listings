@@ -557,6 +557,8 @@ class Listings extends CI_Controller {
     $this->data['city_prov'] = '';      
     $this->data['prov'] = '';
     $this->data['postal_code'] = '';
+    $this->data['description'] = '';
+    $description_address = '';
           
     if (intval($this->data['property']['Display_Addrs_on_Pub_Web_Sites']) === 1)
 		{
@@ -580,11 +582,90 @@ class Listings extends CI_Controller {
       $this->data['prov'] = $prov;
       $this->data['postal_code'] = $postal_code;
       $this->data['title'] .= $this->data['property']['Street_Number'].' '.ucwords(strtolower($this->data['property']['Street_Name'])).' '.ucfirst(strtolower($this->data['property']['Street_Type'])).', '.$city_prov.' '.$postal_code.' - ';
+      $primary_details = '';
+      $description_address = ' located at '.$this->data['property']['Street_Number'].' '.ucwords(strtolower($this->data['property']['Street_Name'])).' '.ucfirst(strtolower($this->data['property']['Street_Type'])).'. ';
 		}
     
-    $this->data['title'] .= 'MLS '.$this->data['property']['ML_Number'].': '.$this->data['property']['Agent_1_First_Name'].' '.$this->data['property']['Agent_1_Last_Name'];
+    if ((isset($this->data['property']['Property_Type'])) && ($this->data['property']['Property_Type'] !== ''))
+    {
+      $primary_details .= $this->data['property']['Property_Type'];
+    }
+
+    if ((isset($this->data['property']['Type'])) && ($this->data['property']['Type'] !== ''))
+    {
+      if ((isset($this->data['property']['Property_Type'])) && ($this->data['property']['Property_Type'] !== ''))
+      {
+        $primary_details .= ', ';
+      }
+      
+      $primary_details.= $this->data['property']['Type'];
+    }
+    
+    if ((isset($this->data['property']['Style'])) && ($this->data['property']['Style'] !== ''))
+    {
+      if (((isset($this->data['property']['Property_Type'])) && ($this->data['property']['Property_Type'] !== '')) || ((isset($this->data['property']['Type'])) && ($this->data['property']['Type'] !== '')))
+      {
+        $primary_details .= ' ';
+      }
+            
+      $primary_details .= $this->data['property']['Style'];
+    }
+    
+    $this->data['description'] = $primary_details.$description_address;
+    
+    $this->data['title'] .= $primary_details.' for Sale: MLS '.$this->data['property']['ML_Number'];
+    
+    if ((isset($this->data['property']['Total_Bedrooms'])) && ($this->data['property']['Total_Bedrooms'] !== '') && ((int)$this->data['property']['Total_Bedrooms'] > 0))
+    {
+      $this->data['description'] .= $this->data['property']['Total_Bedrooms'].' bedroom';
+      
+      if ((int)$this->data['property']['Total_Bedrooms'] > 1)
+      {
+        $this->data['description'] .= 's';
+      }
+    }
+    
+    if ((isset($this->data['property']['Number_of_Total_Baths'])) && ($this->data['property']['Number_of_Total_Baths'] !== '') && ((int)$this->data['property']['Number_of_Total_Baths'] > 0))
+    {
+      if ((isset($this->data['property']['Total_Bedrooms'])) && ($this->data['property']['Total_Bedrooms'] !== ''))
+      {
+        $this->data['description'] .= ', ';
+      }
+      
+      $this->data['description'] .= $this->data['property']['Number_of_Total_Baths'].' bathroom';
+      
+      if ((int)$this->data['property']['Number_of_Total_Baths'] > 1)
+      {
+        $this->data['description'] .= 's';
+      }
+    }
+
+    if ((isset($this->data['property']['Total_FloorLiv_Area_SF'])) && ($this->data['property']['Total_FloorLiv_Area_SF'] !== '') && ((int)$this->data['property']['Total_FloorLiv_Area_SF'] > 0))
+    {
+      if (((isset($this->data['property']['Total_Bedrooms'])) && ($this->data['property']['Total_Bedrooms'] !== '')) || ((isset($this->data['property']['Number_of_Total_Baths'])) && ($this->data['property']['Number_of_Total_Baths'] !== '')))
+      {
+        $this->data['description'] .= ' and ';
+      }
+      
+      $this->data['description'] .= $this->data['property']['Total_FloorLiv_Area_SF'].' square feet';
+    }
+    
+    if ($this->data['description'] !== $primary_details.$description_address)
+    {
+      $this->data['description'] .= '.';
+    }
                           
-		$this->data['description'] = 'Property details for '.$this->data['title'];
+		$target_description_length = 160;
+    
+    $truncated_description = substr($this->data['property']['Public_Remarks'], 0, ($target_description_length - strlen($this->data['description'])));
+    
+    $last_period = strpos($truncated_description, '.');
+    
+    if ($last_period !== FALSE)
+    {
+      $truncated_description = substr($truncated_description, 0, $last_period + 1);
+      $this->data['description'] .= ' '.str_replace('"', '\"', $truncated_description);    
+    }
     
     $listing_date_stamp = strtotime($this->data['property']['Date_Entered'].' UTC');
     

@@ -2,14 +2,14 @@
 
 /**************************************************************
  *                                                            *
- *  Filename:       ListingS_model.php                        *
- *  Description:    ListingS model                            *
+ *  Filename:       Listings_model.php                        *
+ *  Description:    Listings model                            *
  *  Author:         Steve Gomori, sgomori at vividwind com    *
  *  Last Modified:  Oct 28, 2015                              *
  *                                                            *
  **************************************************************/ 
 
-class ListingS_model extends CI_Model {
+class Listings_model extends CI_Model {
 
   function __construct()
   {
@@ -573,8 +573,19 @@ class ListingS_model extends CI_Model {
   public function get_development_listings($development)
   {
   
-    $sql = '
-        SELECT "con" AS class, Listing.Matrix_Unique_ID, Listing.LastChangeTypeDate, Listing.Display_Addrs_on_Pub_Web_Sites,
+    if ($development === 'grantown forest')
+    {
+      $sql = '
+          SELECT "res" ';
+    }
+    else
+    {
+      $sql = '
+          SELECT "con" ';
+    }
+        
+    $sql .= '
+        AS class, Listing.Matrix_Unique_ID, Listing.LastChangeTypeDate, Listing.Display_Addrs_on_Pub_Web_Sites,
           Listing.LastChangeType, Listing.Style, Listing.Suite_Number, Listing.Street_Number, Listing.Street_Name, 
           Listing.Street_Type, Listing.Neighbourhood, Listing.City_or_Town_Name, Listing.Postal_Code,
           Listing.Public_Remarks, Listing.Total_FloorLiv_Area_SF, Listing.Number_of_Total_Baths, 
@@ -583,8 +594,21 @@ class ListingS_model extends CI_Model {
           Listing.Status, Listing.Sold_Date, Open_House_Date_NUM1, Agent_1.First_Name AS Agent_1_First_Name, 
           Agent_1.Last_Name AS Agent_1_Last_Name, Agent_2.First_Name AS Agent_2_First_Name, 
           Agent_2.Last_Name AS Agent_2_Last_Name 
-        FROM
-        wpg_rets_property_con Listing
+        FROM ';
+        
+    if ($development === 'grantown forest')
+    {
+      $sql .= '
+          wpg_rets_property_res ';
+    }
+    else
+    {
+      $sql .= '
+          wpg_rets_property_con ';
+    }
+    
+    $sql .= '                    
+        Listing
         LEFT JOIN wpg_rets_openhouse_openhouse ON Listing.Matrix_Unique_ID = wpg_rets_openhouse_openhouse.Listing_MUI 
           AND NOW() < wpg_rets_openhouse_openhouse.Open_House_Date_NUM1 + INTERVAL 1 DAY
           AND wpg_rets_openhouse_openhouse.IsDeleted = 0
@@ -600,22 +624,26 @@ class ListingS_model extends CI_Model {
         )
         AND ';
         
-      if ($development === 'meadowbrook villas')
-      {
-        $sql .= ' Condominium_Name LIKE "%meadowbrook%" ';
-      }
-      else if ($development === 'creekbend hollow')
-      {
-        $sql .= ' Condominium_Name LIKE "%creek bend%" OR Condominium_Name LIKE "%creekbend%"';
-      }         
-      else
-      {
-        $sql .= ' Condominium_Name LIKE "'.$development.'" ';
-      }
-      
-      $sql .= '  
-        GROUP BY Listing.Matrix_Unique_ID 
-        ORDER BY Sold_Date ASC, Date_Entered DESC';
+    if ($development === 'meadowbrook villas')
+    {
+      $sql .= ' Condominium_Name LIKE "%meadowbrook%" ';
+    }
+    else if ($development === 'creekbend hollow')
+    {
+      $sql .= ' Condominium_Name LIKE "%creek bend%" OR Condominium_Name LIKE "%creekbend%"';
+    }
+    else if ($development === 'grantown forest')
+    {
+      $sql .= ' Street_Name LIKE "%jones%" OR Street_Name LIKE "%cuthbert%"';
+    }    
+    else
+    {
+      $sql .= ' Condominium_Name LIKE "'.$development.'" ';
+    }
+    
+    $sql .= '  
+      GROUP BY Listing.Matrix_Unique_ID 
+      ORDER BY Sold_Date ASC, Date_Entered DESC';
     
   
     if ($query = $this->db->query($sql))
