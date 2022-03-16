@@ -1126,7 +1126,7 @@ class Listings extends CI_Controller {
     
     foreach ($query->result_array() as $page)
     {
-      $updated_stamp = $page['Last_Transaction_Date'];
+      $updated_stamp = strtotime($page['Last_Transaction_Date']);
       
       if (strtotime($page['Last_ImgTransDate'].' UTC') > $updated_stamp)
       {
