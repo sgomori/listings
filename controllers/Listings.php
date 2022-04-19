@@ -1165,7 +1165,7 @@ class Listings extends CI_Controller {
 	
 	private function _set_coordinates($class, $matrix_unique_id, $address)
 	{
-    $json_location = 'https://maps.googleapis.com/maps/api/geocode/json?address='.$address.'&key=AIzaSyCobf10IDhEOEPJsT_ImoVc1sN-qU-Xbpo&sensor=false';
+    $json_location = 'https://maps.googleapis.com/maps/api/geocode/json?address='.$address.'&key=AIzaSyClxbWC10PTf5lyJjh6xIE04axk_sLf0yY&sensor=false';
   
     $json = json_decode(file_get_contents($json_location));
     

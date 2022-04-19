@@ -57,7 +57,7 @@
   <script type="text/javascript" src="<?php echo $assets_path; ?>script/bootstrap.min.js"></script>
   <script type="text/javascript" src="<?php echo $assets_path; ?>script/jquery.parallax-1.1.3.js"></script>
   <script type="text/javascript" src="<?php echo $assets_path; ?>script/jquery.nouislider.all.min.js"></script>
-  <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCobf10IDhEOEPJsT_ImoVc1sN-qU-Xbpo"></script>
+  <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyClxbWC10PTf5lyJjh6xIE04axk_sLf0yY"></script>
   <script type="text/javascript" src="<?php echo $assets_path; ?>script/infobox.js"></script>
 
   <!-- THEME SCRIPT -->

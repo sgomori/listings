@@ -41,7 +41,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <div id="property-map"></div>
 
 <script src="<?php echo $assets_path; ?>script/jquery.min.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCobf10IDhEOEPJsT_ImoVc1sN-qU-Xbpo&sensor=false"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyClxbWC10PTf5lyJjh6xIE04axk_sLf0yY&sensor=false"></script>
 <script>
 $(document).ready(function()
 {
