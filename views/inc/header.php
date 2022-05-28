@@ -9,6 +9,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <?php if ($no_index): ?>
   <meta name="robots" content="noindex">
   <?php endif; ?>
+  <?php if ($no_index_follow): ?>
+  <meta name="robots" content="noindex, follow">
+  <?php endif; ?>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="<?php echo $description; ?>">
   <meta property="og:title" content="<?php echo $title; ?> | Winnipeg Homes">

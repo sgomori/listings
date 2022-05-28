@@ -18,6 +18,7 @@ class Listings extends CI_Controller {
 		$this->data['og_width'] = 728;
 		$this->data['og_height'] = 382;
     $this->data['no_index'] = FALSE;
+    $this->data['no_index_follow'] = FALSE;
 		$this->header_view = 'inc/header';
 		$this->footer_view = 'inc/footer';
 		$this->analtyics = 'inc/analytics';
@@ -359,9 +360,11 @@ class Listings extends CI_Controller {
       $this->data['type'] = $class;
       $this->data['header_variant'] = $class;
       $this->data['types'] = $this->types;
+      
+      $this->data['no_index_follow'] = TRUE;
               
       $this->_generate_template();
-
+      
       $this->data['content'] = $this->load->view('property_not_found', $this->data, TRUE);
       $this->load->view('standard_page', $this->data);
     
