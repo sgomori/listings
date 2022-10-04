@@ -86,7 +86,12 @@
   <script src="<?php echo $assets_path; ?>script/property-map.js"></script>
   <?php endif; ?>
   
-  <link rel="shortcut icon" href="<?php echo $assets_path; ?>images/icon/favicon.ico" type="image/x-icon" media="all">    
+  <link rel="shortcut icon" href="<?php echo $assets_path; ?>images/icon/favicon.ico" type="image/x-icon" media="all">
+  
+  <div id="calendly">
+    <a href="https://calendly.com/tyson-sonnichsen" target=_blank">Book time with us</a>
+  </div>
+
 </body>
 
 </html>
