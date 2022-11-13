@@ -40,7 +40,8 @@
           			<li><a href="https://www.facebook.com/WinnipegHomes.Com" rel="me" target="_blank">facebook.com/WinnipegHomes.Com</a></li>
           			<li><a href="https://dmsconnect.cld.bz/Sonnichsen-Blair-Tyson" target="_blank">Winnipeg Homes Bookshelf</a></li>
           			<li><a href="https://www.yelp.ca/biz/tyson-sonnichsen-royal-lepage-dynamic-winnipeg" rel="me" target="_blank">Tyson Sonnichsen on YELP.ca</a></li>
-          			<li><a href="<?php echo $wpg_news_link; ?>" target="_blank">Real Estate News</a></li>
+          			<li><a href="<?php echo $wpg_news_comm_link; ?>" target="_blank">Real Estate News - Commercial</a></li>
+                <li><a href="<?php echo $wpg_news_res_link; ?>" target="_blank">Real Estate News - Residential</a></li>
           		</ul>
           	</div>
         	</div>
