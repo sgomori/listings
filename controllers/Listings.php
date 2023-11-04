@@ -1,16 +1,16 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+require_once(APPPATH."controllers/SnippetListings.php");
 
-class Listings extends CI_Controller {
+class Listings extends SnippetListings {
 
 	public function __construct()
 	{
 		parent::__construct();
-		$this->data = array();
+		
+    // Set default template variables.
 		$this->data['content'] = '';
-		$this->data['assets_path'] = assets_url();
 		$this->data['header_variant'] = 'main';
-		$this->data['map'] = FALSE;
 		$this->data['property_detail'] = FALSE;
 		$this->data['title'] = 'Listings | An Experience Worth Repeating';
 		$this->data['description'] = 'Winnipeg Real Estate Listings by Blair Sonnichsen and Tyson Sonnichsen';
@@ -22,154 +22,68 @@ class Listings extends CI_Controller {
 		$this->header_view = 'inc/header';
 		$this->footer_view = 'inc/footer';
 		$this->analtyics = 'inc/analytics';
-		
-    $this->types = array(
-            'all' => array('active' => ''),
-            'res' => array('title' => 'Residential', 'active' => '', 'path' => 'homes'),
-            'con' => array('title' => 'Condo', 'active' => '', 'path' => 'condos'),
-            'rur' => array('title' => 'Rural/Farm', 'active' => '', 'path' => 'rural'),
-            'open-houses' => array('title' => 'Open House', 'active' => '', 'path' => 'open-houses'),
-            'sold' => array('title' => 'Recently Sold', 'active' => '', 'path' => 'sold'),
-            'map' => array('title' => 'Listings Map', 'active' => '', 'path' => 'map')
-            );
-
-    date_default_timezone_set('America/Winnipeg');
 	}
 	
-  private function _generate_template()
-  {
-    $this->data['analytics'] = $this->load->view($this->analtyics, $this->data, TRUE);
-    $this->data['header'] = $this->load->view($this->header_view, $this->data, TRUE);
-    
-    $this->data['wpg_news_comm_link'] = file_get_contents('/home4/winnipg2/wpg_news/wpg_news_comm_link.txt');
-    $this->data['wpg_news_res_link'] = file_get_contents('/home4/winnipg2/wpg_news/wpg_news_res_link.txt');
-    $this->data['footer'] = $this->load->view($this->footer_view, $this->data, TRUE);    
-  }
 
-	public function index($type = FALSE)
+	// The main root of the site with no type identified, so we show all listings.
+  public function index()
 	{
+    // TODO: Move to model.
+    $where = '
+      AND
+      (
+        Listing.Sales_Rep_MUI_1 IN (564206, 16212643)
+        OR
+        Listing.Sales_Rep_MUI_2 IN (564206, 16212643)
+      )
+      AND
+      (
+        Listing.Active = 1
+        OR
+        Listing.Status LIKE "Sold"
+        OR
+        Listing.Status LIKE "Custom"
+        OR
+        Listing.Status LIKE "Pending"
+      ) 
+    ';
+    
+    $query = $this->Listings_model->get_all_listings($where);
 
-    if ($type)
-    {          
-      if ($type == 'open-houses')
-      {
-        $query = $this->Listings_model->get_open_houses();
-    		$this->data['title'] = 'Open Houses for Sale';
-    		$this->data['description'] = 'Open Houses with Blair Sonnichsen and Tyson Sonnichsen';
-      }
-      else if ($type == 'sold')
-      {
-        $query = $this->Listings_model->get_sold_listings();
-    		$this->data['title'] = 'Recently Sold';
-    		$this->data['description'] = 'Recently Sold by Blair Sonnichsen and Tyson Sonnichsen';
-      }
-      else if ($type == 'rur')
-      {
-        $where = '
-          AND
-          (
-            Listing.Sales_Rep_MUI_1 IN (564206, 16212643)
-            OR
-            Listing.Sales_Rep_MUI_2 IN (564206, 16212643)
-          )
-          AND
-          (
-            Listing.Area LIKE "R%"
-            OR
-            Listing.City_or_Town_Name LIKE "Headingley%"
-          )
-          AND
-          (
-            Listing.Active = 1
-            OR
-            Listing.Status LIKE "Sold"
-            OR
-            Listing.Status LIKE "Custom"
-            OR
-            Listing.Status LIKE "Pending"
-          ) 
-        ';
-        
-        $query = $this->Listings_model->get_all_listings($where);
-        $this->data['header_variant'] = $type;
-    		$this->data['title'] = 'Rural Listings for Sale';
-    		$this->data['description'] = 'Rural Listings for Sale by Blair Sonnichsen and Tyson Sonnichsen';
-      }
-      else
-      {
-        $query = $this->Listings_model->get_listings_by_type($type);
-        $this->data['header_variant'] = $type;
-    		$this->data['title'] = $this->types[$type]['title'].' for Sale';
-    		$this->data['description'] = $this->types[$type]['title'].' for Sale by Blair Sonnichsen and Tyson Sonnichsen';
-      }
-      	     
-      $this->types[$type]['active'] = ' class="active '.$type.'"';
-      $this->data['h1'] = 'Our '.$this->types[$type]['title'].' Properties';
-    }
-    else
-    {
-      $where = '
-        AND
-        (
-          Listing.Sales_Rep_MUI_1 IN (564206, 16212643)
-          OR
-          Listing.Sales_Rep_MUI_2 IN (564206, 16212643)
-        )
-        AND
-        (
-          Listing.Active = 1
-          OR
-          Listing.Status LIKE "Sold"
-          OR
-          Listing.Status LIKE "Custom"
-          OR
-          Listing.Status LIKE "Pending"
-        ) 
-      ';
-      
-      $query = $this->Listings_model->get_all_listings($where);
+		$this->data['title'] = 'Winnipeg Homes & Condos for Sale';
+		$this->data['description'] = 'Winnipeg Homes & Condos for Sale by Blair Sonnichsen and Tyson Sonnichsen';      
+    $this->types['all']['active'] = ' class="active"';
+    $this->data['h1'] = 'Our Properties';
+   
+    $listings = $query->result_array();
 
-  		$this->data['title'] = 'Winnipeg Homes & Condos for Sale';
-  		$this->data['description'] = 'Winnipeg Homes & Condos for Sale by Blair Sonnichsen and Tyson Sonnichsen';      
-      $this->types['all']['active'] = ' class="active"';
-      $this->data['h1'] = 'Our Properties';
-    }
+    $listings = $this->_process_listings($listings, TRUE);
+    
+    $this->data['listings'] = $listings;
+    $this->data['type'] = FALSE;
+    $this->data['types'] = $this->types;
+            
+    $this->_generate_template();
+    $this->data['content'] = $this->load->view('standard_listing', $this->data, TRUE);
+    
+    $this->load->view('standard_page', $this->data);
+	}
+  
+  
+  // Currently Residential and Commerical handled equally and dynamically by type.
+  public function type($type)
+  {
+    $query = $this->Listings_model->get_listings_by_type($type);
+    $this->data['header_variant'] = $type;
+		$this->data['title'] = $this->types[$type]['title'].' for Sale';
+		$this->data['description'] = $this->types[$type]['title'].' for Sale by Blair Sonnichsen and Tyson Sonnichsen';
+    
+    $this->types[$type]['active'] = ' class="active '.$type.'"';
+    $this->data['h1'] = 'Our '.$this->types[$type]['title'].' Properties';
     
     $listings = $query->result_array();
 
-    $city_prov = '';      
-    $prov = '';
-    $postal_code = '';    
-          
-    foreach ($listings as &$listing)
-    {
-      $listing['address_slug'] = $this->_get_address_slug($listing);
-      
-      if ($listing['Status'] === 'Pending')
-      {
-        $listing['Status'] = '';
-      }
-      
-		  $city_prov = ucfirst(strtolower($listing['City_or_Town_Name']));
-      $prov = FALSE;
-      
-      if ($city_prov === 'Winnipeg')
-      {
-        $city_prov .= ', Manitoba';
-        $prov = 'Manitoba';
-      }
-      
-      $postal_code = strtoupper($listing['Postal_Code']);
-
-      if ((strpos($postal_code, ' ') === FALSE) && (strlen($postal_code) === 6))
-      {
-        $postal_code = substr($postal_code, 0, 3).' '.substr($postal_code, 2, 3);
-      }
-      
-      $listing['city_prov'] = $city_prov;      
-      $listing['prov'] = $prov;
-      $listing['postal_code'] = $postal_code;                                          
-    }
+    $listings = $this->_process_listings($listings, TRUE);
     
     $this->data['listings'] = $listings;
     $this->data['type'] = $type;
@@ -178,12 +92,118 @@ class Listings extends CI_Controller {
     $this->_generate_template();
     $this->data['content'] = $this->load->view('standard_listing', $this->data, TRUE);
     
-    $this->load->view('standard_page', $this->data);
-	}
+    $this->load->view('standard_page', $this->data);        
+  }      
+  
+  
+  public function rur()
+  {
+    $type = 'rur';
+    
+    // TODO: Move to model.
+    $where = '
+      AND
+      (
+        Listing.Sales_Rep_MUI_1 IN (564206, 16212643)
+        OR
+        Listing.Sales_Rep_MUI_2 IN (564206, 16212643)
+      )
+      AND
+      (
+        Listing.Area LIKE "R%"
+        OR
+        Listing.City_or_Town_Name LIKE "Headingley%"
+      )
+      AND
+      (
+        Listing.Active = 1
+        OR
+        Listing.Status LIKE "Sold"
+        OR
+        Listing.Status LIKE "Custom"
+        OR
+        Listing.Status LIKE "Pending"
+      ) 
+    ';
+    
+    $query = $this->Listings_model->get_all_listings($where);
+    $this->data['header_variant'] = $type;
+		$this->data['title'] = 'Rural Listings for Sale';
+		$this->data['description'] = 'Rural Listings for Sale by Blair Sonnichsen and Tyson Sonnichsen';
+    
+    $this->types[$type]['active'] = ' class="active '.$type.'"';
+    $this->data['h1'] = 'Our '.$this->types[$type]['title'].' Properties';
+    
+    $listings = $query->result_array();
+
+    $listings = $this->_process_listings($listings, TRUE);
+    
+    $this->data['listings'] = $listings;
+    $this->data['type'] = $type;
+    $this->data['types'] = $this->types;
+            
+    $this->_generate_template();
+    $this->data['content'] = $this->load->view('standard_listing', $this->data, TRUE);
+    
+    $this->load->view('standard_page', $this->data);        
+  }
 
 
+  public function sold()
+  {
+    $type = 'sold';
+    
+    $query = $this->Listings_model->get_sold_listings();
+		$this->data['title'] = 'Recently Sold';
+		$this->data['description'] = 'Recently Sold by Blair Sonnichsen and Tyson Sonnichsen';
+    
+    $this->types[$type]['active'] = ' class="active '.$type.'"';
+    $this->data['h1'] = 'Our '.$this->types[$type]['title'].' Properties';
+    
+    $listings = $query->result_array();
+
+    $listings = $this->_process_listings($listings, TRUE);
+    
+    $this->data['listings'] = $listings;
+    $this->data['type'] = $type;
+    $this->data['types'] = $this->types;
+            
+    $this->_generate_template();
+    $this->data['content'] = $this->load->view('standard_listing', $this->data, TRUE);
+    
+    $this->load->view('standard_page', $this->data);        
+  }
+  
+  
+  public function open_houses()
+  {
+    $type = 'open-houses';
+    
+    $query = $this->Listings_model->get_open_houses();
+		$this->data['title'] = 'Open Houses for Sale';
+		$this->data['description'] = 'Open Houses with Blair Sonnichsen and Tyson Sonnichsen';
+    
+    $this->types[$type]['active'] = ' class="active '.$type.'"';
+    $this->data['h1'] = 'Our '.$this->types[$type]['title'].' Properties';
+    
+    $listings = $query->result_array();
+
+    $listings = $this->_process_listings($listings, TRUE);
+    
+    $this->data['listings'] = $listings;
+    $this->data['type'] = $type;
+    $this->data['types'] = $this->types;
+            
+    $this->_generate_template();
+    $this->data['content'] = $this->load->view('standard_listing', $this->data, TRUE);
+    
+    $this->load->view('standard_page', $this->data);        
+  }
+  
+        
 	public function map()
 	{
+    // TODO: Move to model.
     $where = '
       AND
       (
@@ -285,6 +305,7 @@ class Listings extends CI_Controller {
         )
     {
 
+      // TODO: Move to model.
       $where = '
         AND
         (
@@ -327,35 +348,7 @@ class Listings extends CI_Controller {
       $prov = '';
       $postal_code = '';    
             
-      foreach ($listings as &$listing)
-      {
-        $listing['address_slug'] = $this->_get_address_slug($listing);
-        
-        if ($listing['Status'] === 'Pending')
-        {
-          $listing['Status'] = '';
-        }
-        
-  		  $city_prov = ucfirst(strtolower($listing['City_or_Town_Name']));
-        $prov = FALSE;
-        
-        if ($city_prov === 'Winnipeg')
-        {
-          $city_prov .= ', Manitoba';
-          $prov = 'Manitoba';
-        }
-        
-        $postal_code = strtoupper($listing['Postal_Code']);
-  
-        if ((strpos($postal_code, ' ') === FALSE) && (strlen($postal_code) === 6))
-        {
-          $postal_code = substr($postal_code, 0, 3).' '.substr($postal_code, 2, 3);
-        }
-        
-        $listing['city_prov'] = $city_prov;      
-        $listing['prov'] = $prov;
-        $listing['postal_code'] = $postal_code;                                          
-      }
+      $listings = $this->_process_listings($listings, TRUE);
       
       $this->data['listings'] = $listings;
       $this->data['type'] = $class;
@@ -536,7 +529,7 @@ class Listings extends CI_Controller {
     $search[] = 'CurrentPrice <= '.((int)$this->data['property']['CurrentPrice'] + 50000);
     $search[] = 'Listing.Matrix_Unique_ID != '.$this->data['property']['Matrix_Unique_ID'];
 
-    $where = ' AND '.implode(' AND ', $search);
+    $where = ' AND '.implode(' AND ', $search); // TODO: Move to model.
       
     $query = $this->Listings_model->search_current_listings_by_type($class, $where, 3);            
 
@@ -757,7 +750,7 @@ class Listings extends CI_Controller {
     
     if (isset($search[0]))
     {
-      $where = ' AND '.implode(' AND ', $search);
+      $where = ' AND '.implode(' AND ', $search); // TODO: Move to model.
     }
     
               
@@ -783,30 +776,7 @@ class Listings extends CI_Controller {
     $listing['prov'] = '';
     $listing['postal_code'] = '';   
           
-    foreach ($listings as &$listing)
-    {
-      $listing['address_slug'] = $this->_get_address_slug($listing);
-      
-		  $city_prov = ucfirst(strtolower($listing['City_or_Town_Name']));
-      $prov = FALSE;
-      
-      if ($city_prov === 'Winnipeg')
-      {
-        $city_prov .= ', Manitoba';
-        $prov = 'Manitoba';
-      }
-      
-      $postal_code = strtoupper($listing['Postal_Code']);
-
-      if ((strpos($postal_code, ' ') === FALSE) && (strlen($postal_code) === 6))
-      {
-        $postal_code = substr($postal_code, 0, 3).' '.substr($postal_code, 2, 3);
-      }
-      
-      $listing['city_prov'] = $city_prov;      
-      $listing['prov'] = $prov;
-      $listing['postal_code'] = $postal_code;   
-    }
+    $listings = $this->_process_listings($listings);
         
     $this->data['listings'] = $listings;
     $this->data['type'] = $type;
@@ -821,6 +791,7 @@ class Listings extends CI_Controller {
 	
 	public function office()
 	{
+    // TODO: Move to model.
     $where = '
       AND
       (
@@ -841,30 +812,7 @@ class Listings extends CI_Controller {
 
     $listings = $query->result_array();
     
-    foreach ($listings as &$listing)
-    {
-      $listing['address_slug'] = $this->_get_address_slug($listing);
-      
-		  $city_prov = ucfirst(strtolower($listing['City_or_Town_Name']));
-      $prov = FALSE;
-      
-      if ($city_prov === 'Winnipeg')
-      {
-        $city_prov .= ', Manitoba';
-        $prov = 'Manitoba';
-      }
-      
-      $postal_code = strtoupper($listing['Postal_Code']);
-
-      if ((strpos($postal_code, ' ') === FALSE) && (strlen($postal_code) === 6))
-      {
-        $postal_code = substr($postal_code, 0, 3).' '.substr($postal_code, 2, 3);
-      }
-      
-      $listing['city_prov'] = $city_prov;      
-      $listing['prov'] = $prov;
-      $listing['postal_code'] = $postal_code;
-    }
+    $listings = $this->_process_listings($listings);
         
     $this->data['listings'] = $listings;
     $this->data['type'] = FALSE;
@@ -874,155 +822,6 @@ class Listings extends CI_Controller {
     $this->data['content'] = $this->load->view('standard_listing', $this->data, TRUE);
     
     $this->load->view('standard_page', $this->data);
-	}
-	
-	
-	public function development($development)
-	{
-    $development = str_replace('-', ' ', $development);
-    
-    $query = $this->Listings_model->get_development_listings($development);
-    
-    $listings = $query->result_array();
-    
-    foreach ($listings as &$listing)
-    {
-      $listing['address_slug'] = $this->_get_address_slug($listing);
-      
-      if ($listing['Status'] === 'Pending')
-      {
-        $listing['Status'] = '';
-      } 
-    }
-     
-    $this->data['listings'] = $listings;
-    $this->data['type'] = 'con';
-    $this->data['types'] = $this->types;
-        
-    $this->load->view('listings_only', $this->data);
-	}
-  
-  
-  public function street($search)
-	{
-    $search = str_replace('-', ' ', $search);
-    
-    $query = $this->Listings_model->get_listings_by_street_search($search);
-    
-    $listings = $query->result_array();
-    
-    foreach ($listings as &$listing)
-    {
-      $listing['address_slug'] = $this->_get_address_slug($listing);
-      
-      if ($listing['Status'] === 'Pending')
-      {
-        $listing['Status'] = '';
-      } 
-    }
-     
-    $this->data['listings'] = $listings;
-    $this->data['type'] = 'con';
-    $this->data['types'] = $this->types;
-        
-    $this->load->view('listings_only', $this->data);
-	}
-	
-	
-	public function latest($number)
-	{
-    $query = $this->Listings_model->get_latest_listings($number);
-
-    $listings = $query->result_array();
-    
-    foreach ($listings as &$listing)
-    {
-      $listing['address_slug'] = $this->_get_address_slug($listing);
-      
-      if ($listing['Status'] === 'Pending')
-      {
-        $listing['Status'] = '';
-      }  
-    }
-     
-    $this->data['listings'] = $listings;
-    $this->data['type'] = FALSE;
-    $this->data['types'] = $this->types;
-        
-    $this->load->view('listings_only', $this->data);
-	}
-  
-
-	public function facebook_latest()
-	{
-    $query = $this->Listings_model->get_latest_listings(5);
-
-    $listings = $query->result_array();
-    
-    foreach ($listings as &$listing)
-    {
-      $listing['address_slug'] = $this->_get_address_slug($listing);
-      
-      if ($listing['Status'] === 'Pending')
-      {
-        $listing['Status'] = '';
-      } 
-    }
-     
-    $this->data['h1'] = 'Latest Listings';
-    $this->data['listings'] = $listings;
-    $this->data['type'] = FALSE;
-    $this->data['types'] = $this->types;
-        
-    $this->load->view('styled_listings_only', $this->data);
-	}
-  
-    
-	public function facebook_open_houses()
-	{
-    $query = $this->Listings_model->get_open_houses();
-
-    $listings = $query->result_array();
-    
-    foreach ($listings as &$listing)
-    {
-      $listing['address_slug'] = $this->_get_address_slug($listing);
-      
-      if ($listing['Status'] === 'Pending')
-      {
-        $listing['Status'] = '';
-      } 
-    }
-     
-    $this->data['h1'] = 'Open Houses';
-    $this->data['listings'] = $listings;
-    $this->data['type'] = FALSE;
-    $this->data['types'] = $this->types;
-        
-    $this->load->view('styled_listings_only', $this->data);
-	}
-	
-	
-	public function send_message()
-	{
-	  $this->load->library('email');
-    
-    $name = $this->input->post('name');
-	  $email = $this->input->post('email');
-	  $message = $this->input->post('message');
-	  $send_to = $this->input->post('send_to');
-	  $cc = $this->input->post('cc');
-	  $ml_number = $this->input->post('ml_number'); 
-	  $civic_address = $this->input->post('civic_address'); 
-    
-    $this->email->from($email, $name);
-    $this->email->to($send_to);
-    $this->email->cc($cc);
-    
-    $this->email->subject('Contact Form Submission Re: '.$civic_address.', MLS #: '.$ml_number);
-    $this->email->message($message);
-    
-    $this->email->send();
 	}
 	
 	
@@ -1070,6 +869,7 @@ class Listings extends CI_Controller {
                     'xml_priority' => '0.8'
                     ); 
                       
+    // TODO: Move to model.
     $bt_where = '
       AND
       (
@@ -1092,6 +892,7 @@ class Listings extends CI_Controller {
     $pages = array_merge($pages, $this->_generate_xml_sitemap_content($bt_result, 'daily', '1'));
 
 
+    // TODO: Move to model.
     $office_where = '
       AND
       (
@@ -1124,6 +925,29 @@ class Listings extends CI_Controller {
 	}
 
 
+	public function send_message()
+	{
+	  $this->load->library('email');
+    
+    $name = $this->input->post('name');
+	  $email = $this->input->post('email');
+	  $message = $this->input->post('message');
+	  $send_to = $this->input->post('send_to');
+	  $cc = $this->input->post('cc');
+	  $ml_number = $this->input->post('ml_number'); 
+	  $civic_address = $this->input->post('civic_address'); 
+    
+    $this->email->from($email, $name);
+    $this->email->to($send_to);
+    $this->email->cc($cc);
+    
+    $this->email->subject('Contact Form Submission Re: '.$civic_address.', MLS #: '.$ml_number);
+    $this->email->message($message);
+    
+    $this->email->send();
+	}
+  
+      
   private function _generate_xml_sitemap_content($query, $frequency, $priority)
   {
     $items = array();
@@ -1165,74 +989,54 @@ class Listings extends CI_Controller {
     
     return $items;
   }
-  	
-	
-	private function _set_coordinates($class, $matrix_unique_id, $address)
-	{
-    $json_location = 'https://maps.googleapis.com/maps/api/geocode/json?address='.$address.'&key=AIzaSyClxbWC10PTf5lyJjh6xIE04axk_sLf0yY&sensor=false';
-  
-    $json = json_decode(file_get_contents($json_location));
-    
-    if (isset($json->results[0]))
-    {
-      $lat = $json->results[0]->geometry->location->lat;
-      $lon = $json->results[0]->geometry->location->lng;
-      
-      $this->Listings_model->set_coordinates($class, $matrix_unique_id, $lat, $lon);
-    }
-    else
-    {
-      $lat = '';
-      $lon = '';    
-    }    
-    
-    return array('lat' => $lat, 'lon' => $lon);
-	}
   
   
-  private function _get_address_slug($property)
+  // Generate standard template.
+  private function _generate_template()
   {
-    $slug_parts = array();
+    $this->data['analytics'] = $this->load->view($this->analtyics, $this->data, TRUE);
+    $this->data['header'] = $this->load->view($this->header_view, $this->data, TRUE);
     
-    if (intval($property['Display_Addrs_on_Pub_Web_Sites']) === 1)
-    {
-      if ($property['Suite_Number'] !== '')
-      {
-        $slug_parts[] = str_replace(' ', '-', $property['Suite_Number']);
-      }
-      
-      if ($property['Street_Number'] !== '')
-      {
-        $slug_parts[] = str_replace(' ', '-', $property['Street_Number']);
-      }
-      
-      if ($property['Street_Name'] !== '')
-      {
-        $slug_parts[] = str_replace(' ', '-', $property['Street_Name']);
-      }
-
-      if ($property['Street_Type'] !== '')
-      {
-        $slug_parts[] = str_replace(' ', '-', $property['Street_Type']);
-      }
-            
-      if ($property['Neighbourhood'] !== '')
-      {
-        $slug_parts[] = str_replace(' ', '-', $property['Neighbourhood']);
-      }
-      
-      if ($property['City_or_Town_Name'] !== '')
-      {
-        $slug_parts[] = str_replace(' ', '-', $property['City_or_Town_Name']);
-      }
-    }
-    else
-    {
-      return '';
-    }
+    // Dynamically fetched URL via a weekly html scrape of the webpage linking to the current newsletters. A separate script is run weekly by cron and saves URLs to their respective txt files below.
+    $this->data['wpg_news_comm_link'] = file_get_contents('/home4/winnipg2/wpg_news/wpg_news_comm_link.txt');
+    $this->data['wpg_news_res_link'] = file_get_contents('/home4/winnipg2/wpg_news/wpg_news_res_link.txt');
     
-    $slug_words = implode(' ', $slug_parts);
-    
-    return url_title($slug_words, '-', TRUE);               
+    $this->data['footer'] = $this->load->view($this->footer_view, $this->data, TRUE);    
   }
+  
+  
+  private function _process_listings($listings, $hide_pending = FALSE)
+  {
+    foreach ($listings as &$listing)
+    {
+      $listing['address_slug'] = $this->_get_address_slug($listing);
+      
+      if (($hide_pending) && ($listing['Status'] === 'Pending'))
+      {
+        $listing['Status'] = '';
+      }
+      
+		  $city_prov = ucfirst(strtolower($listing['City_or_Town_Name']));
+      $prov = FALSE;
+      
+      if ($city_prov === 'Winnipeg')
+      {
+        $city_prov .= ', Manitoba';
+        $prov = 'Manitoba';
+      }
+      
+      $postal_code = strtoupper($listing['Postal_Code']);
+
+      if ((strpos($postal_code, ' ') === FALSE) && (strlen($postal_code) === 6))
+      {
+        $postal_code = substr($postal_code, 0, 3).' '.substr($postal_code, 2, 3);
+      }
+      
+      $listing['city_prov'] = $city_prov;      
+      $listing['prov'] = $prov;
+      $listing['postal_code'] = $postal_code;                                          
+    }
+    
+    return $listings;        
+  }            
 }

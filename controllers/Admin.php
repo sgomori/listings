@@ -7,6 +7,7 @@ class Admin extends CI_Controller {
 	{
 		parent::__construct();
 		
+    // Require htaccess auth.
     if ((isset($_SERVER['PHP_AUTH_USER'])
         && (($_SERVER['PHP_AUTH_USER'] !== 'wpghomes-admin')
         && ($_SERVER['PHP_AUTH_PW'] == 'Tyson-Admin-2016')))
@@ -25,6 +26,7 @@ class Admin extends CI_Controller {
 	
 	public function index()
 	{
+    // TODO: Move to model.
     $where = '
       AND
       (
@@ -81,7 +83,7 @@ class Admin extends CI_Controller {
     
   }
   
-  
+  // Allow overridden marker pin.
 	public function update_map_marker()
 	{
 	  if (!$this->input->is_ajax_request())

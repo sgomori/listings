@@ -53,11 +53,11 @@ $route['default_controller'] = 'listings';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
-$route['homes'] = 'listings/index/res';
-$route['condos'] = 'listings/index/con';
-$route['rural'] = 'listings/index/rur';
-$route['open\-houses'] = 'listings/index/open-houses';
-$route['sold'] = 'listings/index/sold';
+$route['homes'] = 'listings/type/res';
+$route['condos'] = 'listings/type/con';
+$route['rural'] = 'listings/rur';
+$route['open\-houses'] = 'listings/open_houses';
+$route['sold'] = 'listings/sold';
 
 $route['homes\/(\d+)'] = 'listings/property/res/$1';
 $route['condos\/(\d+)'] = 'listings/property/con/$1';
@@ -72,9 +72,9 @@ $route['search'] = 'listings/search';
 $route['office'] = 'listings/office';
 
 $route['development\/([\w\-]+)'] = 'listings/development/$1';
-$route['street\/([\w\-]+)'] = 'listings/street/$1';
-$route['latest\/(\d+)'] = 'listings/latest/$1';
-$route['facebook/open-houses'] = 'listings/facebook_open_houses';
-$route['facebook/latest'] = 'listings/facebook_latest';
+$route['street\/([\w\-]+)'] = 'snippetListings/street/$1';
+$route['latest\/(\d+)'] = 'snippetListings/latest/$1';
+$route['facebook/open-houses'] = 'snippetListings/facebook_open_houses';
+$route['facebook/latest'] = 'snippetListings/facebook_latest';
 
 $route['sitemap\.xml'] = 'listings/xml_sitemap';
