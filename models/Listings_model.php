@@ -4,8 +4,8 @@
  *                                                            *
  *  Filename:       Listings_model.php                        *
  *  Description:    Listings model                            *
- *  Author:         Steve Gomori, sgomori at vividwind com    *
- *  Last Modified:  Oct 28, 2015                              *
+ *  Author:         Steve Gomori                              *
+ *  Last Modified:  Feb 13, 2022                              *
  *                                                            *
  **************************************************************/ 
 

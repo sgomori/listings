@@ -9,8 +9,8 @@ class Admin extends CI_Controller {
 		
     // Require htaccess auth.
     if ((isset($_SERVER['PHP_AUTH_USER'])
-        && (($_SERVER['PHP_AUTH_USER'] !== 'wpghomes-admin')
-        && ($_SERVER['PHP_AUTH_PW'] == 'Tyson-Admin-2016')))
+        && (($_SERVER['PHP_AUTH_USER'] !== 'redacted')
+        && ($_SERVER['PHP_AUTH_PW'] == 'redacted')))
         || (!isset($_SERVER['PHP_AUTH_USER'])))
     {
       header('WWW-Authenticate: Basic realm="Winnipeg Homes Admin"');
