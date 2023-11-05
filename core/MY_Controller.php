@@ -6,6 +6,21 @@ class MY_Controller extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+
+    $this->data = array();
+		$this->data['assets_path'] = assets_url();
+    $this->data['map'] = FALSE;
+    
+    $this->types = array(
+            'all' => array('active' => ''),
+            'res' => array('title' => 'Residential', 'active' => '', 'path' => 'homes'),
+            'con' => array('title' => 'Condo', 'active' => '', 'path' => 'condos'),
+            'rur' => array('title' => 'Rural/Farm', 'active' => '', 'path' => 'rural'),
+            'open-houses' => array('title' => 'Open House', 'active' => '', 'path' => 'open-houses'),
+            'sold' => array('title' => 'Recently Sold', 'active' => '', 'path' => 'sold'),
+            'map' => array('title' => 'Listings Map', 'active' => '', 'path' => 'map')
+            );
+            
     date_default_timezone_set('America/Winnipeg');
 	}
 	

@@ -1,8 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-require_once(APPPATH."controllers/SnippetListings.php");
 
-class Listings extends SnippetListings {
+class Listings extends MY_Controller {
 
 	public function __construct()
 	{

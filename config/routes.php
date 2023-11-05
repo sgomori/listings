@@ -71,7 +71,7 @@ $route['search'] = 'listings/search';
 
 $route['office'] = 'listings/office';
 
-$route['development\/([\w\-]+)'] = 'listings/development/$1';
+$route['development\/([\w\-]+)'] = 'snippetListings/development/$1';
 $route['street\/([\w\-]+)'] = 'snippetListings/street/$1';
 $route['latest\/(\d+)'] = 'snippetListings/latest/$1';
 $route['facebook/open-houses'] = 'snippetListings/facebook_open_houses';
